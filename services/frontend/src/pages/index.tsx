@@ -5,8 +5,6 @@ const Page = () => {
   return (
     <Box>
       <Header />
-
-      <Heading fontSize={"9xl"}>Hello World</Heading>
     </Box>
   );
 };
