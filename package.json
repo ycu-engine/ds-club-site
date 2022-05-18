@@ -1,0 +1,14 @@
+{
+  "name": "to_make_site",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Kakeru-Sato/to_make_site.git",
+  "author": "YutaUra <yuuta3594@outlook.jp>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "services/*"
+    ]
+  }
+}
