@@ -1,7 +1,4 @@
 import { Box,Text, Flex,Spacer,Heading,Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   IconButton
  } from '@chakra-ui/react';
 
