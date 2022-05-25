@@ -36,7 +36,7 @@ export const Header = ({onClickMenu}:HeaderProps) => {
         </Box>
         <Spacer />
         <Box>
-          <Text fontsize='3xl' p='2'>Kakeru Sato</Text>
+          <Text p='2'>Kakeru Sato</Text>
         </Box>
         <Box>
             <IconButton
