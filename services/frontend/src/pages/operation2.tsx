@@ -4,9 +4,9 @@ import { Header } from "../components/Header";
 const Page = () => {
   return (
     <Box>
-      <Header/>
+      <Header />
 
-      <Heading fontSize={"9xl"}>選択した</Heading>
+      
     </Box>
   );
 };
