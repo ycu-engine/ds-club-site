@@ -1,13 +1,13 @@
-import { Box, Heading } from "@chakra-ui/react";
-import { Header } from "../components/Header";
+import { Box, Text } from "@chakra-ui/react";
+import { DefaultLayout} from "../components/Header";
 
 const Page = () => {
   return (
-    <Box>
-      <Header />
 
-      
-    </Box>
+      <DefaultLayout>
+
+      </DefaultLayout>
+
   );
 };
 
