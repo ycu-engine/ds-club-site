@@ -9,14 +9,21 @@ const Page = () => {
   return (
 
     <DefaultLayout>
-    <Flex h={100} w={400} justify='center' align='center' bg='gray.100'>
+    <Flex direction='column' h={100} w={400} justify='center'  bg='gray.100'>
+      <Flex>
+        
+        <Text fontSize="4xl">選択した人物</Text>
+      </Flex>
 
-      <Text fontSize="4xl">選択した人物</Text>
+
+
       <Select placeholder='選択画面'>
-        <option value="諸田健太朗">諸田健太朗</option>
-        <option value="佐藤駿">佐藤駿</option>
-        <option value="川島一翔">川島一翔</option>
+          <option value="諸田健太朗">諸田健太朗</option>
+          <option value="佐藤駿">佐藤駿</option>
+          <option value="川島一翔">川島一翔</option>
       </Select>
+
+
 
     </Flex>
 
