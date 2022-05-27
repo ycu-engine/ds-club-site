@@ -13,9 +13,9 @@ const Page = () => {
 
     <DefaultLayout>
 
-    <Box px={7} pt={3}>
+    <Box px={10} pt={5}>
 
-    <Flex direction='column' h={100} w={400} justify='center'  bg='gray.100' >
+    <Flex direction='column' h={100} w={400} justify='center' >
 
       <Flex>
         <Text fontSize="4xl">選択した人物</Text>
@@ -23,7 +23,7 @@ const Page = () => {
 
 
 
-      <Select placeholder='選択画面' background={"#FFFFFE"} value={selectedPerson} onChange={handleOnChangeSelect}>
+      <Select placeholder='選択画面' mt={3} background={"#FFFFFE"} value={selectedPerson} onChange={handleOnChangeSelect}>
           <option value="諸田健太朗">諸田健太朗</option>
           <option value="佐藤駿">佐藤駿</option>
           <option value="川島一翔">川島一翔</option>
@@ -31,7 +31,7 @@ const Page = () => {
 
       </Flex>
 
-      <Flex justifyContent={'center'} mt={24}>
+      <Flex justifyContent={'center'} mt={16}>
 
       <TableContainer>
         <Table background={"#FFFFFE"} >
