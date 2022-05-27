@@ -1,41 +1,86 @@
 import { Box, Text, Center,Flex, Select } from "@chakra-ui/react";
+import { Table,Thead,Tbody,Tfoot,Tr,Th,Td,TableCaption,TableContainer,} from "@chakra-ui/react";
 import { DefaultLayout } from "../components/DefaultLayout";
+import {useState,useCallback, ChangeEventHandler} from "react";
 
-const RectBox: React.FC = () => (
-  <Box bg='gray.500' boxSize={100} />
-)
 
 const Page = () => {
+  const [selectedPerson,setSelectedPerson] = useState<string>();
+  const handleOnChangeSelect = useCallback<ChangeEventHandler<HTMLSelectElement>>((e) => {
+    setSelectedPerson(e.target.value)
+  },[]);
   return (
 
     <DefaultLayout>
-    <Flex direction='column' h={100} w={400} justify='center'  bg='gray.100'>
+
+    <Box px={7} pt={3}>
+
+    <Flex direction='column' h={100} w={400} justify='center'  bg='gray.100' >
+
       <Flex>
-        
         <Text fontSize="4xl">選択した人物</Text>
       </Flex>
 
 
 
-      <Select placeholder='選択画面'>
+      <Select placeholder='選択画面' background={"#FFFFFE"} value={selectedPerson} onChange={handleOnChangeSelect}>
           <option value="諸田健太朗">諸田健太朗</option>
           <option value="佐藤駿">佐藤駿</option>
           <option value="川島一翔">川島一翔</option>
       </Select>
 
+      </Flex>
+
+      <Flex justifyContent={'center'} mt={24}>
+
+      <TableContainer>
+        <Table background={"#FFFFFE"} >
+          <Tbody>
+            <Tr>
+              <Td>ユーザー名</Td>
+              <Td>{selectedPerson}</Td>
+            </Tr>
+            <Tr>
+              <Td>段位</Td>
+              <Td>
+                <Select>
+                  <option value="begginer">ビギナー</option>
+                  <option value="evangelist">エヴァンジェリスト</option>
+                  <option value="master">マスター</option>
+                  <option value="imperator">インペラトル</option>
+                </Select>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>称号</Td>
+              <Td>
+                <Select>
+                  <option value="ds">DS</option>
+                  <option value="stats">統計</option>
+                  <option value="coding">コーディング</option>
+                </Select>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td>支払い状況</Td>
+              <Td>
+                <Select>
+                  <option value="done">完了</option>
+                  <option value="yet">未完了</option>
+                </Select>
+              </Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </TableContainer>
+
+      </Flex>
 
 
-    </Flex>
 
-    <Box h={200} bg='gray.100'>
-    <Center h='100%'>
-      <RectBox />
-    </Center>
     </Box>
 
-    <Flex h={200} justify='center' align='center' bg='gray.100'>
-    <RectBox />
-    </Flex>
+
 
 
 

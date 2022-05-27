@@ -21,8 +21,8 @@ export const DefaultLayout =  ({children}:DefaultLayoutProps) => {
             <Header onClickMenu={handleClickMenu}/>
             <Flex flex={1}>
                 <Sidebar display={isOpen?'block':'none'}/>
-                <Box>
-                  {children}  
+                <Box flex={1}>
+                  {children}
                 </Box>
             </Flex>
         </Flex>
