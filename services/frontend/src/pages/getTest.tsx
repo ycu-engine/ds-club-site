@@ -5,13 +5,14 @@ import { Box,
     UnorderedList,
 ListItem, 
 Flex,
-Button} from '@chakra-ui/react'
+Button,
+Checkbox} from '@chakra-ui/react'
 
-import { ReactNode,useCallback,useState } from "react";
+import { useCallback,useState } from "react";
 
 const Page = () =>{
     const [isActive,setIsActive] = useState(true)
-    const handleActive = useCallback(() => {
+    const handleOnChange = useCallback(() => {
         setIsActive((prev) => !prev)
     },[])
     return (
@@ -38,11 +39,11 @@ const Page = () =>{
                     </UnorderedList>
                 </Box>
                 <Box>
-                    <input type="checkbox" checked={true} name="controlled"　color='#0D0D0D'>注意事項を確認しました</input>
-                    {/* <Checkbox color={'#0D0D0D'} borderColor={'#0D0D0D'} pt = '10' display={isActive?'block':'none'}></Checkbox> */}
+                    {/* <input type="checkbox" checked={true} name="controlled"　color='#0D0D0D'>注意事項を確認しました</input> */}
+                    <Checkbox color={'#0D0D0D'} borderColor={'#0D0D0D'} pt = '10' isChecked={isActive} onChange={handleOnChange}>注意事項を確認しました</Checkbox>
                 </Box>
                 <Box>
-                    <Button bg={'#FF8E3C'} color={'#0D0D0D'} w='100%' size='lg'  m='200' disabled={handleActive}>
+                    <Button bg={'#FF8E3C'} color={'#0D0D0D'} w='100%' size='lg'  m='200' isDisabled={!isActive}>
                         テストを開始する
                     </Button>
                 </Box>
