@@ -14,7 +14,7 @@ const Page = () => {
     <DefaultLayout>
 
     <Box px={10} pt={5}>
-      
+
     <Flex direction='column' h={100} w={400} justify='center' >
 
       <Flex>
