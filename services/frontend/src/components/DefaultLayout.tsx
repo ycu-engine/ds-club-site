@@ -20,9 +20,7 @@ export const DefaultLayout =  ({children}:DefaultLayoutProps) => {
         <Flex h = '100vh' bg="#EFF0F3" flexDir='column'>
             <Header onClickMenu={handleClickMenu}/>
             <Flex flex={1} overflowY='hidden'>
-                <Sidebar display={isOpen?'block':'none'}/>
-                <Box overflowY='scroll'>
-                  {children}  
+                <Sidebar display={isOpen?'block':'none'}/> 
                 </Box>
             </Flex>
         </Flex>
