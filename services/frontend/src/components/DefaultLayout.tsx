@@ -23,7 +23,7 @@ export const DefaultLayout =  ({children}:DefaultLayoutProps) => {
                 <Sidebar display={isOpen?'block':'none'}/>
                 <Box flex={1}>
                   {children}
-                <Sidebar display={isOpen?'block':'none'}/>
+                {/* <Sidebar display={isOpen?'block':'none'}/> */}
                 </Box>
             </Flex>
         </Flex>
