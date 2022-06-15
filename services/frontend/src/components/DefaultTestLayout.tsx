@@ -8,19 +8,19 @@ type DefaultLayoutProps = {
   children: ReactNode
 }
 
-export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
+export const DefaultTestLayout = ({ children }: DefaultLayoutProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const handleClickMenu = useCallback(() => {
     setIsOpen((prev) => !prev)
   }, [])
   return (
-    <Flex h="200vh" bg="#EFF0F3" flexDir="column">
+    <Flex h="160vh" bg="#EFF0F3" flexDir="column">
       <Header onClickMenu={handleClickMenu} />
       <Flex flex={1}>
-        <Sidebar display={isOpen ? 'block' : 'none'} />
-        <Box flex={1} overflowY="scroll">
+        {/* <Sidebar display={isOpen?'block':'none'}/> */}
+        <Box flex={1}>
           {children}
-          {/* <Sidebar display={isOpen?'block':'none'}/> */}
+          {/* <Sidebar display={isOpen?'block':'none'}/>  */}
         </Box>
       </Flex>
     </Flex>

@@ -3,7 +3,7 @@ import { DefaultLayout } from '../components/DefaultLayout'
 const Page = () => {
   return (
     <DefaultLayout>
-      <p>データサイエンスクラブ</p>
+      <h1>Hello Yuta.</h1>
     </DefaultLayout>
   )
 }
