@@ -1,6 +1,5 @@
 import { DefaultLayout } from '../components/DefaultLayout'
-import { Box, Flex, Text, Input, Button, Link } from '@chakra-ui/react'
-import { InputGroup, InputRightElement } from '@chakra-ui/react'
+import { Box, Flex, Text, Input, Button, Link , InputGroup, InputRightElement } from '@chakra-ui/react'
 import React from 'react'
 
 import Logo from '../assets/images/icon.png'
@@ -20,71 +19,73 @@ const Page = () => {
 
   return (
     <DefaultLayout>
-      <Box px={10} pt={5}>
-        <Flex as="form" direction="column" justify="center" align="center">
+      <Box pt={5} px={10}>
+        <Flex align="center" as="form" direction="column" justify="center">
           <Box
             borderRadius="full"
-            overflow="hidden"
             boxSize="40px"
             m="3"
             mt="4"
+            overflow="hidden"
           >
             <Image
-              width="40px"
+              alt="icon"
               height="40px"
               objectFit="cover"
               src={Logo}
-              alt="icon"
+              width="40px"
             />
           </Box>
 
           <Text fontSize="4xl">こんにちは</Text>
 
           <Box
-            background={'#FFFFFE'}
+            background="#FFFFFE"
+            borderRadius={10}
             h={400}
-            w={350}
-            pt={ptb}
             pb={ptb}
             pl={plr}
             pr={plr}
-            borderRadius={10}
+            pt={ptb}
+            w={350}
           >
-            <Flex direction="column" justify="space-between" w="100%" h="87%">
+            <Flex direction="column" h="87%" justify="space-between" w="100%">
               <Box>
                 <Text>ユーザー名</Text>
+
                 <Input
-                  value={username}
                   onChange={(e) => {
-                    console.log('onchange', e.target.value)
                     setUsername(e.target.value)
                   }}
-                  required
-                  pr="4.5rem"
                   placeholder=""
+                  pr="4.5rem"
+                  required
+                  value={username}
                 />
               </Box>
 
               <Box h="45%">
                 <Text>パスワード</Text>
+
                 {/* <Input placeholder='' mb={5} variant='flushed'></Input> */}
 
-                <InputGroup size="md" mt={2}>
+                <InputGroup mt={2} size="md">
                   <Input
-                    pr="4.5rem"
-                    type={show ? 'text' : 'password'}
-                    placeholder=""
-                    value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    placeholder=""
+                    pr="4.5rem"
                     required
+                    type={show ? 'text' : 'password'}
+                    value={password}
                   />
+
                   <InputRightElement width="4.5rem">
                     <Button
-                      h="1.75rem"
-                      size="sm"
                       bg="#FF8E3C"
                       color="#FFFFFE"
+                      h="1.75rem"
                       onClick={handleClick}
+                      size="sm"
                     >
                       {show ? 'Hide' : 'Show'}
                     </Button>
@@ -93,33 +94,33 @@ const Page = () => {
               </Box>
 
               <Button
-                type="submit"
-                w="100%"
-                h="15%"
                 bg={isInvalid ? '#909090' : '#D9376E'}
                 color="#FFFFFE"
+                h="15%"
+                type="submit"
+                w="100%"
               >
                 サインイン
               </Button>
             </Flex>
 
             <NextLink
-              href="https://datascienceclubjp.wixsite.com/home"
               fontSize="xs"
+              href="https://datascienceclubjp.wixsite.com/home"
               m={1}
             >
               パスワードを忘れたら
             </NextLink>
           </Box>
 
-          <Flex mt={4} direction="column" justify="center">
+          <Flex direction="column" justify="center" mt={4}>
             <Text lineHeight="3">活動に興味がありますか？</Text>
 
             <NextLink
               href="https://datascienceclubjp.wixsite.com/home/%E5%8F%82%E5%8A%A0%E7%94%B3%E3%81%97%E8%BE%BC%E3%81%BF"
               passHref
             >
-              <Link fontSize="xs" color="#D9376E">
+              <Link color="#D9376E" fontSize="xs">
                 体験入会をする
               </Link>
             </NextLink>

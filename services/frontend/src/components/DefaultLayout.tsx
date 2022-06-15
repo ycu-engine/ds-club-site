@@ -14,12 +14,15 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
     setIsOpen((prev) => !prev)
   }, [])
   return (
-    <Flex h="200vh" bg="#EFF0F3" flexDir="column">
+    <Flex bg="#EFF0F3" flexDir="column" h="200vh">
       <Header onClickMenu={handleClickMenu} />
+
       <Flex flex={1}>
         <Sidebar display={isOpen ? 'block' : 'none'} />
+
         <Box flex={1} overflowY="scroll">
           {children}
+
           {/* <Sidebar display={isOpen?'block':'none'}/> */}
         </Box>
       </Flex>
