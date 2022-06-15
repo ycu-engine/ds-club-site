@@ -5,7 +5,8 @@
   "author": "YutaUra",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev"
+    "dev": "next dev",
+    "lint": "eslint src"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.0",

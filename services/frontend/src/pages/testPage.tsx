@@ -18,7 +18,7 @@ const Page = () => {
   }, [])
   React.useEffect(() => {
     if (time === 0) {
-      console.log('画面遷移する')
+      console.debug('画面遷移する')
     }
   }, [time])
 
@@ -26,136 +26,133 @@ const Page = () => {
     <DefaultTestLayout>
       {time > 0 && (
         <Flex
+          borderBottomColor="#0D0D0D"
+          borderWidth="2px"
           justify="space-between"
           p="20"
-          borderBottomColor={'#0D0D0D'}
-          borderWidth="2px"
         >
           <Flex
-            bg={'#FFFFFE'}
             alignItems="center"
-            borderColor={'#0D0D0D'}
-            borderWidth="2px"
+            bg="#FFFFFE"
+            borderColor="#0D0D0D"
             borderRadius="30px"
+            borderWidth="2px"
           >
             <Button
-              fontSize="4xl"
-              w="100%"
-              h="100%"
-              bg={'#FFFFFE'}
+              bg="#FFFFFE"
               borderRadius="30px"
+              fontSize="4xl"
+              h="100%"
+              w="100%"
             >
               前の問題へ
             </Button>
           </Flex>
+
           <Flex
-            bg={'#FFFFFE'}
             alignItems="center"
-            borderColor={'#0D0D0D'}
+            bg="#FFFFFE"
+            borderColor="#0D0D0D"
+            borderRadius="30px"
             borderWidth="2px"
             p="5"
-            borderRadius="30px"
           >
             <Text fontSize="4xl">
-              残り時間:{Math.floor(time / 3600)}時間
-              {Math.floor((time % 3600) / 60)}分{time % 60}秒
+              {`残り時間:${Math.floor(time / 3600)}時間 ${Math.floor(
+                (time % 3600) / 60,
+              )}分${time % 60}秒`}
             </Text>
           </Flex>
+
           <Flex
-            bg={'#FFFFFE'}
             alignItems="center"
-            borderColor={'#0D0D0D'}
-            borderWidth="2px"
+            bg="#FFFFFE"
+            borderColor="#0D0D0D"
             borderRadius="30px"
+            borderWidth="2px"
           >
             <Button
-              fontSize="4xl"
-              w="100%"
-              h="100%"
-              bg={'#FFFFFE'}
+              bg="#FFFFFE"
               borderRadius="30px"
+              fontSize="4xl"
+              h="100%"
+              w="100%"
             >
               次の問題へ
             </Button>
           </Flex>
         </Flex>
       )}
+
       {time > 0 && (
-        <Flex p="20" justify="center">
-          <Flex bg={'#0D0D0D'} flexDir="column" w="75%" borderRadius="30px">
+        <Flex justify="center" p="20">
+          <Flex bg="#0D0D0D" borderRadius="30px" flexDir="column" w="75%">
             <Flex p="20">
-              <Heading size="4xl" color={'#FFFFFE'}>
+              <Heading color="#FFFFFE" size="4xl">
                 第三問
               </Heading>
             </Flex>
+
             <Flex p="20">
-              <Text fontSize="4xl" color={'#FFFFFE'}>
+              <Text color="#FFFFFE" fontSize="4xl">
                 &emsp;教師なし学習の分析手法であるものを次の四つの選択肢から一つ選べ。
               </Text>
             </Flex>
           </Flex>
         </Flex>
       )}
+
       {time > 0 && (
         <Flex justify="center" p="10">
-          <Flex
-            bg={'#FF8E3C'}
-            borderRadius="30px"
-            w="30%"
-            h="12vh"
-            p="5"
-            m="10"
-          >
-            <Checkbox size="lg" colorScheme="orange">
+          <Flex bg="#FF8E3C" borderRadius="30px" h="12vh" m="10" p="5" w="30%">
+            <Checkbox colorScheme="orange" size="lg">
               R2D2(Recurrent Replay Distributed DQN)
             </Checkbox>
           </Flex>
-          <Flex bg={'#FF8E3C'} borderRadius="30px" w="30%" p="5" m="10">
-            <Checkbox size="lg" colorScheme="orange">
+
+          <Flex bg="#FF8E3C" borderRadius="30px" m="10" p="5" w="30%">
+            <Checkbox colorScheme="orange" size="lg">
               PCA(Principal Component Analysis)
             </Checkbox>
           </Flex>
         </Flex>
       )}
+
       {time > 0 && (
         <Flex justify="center" p="10">
-          <Flex
-            bg={'#FF8E3C'}
-            borderRadius="30px"
-            w="30%"
-            h="12vh"
-            p="5"
-            m="10"
-          >
-            <Checkbox size="lg" colorScheme="orange">
+          <Flex bg="#FF8E3C" borderRadius="30px" h="12vh" m="10" p="5" w="30%">
+            <Checkbox colorScheme="orange" size="lg">
               Q-Learning
             </Checkbox>
           </Flex>
-          <Flex bg={'#FF8E3C'} borderRadius="30px" w="30%" p="5" m="10">
-            <Checkbox size="lg" colorScheme="orange">
+
+          <Flex bg="#FF8E3C" borderRadius="30px" m="10" p="5" w="30%">
+            <Checkbox colorScheme="orange" size="lg">
               線形回帰
             </Checkbox>
           </Flex>
         </Flex>
       )}
+
       {time == 0 && (
         <Flex justify="center" mt="200">
           <Flex
             alignItems="center"
-            justify="center"
-            borderColor={'#0D0D0D'}
-            borderWidth="2px"
+            bg="#FFFFFE"
+            borderColor="#0D0D0D"
             borderRadius="30px"
-            bg={'#FFFFFE'}
-            w="80%"
-            h="50vh"
-            p="200"
+            borderWidth="2px"
             flexDir="column"
+            h="50vh"
+            justify="center"
+            p="200"
+            w="80%"
           >
-            <Heading size="lg" color={'#0D0D0D'}>
+            <Heading color="#0D0D0D" size="lg">
               試験時間が終了しました。下のボタンから回答を送信してください。
             </Heading>
-            <Button size="lg" bg={'#FF8E3C'} mt="5">
+
+            <Button bg="#FF8E3C" mt="5" size="lg">
               回答を送信する
             </Button>
           </Flex>
