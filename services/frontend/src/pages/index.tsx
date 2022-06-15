@@ -1,12 +1,11 @@
-import { DefaultLayout } from "../components/DefaultLayout";
-
+import { DefaultLayout } from '../components/DefaultLayout'
 
 const Page = () => {
   return (
-    <DefaultLayout >
+    <DefaultLayout>
       <p>データサイエンスクラブ</p>
     </DefaultLayout>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page
