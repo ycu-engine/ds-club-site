@@ -10,5 +10,11 @@
     "packages": [
       "services/*"
     ]
+  },
+  "scripts": {
+    "format": "prettier -w services/*/src"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.0"
   }
 }
