@@ -21,7 +21,7 @@ export const DefaultLayout =  ({children}:DefaultLayoutProps) => {
             <Header onClickMenu={handleClickMenu}/>
             <Flex flex={1} overflowY='hidden'>
                 <Sidebar display={isOpen?'block':'none'}/>
-                <Box flex={1}>
+                <Box flex={1} overflowY='scroll'>
                   {children}
                 {/* <Sidebar display={isOpen?'block':'none'}/> */}
                 </Box>
