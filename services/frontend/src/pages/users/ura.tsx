@@ -1,4 +1,4 @@
-import { Header } from "../../components/Header";
+import { Header } from '../../components/Header'
 
 const Page = () => {
   return (
@@ -7,7 +7,7 @@ const Page = () => {
 
       <h1>うらのページです</h1>
     </div>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

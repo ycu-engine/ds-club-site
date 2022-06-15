@@ -1,14 +1,12 @@
-import { Header } from "./Header"
-import { Sidebar } from "./sidebar"
+import { Header } from './Header'
+import { Sidebar } from './sidebar'
 
-import { Box, Flex,
-   } from '@chakra-ui/react';
-import { ReactNode,useCallback,useState } from "react";
+import { Box, Flex } from '@chakra-ui/react'
+import { ReactNode, useCallback, useState } from 'react'
 
 type DefaultLayoutProps = {
-    children:ReactNode
+  children: ReactNode
 }
-
 
 
 export const DefaultLayout =  ({children}:DefaultLayoutProps) => {
