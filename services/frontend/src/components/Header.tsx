@@ -18,7 +18,7 @@ import {
   Container,
 } from '@chakra-ui/react'
 
-import { HamburgerIcon } from '@chakra-ui/icons'
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
 import Logo from '../assets/images/icon.png'
 
@@ -31,7 +31,7 @@ export const Header = () => {
 
   return (
     <Box backgroundColor="#E5E5E5" h="70px" w="100%">
-      <Flex alignItems="center" gap="2">
+      <Flex alignItems="center" gap="2" overflow="scroll">
         <Box borderRadius="full" boxSize="40px" m="3" mt="4" overflow="hidden">
           {/* デーサイクラブの画像 */}
           <Image
@@ -60,7 +60,7 @@ export const Header = () => {
           {/* ハンバーガーボタン */}
           <IconButton
             aria-label="メニュー"
-            boxSize="3"
+            size="sm"
             color="#FF8E3C"
             icon={<HamburgerIcon />}
             onClick={onOpen}
@@ -74,9 +74,21 @@ export const Header = () => {
         <DrawerContent>
           {/* サイドバーの要素はここから変更してください */}
           <Container>
-            <DrawerHeader borderBottomWidth="1px">各種リンク</DrawerHeader>
+            <DrawerHeader borderBottomWidth="1px">
+              <Flex alignItems="center" justifyContent={'space-between'}>
+                <Text>各種リンク</Text>
+                <IconButton
+                  size="sm"
+                  aria-label="close-drawer"
+                  icon={<CloseIcon />}
+                  onClick={onClose}
+                  colorScheme={'orange'}
+                />
+              </Flex>
+            </DrawerHeader>
             <DrawerBody>
-              <VStack spacing={10}>
+              <VStack spacing={10} p={5}>
+                {/* ボタンをmapで追加 */}
                 {button_texts.map((button_text) => {
                   return (
                     <Button
