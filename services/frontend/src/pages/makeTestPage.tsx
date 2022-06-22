@@ -13,6 +13,7 @@ import {
   useRadioGroup,
   Textarea,
   chakra,
+  Tooltip,
 } from '@chakra-ui/react'
 
 import { DefaultLayout } from '../components/DefaultLayout'
@@ -36,7 +37,7 @@ const RadioChoices = (props: RadioChoicesProps) => {
         {/* 選択肢の見た目はここで変更できる */}
         <Box
           {...getCheckboxProps()}
-          border={state.isChecked ? '2px solid green' : ''}
+          border={state.isChecked ? '4px solid blue' : ''}
           w={200}
           p={2}
           verticalAlign="middle"
@@ -109,7 +110,7 @@ type TestProps = {
   radioText4: string
   correctIndex: string //　正解の選択肢の番号
 }
-// テスト問題の全体のコンポーネント RadioChoicesを子コンポーネントとして使用
+// テスト問題の全体のコンポーネント,  RadioChoicesを子コンポーネントとして使用
 const Test = (props: TestProps) => {
   // radioTextはリスト形式にまとめておく
   const radioTexts: string[] = [
@@ -130,6 +131,7 @@ const Test = (props: TestProps) => {
           p="5"
           h="300"
           borderRadius="20"
+          boxShadow={'lg'}
         >
           {/* 問題番号 */}
           <Heading fontWeight="bold" p="5">
@@ -148,23 +150,6 @@ const Test = (props: TestProps) => {
   )
 }
 
-// タイトルとプレースホルダー
-const AddTestOption = (props) => {
-  return (
-    <Box>
-      <Text fontWeight="bold" py="2">
-        {props.category}
-      </Text>
-      <props.inputType
-        name={props.name}
-        placeholder={props.placeholder}
-        outlineColor="black"
-        size="sm"
-      ></props.inputType>
-    </Box>
-  )
-}
-
 function makeTestPage() {
   // テスト用のデータを作成
   const sampleData = {
@@ -179,7 +164,7 @@ function makeTestPage() {
   //   問題のデータを管理するHook
   const [testData, setTestData] = useState<TestProps[]>([sampleData])
 
-  // 問題追加画面
+  // 問題追加画面のコンポーネント
   const AddTestMenu = () => {
     // オブジェクトでまとめておく
     const inputAreaOptions = [
@@ -249,12 +234,12 @@ function makeTestPage() {
     }
 
     const handleChagneTestData = () => {
-      // リストの後ろの追加する
+      // リストの後ろに追加する
       setTestData([...testData, inputs])
       console.log(testData)
     }
     // 全部終わったかどうか
-    let isFilled: boolean = !Object.values(inputs).every((value) => value)
+    let isFilled: boolean = Object.values(inputs).every((value) => value)
 
     return (
       // 縦に積んでいく
@@ -263,7 +248,7 @@ function makeTestPage() {
         w="20%"
         p="3"
         spacing="3"
-        h="90vh"
+        h={'100vh'}
         overflowY="scroll"
       >
         {/* mapでinputAreaを作る */}
@@ -289,13 +274,20 @@ function makeTestPage() {
           写真を追加
         </Button>
         {/* 問題を追加するボタン */}
-        <Button
-          isDisabled={isFilled}
-          colorScheme="pink"
-          onClick={handleChagneTestData}
+        <Tooltip
+          label={
+            isFilled ? 'クリックして問題を追加' : '項目を全て埋めてください'
+          }
+          shouldWrapChildren
         >
-          追加する
-        </Button>
+          <Button
+            isDisabled={!isFilled}
+            colorScheme="pink"
+            onClick={handleChagneTestData}
+          >
+            追加する
+          </Button>
+        </Tooltip>
       </VStack>
     )
   }
@@ -303,7 +295,8 @@ function makeTestPage() {
   // makeTestPageのreturn
   return (
     <DefaultLayout>
-      <Flex h="100vh">
+      <Flex>
+        {/* testDataはオブジェクトを要素にもつリストなのでテスト的に追加されたものを表示する */}
         <Test {...testData.slice(-1)[0]} />
         <AddTestMenu />
       </Flex>
