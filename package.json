@@ -15,6 +15,8 @@
     "format": "prettier -w services/*/src"
   },
   "devDependencies": {
+    "eslint": "^8.17.0",
+    "eslint-plugin-team-vals": "^1.0.98",
     "prettier": "^2.7.0"
   }
 }

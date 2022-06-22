@@ -20,38 +20,42 @@ type HeaderProps = {
 
 export const Header = ({ onClickMenu }: HeaderProps) => {
   return (
-    <Box w="100%" h="70px" backgroundColor="#E5E5E5">
-      <Flex minWidth="max-content" alignItems="center" gap="2">
-        <Box borderRadius="full" overflow="hidden" boxSize="40px" m="3" mt="4">
+    <Box backgroundColor="#E5E5E5" h="70px" w="100%">
+      <Flex alignItems="center" gap="2" minWidth="max-content">
+        <Box borderRadius="full" boxSize="40px" m="3" mt="4" overflow="hidden">
           <Image
-            width="40px"
+            alt="icon"
             height="40px"
             objectFit="cover"
             // p='2' m='2'
             //   borderRadius='full'
             //   boxSize='60px'
             src={Logo}
-            alt="icon"
+            width="40px"
           />
         </Box>
+
         <Box p="1">
-          <Heading size="lg" mt="1">
+          <Heading mt="1" size="lg">
             {' '}
             DataScienceClub
           </Heading>
         </Box>
+
         <Spacer />
+
         <Box>
           <Text p="2">Kakeru Sato</Text>
         </Box>
+
         <Box>
           <IconButton
             aria-label="メニュー"
-            icon={<HamburgerIcon />}
-            variant="outline"
-            color="#FF8E3C"
             boxSize="2"
+            color="#FF8E3C"
+            icon={<HamburgerIcon />}
             onClick={onClickMenu}
+            variant="outline"
           />
         </Box>
       </Flex>
