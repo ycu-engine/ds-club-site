@@ -1,5 +1,4 @@
 import { Header } from './Header'
-import { Sidebar } from './sidebar'
 
 import { Box, Flex } from '@chakra-ui/react'
 import { ReactNode, useCallback, useState } from 'react'
@@ -15,11 +14,9 @@ export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
   }, [])
   return (
     <Flex bg="#EFF0F3" flexDir="column" h="200vh">
-      <Header onClickMenu={handleClickMenu} />
+      <Header />
 
       <Flex flex={1}>
-        <Sidebar display={isOpen ? 'block' : 'none'} />
-
         <Box flex={1} overflowY="scroll">
           {children}
 
