@@ -38,7 +38,7 @@ const Page = () => {
             })}
             {/* これはれんしゅうよう */}
             <Box px="20" py="2" w="100%">
-              れんしゅうよう
+              練習用
               <Input borderColor="black" onChange={handleChange}></Input>
             </Box>
             {/* ここまで */}
