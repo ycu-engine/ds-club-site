@@ -97,6 +97,7 @@ export const Header = () => {
                       bg="black"
                       color="white"
                       _hover={{ bg: 'blackAlpha.600' }}
+                      key={button_text}
                     >
                       {button_text}
                     </Button>
