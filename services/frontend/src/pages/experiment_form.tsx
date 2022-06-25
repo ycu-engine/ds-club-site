@@ -37,17 +37,12 @@ const Page = () => {
     // イベントが発生した対象のname属性とvalue属性を取得
     const { name, value } = event.target
     setFormValue({ ...formValue, [name]: value })
-    console.log(formValue)
   }
 
-  // passwordの表示状態
-  const [show, setShow] = useState(false)
-  // buttonが押された時にstateを逆の値にする。
-  const handleClickShow = () => {
-    setShow(!show)
-  }
   // Password用のコンポーネント定義
   const inputPassword = (FormName) => {
+    // Hook定義
+    const [showPass, toggleShowPass] = useState(false)
     return (
       <Box px="20" py="2" w="100%">
         {FormName}
@@ -57,12 +52,19 @@ const Page = () => {
             borderColor="black"
             name={FormName}
             value={formValue[FormName]}
-            type={show ? 'text' : 'password'}
+            type={showPass ? 'text' : 'password'}
             onChange={handleChangeInput}
           />
           <InputRightElement width="4.5rem">
-            <Button p="1" h="1.75rem" size="sm" onClick={handleClickShow}>
-              {show ? '表示する' : '非表示'}
+            <Button
+              p="1"
+              h="1.75rem"
+              size="sm"
+              onClick={() => {
+                toggleShowPass(!showPass)
+              }}
+            >
+              {showPass ? '非表示' : '表示'}
             </Button>
           </InputRightElement>
         </InputGroup>
@@ -94,11 +96,12 @@ const Page = () => {
                     {FormName}
                     {/* name属性を定義してイベントで扱えるようにする */}
                     <Input
+                      key={FormName} //　map関数でまとめてコンポーネントを生成したら一意なkey属性を設定する必要がある
                       borderColor="black"
                       name={FormName}
                       value={formValue[FormName]}
                       onChange={handleChangeInput}
-                    ></Input>
+                    />
                   </Box>
                 )
               })}
