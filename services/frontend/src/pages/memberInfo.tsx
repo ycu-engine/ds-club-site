@@ -10,9 +10,8 @@ import {
   MenuList,
   MenuItem,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import { DefaultLayout } from '../components/DefaultLayout'
-import { useState } from 'react'
 
 type User = {
   id: number // 会員ごとに一意なid
@@ -20,19 +19,20 @@ type User = {
   isPaid: string // 支払い
   rank: string // 段位
 }
+
 // テスト用のユーザー
 const users: User[] = [
-  { id: 1, name: '浦 優太', isPaid: '済', rank: 'Ip' },
-  { id: 2, name: '佐藤 駿', isPaid: '未', rank: 'Ms' },
-  { id: 3, name: '諸田 健太郎', isPaid: '済', rank: 'Ms' },
-  { id: 4, name: 'Aさん', isPaid: '未', rank: 'Bg' },
-  { id: 5, name: 'Bさん', isPaid: '未', rank: 'Ev' },
-  { id: 6, name: 'Cさん', isPaid: '未', rank: 'Bg' },
-  { id: 7, name: 'Dさん', isPaid: '未', rank: 'Bg' },
-  { id: 8, name: '中村拓実', isPaid: '済', rank: 'Ip' },
+  { id: 1, isPaid: '済', name: '浦 優太', rank: 'Ip' },
+  { id: 2, isPaid: '未', name: '佐藤 駿', rank: 'Ms' },
+  { id: 3, isPaid: '済', name: '諸田 健太郎', rank: 'Ms' },
+  { id: 4, isPaid: '未', name: 'Aさん', rank: 'Bg' },
+  { id: 5, isPaid: '未', name: 'Bさん', rank: 'Ev' },
+  { id: 6, isPaid: '未', name: 'Cさん', rank: 'Bg' },
+  { id: 7, isPaid: '未', name: 'Dさん', rank: 'Bg' },
+  { id: 8, isPaid: '済', name: '中村拓実', rank: 'Ip' },
 ]
 
-function Page() {
+const Page = () => {
   // ユーザーのHooks
   const [userInfos, setUserInfos] = useState<User[]>(users)
 
@@ -81,50 +81,58 @@ function Page() {
     <DefaultLayout>
       <Wrap justify="center" py="10" spacingX="20" spacingY="10">
         {/* 会費支払い状況 */}
-        <Box textAlign="center" p="10" w={{ base: '90%', lg: '40%' }}>
+
+        <Box p="10" textAlign="center" w={{ base: '90%', lg: '40%' }}>
           <Text fontSize={['xl', '3xl']}>会費支払い状況</Text>
+
           <VStack
-            divider={<StackDivider borderColor="blackAlpha.700" />}
             bg="white"
             border="1px solid black"
             borderRadius="sm"
+            divider={<StackDivider borderColor="blackAlpha.700" />}
             p="3"
           >
             {/* 名前とボタン */}
+
             {userInfos.map((user) => {
               return (
                 <Flex
-                  w="60%"
                   alignItems="center"
                   justifyContent="space-between"
                   key={user.id}
+                  w="60%"
                 >
                   <Text>{user.name}</Text>
+
                   <Menu>
                     <MenuButton
-                      p="3"
+                      _hover={{ boxShadow: 'outline' }}
+                      bg={user.isPaid === '済' ? 'teal.100' : 'red.100'}
+                      borderRadius="full"
                       fontSize="sm"
                       fontWeight="bold"
-                      borderRadius="full"
-                      bg={user.isPaid === '済' ? 'teal.100' : 'red.100'}
-                      _hover={{ boxShadow: 'outline' }}
+                      p="3"
                     >
                       {user.isPaid}
                     </MenuButton>
+
                     {/* 支払い状況のリスト */}
+
                     <MenuList>
                       {/* クリックしたら状態を変更する */}
+
                       <MenuItem
-                        value="済"
                         name={String(user.id)}
                         onClick={handleChangeIsPaid}
+                        value="済"
                       >
                         済
                       </MenuItem>
+
                       <MenuItem
-                        value="未"
                         name={String(user.id)}
                         onClick={handleChangeIsPaid}
+                        value="未"
                       >
                         未
                       </MenuItem>
@@ -137,64 +145,74 @@ function Page() {
         </Box>
 
         {/* 段位状況 */}
-        <Box textAlign="center" p="10" w={{ base: '90%', lg: '40%' }}>
+
+        <Box p="10" textAlign="center" w={{ base: '90%', lg: '40%' }}>
           <Text fontSize={['xl', '3xl']}>段位状況</Text>
+
           <VStack
-            divider={<StackDivider borderColor="blackAlpha.700" />}
             bg="white"
             border="1px solid black"
             borderRadius="sm"
+            divider={<StackDivider borderColor="blackAlpha.700" />}
             p="3"
           >
             {userInfos.map((user) => {
               return (
                 <Flex
-                  w="60%"
                   alignItems="center"
                   justifyContent="space-between"
                   key={user.id}
+                  w="60%"
                 >
                   {/* 名前とボタン */}
+
                   <Text>{user.name}</Text>
+
                   <Menu>
                     <MenuButton
-                      p="3"
+                      _hover={{ boxShadow: 'outline' }}
+                      bg={rankColor(user.rank)}
+                      borderRadius="full"
                       fontSize="sm"
                       fontWeight="bold"
-                      borderRadius="full"
-                      bg={rankColor(user.rank)}
-                      _hover={{ boxShadow: 'outline' }}
+                      p="3"
                     >
                       {user.rank}
                     </MenuButton>
+
                     {/* 段位のリスト */}
+
                     <MenuList>
                       {/* クリックしたら段位を変更する */}
+
                       <MenuItem
-                        value="Ip"
                         name={String(user.id)}
                         onClick={handleChangeRank}
+                        value="Ip"
                       >
                         Intrapel(イントラペル)
                       </MenuItem>
+
                       <MenuItem
-                        value="Ms"
                         name={String(user.id)}
                         onClick={handleChangeRank}
+                        value="Ms"
                       >
                         Master(マスター)
                       </MenuItem>
+
                       <MenuItem
-                        value="Ev"
                         name={String(user.id)}
                         onClick={handleChangeRank}
+                        value="Ev"
                       >
                         Evangelist(エヴァンジェリスト)
                       </MenuItem>
+
                       <MenuItem
-                        value="Bg"
                         name={String(user.id)}
                         onClick={handleChangeRank}
+                        value="Bg"
                       >
                         Beginner(ビギナー)
                       </MenuItem>
