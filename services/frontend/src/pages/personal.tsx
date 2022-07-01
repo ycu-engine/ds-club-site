@@ -1,5 +1,5 @@
 import { DefaultLayout } from '../components/DefaultLayout'
-import { Box, Flex, Heading, Text, Container } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, Container, HStack } from '@chakra-ui/react'
 
 import Image from 'next/image'
 import Rank from '../assets/images/eva.png'
@@ -50,12 +50,15 @@ const Page = () => {
               </Box>
             </Flex>
           </Box> */}
+
           <Container>
-            <Box bg="#FFFFFE" borderRadius={br} p={2} mx="auto">
+            <Box bg="#FFFFFE" borderRadius={br} mx="auto" p={2}>
               <Flex justify="center">
                 <Heading color={pink}>段位:</Heading>
+
                 <Heading color="#0D0D0D">エヴァンジェリスト</Heading>
               </Flex>
+
               <Image src={Rank} />
             </Box>
           </Container>
@@ -87,27 +90,37 @@ const Page = () => {
 
         <Flex
           align="center"
-          justify="space-around"
           direction={{ base: 'column', lg: 'row' }}
+          justify="space-around"
           mt={8}
         >
           <Container>
-            <Box bg="#0D0D0D" borderRadius={br} p={3} mx="auto">
-              <Heading textAlign="center" color="#FFFFFE">
+            <Box
+              alignItems="center"
+              bg="#0D0D0D"
+              borderRadius={br}
+              mx="auto"
+              p={3}
+            >
+              <Heading color="#FFFFFE" textAlign="center">
                 称号
               </Heading>
-              <Flex minW={0}>
-                <Box>
-                  <Image src={DS} width="150" layout="responsive" />
+
+              <Flex justify="space-around" mx="auto">
+                <Box bg="transparent">
+                  <Image objectFit="contain" src={DS} />
                 </Box>
-                <Box>
-                  <Image src={Engi} width="150" layout="responsive" />
+
+                <Box bg="transparent">
+                  <Image objectFit="contain" src={Engi} />
                 </Box>
-                <Box>
-                  <Image src={Sta} width="150" layout="responsive" />
+
+                <Box bg="transparent">
+                  <Image objectFit="contain" src={Sta} />
                 </Box>
               </Flex>
-              <Heading textAlign="center" color="#FFFFFE">
+
+              <Heading color="#FFFFFE" textAlign="center">
                 あと1つで称号獲得!
               </Heading>
             </Box>
@@ -115,6 +128,7 @@ const Page = () => {
 
           <Box bg="#FFFFFE" borderRadius={br} ml={5} mt={5}>
             <Heading textAlign="center">学習時間の記録</Heading>
+
             <Image src={Learn} />
           </Box>
         </Flex>
