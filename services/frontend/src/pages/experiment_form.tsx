@@ -10,7 +10,7 @@ import {
   Link,
   VStack,
 } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DefaultLayout } from '../components/DefaultLayout'
 
 const Page = () => {
@@ -72,11 +72,26 @@ const Page = () => {
     )
   }
 
-  // 確認ページの表示状態 trueならspinnerを表示
-  const [isLoading, setLoading] = useState(false)
+  // 確認ページへボタンの表示状態 trueならspinnerを表示
+  const [isLoading, toggleLoading] = useState(false)
   const handleClickConform = () => {
-    setLoading(!isLoading)
+    toggleLoading(!isLoading)
   }
+
+  // 確認ページボタンのisDisabledのstate
+  const [isDisabled, toggleIsDisabled] = useState(true)
+
+  useEffect(() => {
+    // isDisabledのstate変更
+    if (formValue.パスワード === formValue.パスワード確認用) {
+      toggleIsDisabled(false) // 一致すればfalseにしボタンを押せるようにする
+    } else {
+      toggleIsDisabled(true) // 一致しなければtrueにしボタンを押せなくする
+    }
+    if (formValue.パスワード === '' || formValue.パスワード確認用 === '') {
+      toggleIsDisabled(true)
+    }
+  })
 
   // ここからページ
   return (
@@ -117,13 +132,14 @@ const Page = () => {
       <Container>
         <Box w="100%" py="10">
           <Center>
-            {/* あとで遷移先のpathを入力します。初期ページに遷移させてます */}
+            {/* あとで遷移先のpathを入力します。とりあえず初期ページに遷移させてます */}
             <Link w="80%" href="./">
               <Button
                 w="100%"
                 colorScheme="orange"
                 _hover={{ bg: '#ffa77a' }}
                 isLoading={isLoading}
+                isDisabled={isDisabled}
                 onClick={handleClickConform}
               >
                 確認ページへ
