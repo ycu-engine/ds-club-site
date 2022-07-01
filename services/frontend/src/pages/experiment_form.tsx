@@ -95,7 +95,7 @@ const Page = () => {
 
   // ここからページ
   return (
-    <DefaultLayout>
+    <DefaultLayout hideHeader={true}>
       {/* 見出し */}
       <Heading p="10">体験入会申請フォーム</Heading>
       {/* メインの部分, フォームはここにする */}
