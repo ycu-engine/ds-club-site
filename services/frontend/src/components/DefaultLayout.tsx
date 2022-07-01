@@ -1,21 +1,17 @@
 import { Header } from './Header'
 
 import { Box, Flex } from '@chakra-ui/react'
-import { ReactNode, useCallback, useState } from 'react'
+import { ReactNode } from 'react'
 
 type DefaultLayoutProps = {
   children: ReactNode
+  hideHeader?: boolean // ヘッダーを表示するかしないか( trueで隠す )
 }
 
-export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const handleClickMenu = useCallback(() => {
-    setIsOpen((prev) => !prev)
-  }, [])
+export const DefaultLayout = ({ children, hideHeader }: DefaultLayoutProps) => {
   return (
     <Flex bg="#EFF0F3" flexDir="column" h="200vh">
-      <Header />
-
+      {!hideHeader ? <Header /> : <></>}
       <Flex flex={1}>
         <Box flex={1} overflowY="scroll">
           {children}
