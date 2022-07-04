@@ -1,13 +1,13 @@
 import { DefaultLayout } from '../components/DefaultLayout'
 import {
-  Box,
   Heading,
   Select,
-  UnorderedList,
+  OrderedList,
   ListItem,
   Flex,
   Button,
   Checkbox,
+  VStack,
 } from '@chakra-ui/react'
 
 import { useCallback, useState } from 'react'
@@ -20,80 +20,90 @@ const Page = () => {
 
   return (
     <DefaultLayout>
-      <Flex
-        alignItems="center"
-        flexDir="column"
-        gap="3"
-        justify-content="center"
-        minWidth="max-content"
-        w="100vh"
-      >
-        <Box>
-          <Heading color="0D0D0D" size="4xl">
-            テスト受験確認ページ
-          </Heading>
-        </Box>
-
-        <Box>
-          <Heading color="0D0D0D" size="2xl">
-            受験科目
-          </Heading>
-
-          <Select
-            borderColor="#0D0D0D"
-            placeholder="受験科目を選択してください"
+      <Flex flexDir="column" h="100vh" w="100vw">
+        <VStack spacing={6}>
+          <Flex
+            flexDir="column"
+            h="20vh"
+            justify="center"
+            textAlign="center"
+            w="70vw"
           >
-            <option value="Datascience">データサイエンス</option>
+            <Flex justify="left" textAlign="left">
+              <Heading size="3xl">テスト受験確認ページ</Heading>
+            </Flex>
+          </Flex>
 
-            <option value="Statistics">統計</option>
-          </Select>
-        </Box>
-
-        <Box alignItems="center" bg="#FFFFFE" borderRadius="lg">
-          <Heading color="0D0D0D" size="2xl">
-            注意事項
-          </Heading>
-
-          <UnorderedList>
-            <ListItem>試験時間は70分です</ListItem>
-
-            <ListItem>80%の正答率で合格です</ListItem>
-
-            <ListItem>
-              試験時間中のWebを用いた検索は可能とします。ただし、第三者とともに解くことは禁止です。
-            </ListItem>
-
-            <ListItem>
-              不正が発覚した場合には当該昇格試験の結果は無効とします。また、複数回の不正が発覚した場合は重い処分を下すことがあります。
-            </ListItem>
-
-            <ListItem>疑問点があれば開始前に運営にお聞きください。</ListItem>
-          </UnorderedList>
-        </Box>
-
-        <Box>
-          {/* <input type="checkbox" checked={true} name="controlled" color='#0D0D0D'>注意事項を確認しました</input> */}
-
-          <Checkbox
-            borderColor="#0D0D0D"
-            color="#0D0D0D"
-            isChecked={isActive}
-            onChange={handleOnChange}
+          <Flex
+            flexDir="column"
+            h="30vh"
+            justify="center"
+            textAlign="center"
+            w="50vw"
           >
-            注意事項を確認しました
-          </Checkbox>
-        </Box>
+            <Flex justify="left" textAlign="left">
+              <VStack>
+                <Heading size="2xl">受験科目を選択してください</Heading>
+                <Select placeholder="Select option" borderColor={'0D0D0D'}>
+                  <option value="datascience">データサイエンス</option>
+                  <option value="statistic">統計</option>
+                  <option value="enginner">エンジニア</option>
+                </Select>
+              </VStack>
+            </Flex>
+          </Flex>
 
-        <Box>
-          <Button
-            bg="#FF8E3C"
-            color="#0D0D0D"
-            isDisabled={!isActive}
-            size="lg"
+          <Flex
+            flexDir="column"
+            h="60%"
+            justify="center"
+            textAlign="left"
+            w="50vw"
           >
-            テストを開始する
-          </Button>
-        </Box>
+            <Flex justify="left" textAlign="left">
+              <VStack spacing={50}>
+                <Flex bgColor={'#FFFFFE'}>
+                  <VStack>
+                    <Heading size="2xl" p="5%">
+                      注意事項です。よく読んだ上でテストに臨んでください。
+                    </Heading>
+                    <OrderedList p="10%">
+                      <ListItem pb="3%">試験時間は60分です。</ListItem>
+                      <ListItem pb="3%">80%以上が合格です。</ListItem>
+                      <ListItem pb="3%">
+                        試験時間中の検索は可とします。ただし、第三者と解くことは禁じます。
+                      </ListItem>
+                      <ListItem>
+                        不正発覚時には当該試験は0点。運営側で協議の上厳しい処分を下します。
+                      </ListItem>
+                    </OrderedList>
+                  </VStack>
+                </Flex>
+                <Flex>
+                  <Checkbox
+                    isChecked={isActive}
+                    onChange={handleOnChange}
+                    borderColor={'#0D0D0D'}
+                  >
+                    上記注意事項を確認しました。
+                  </Checkbox>
+                </Flex>
+              </VStack>
+            </Flex>
+          </Flex>
+          <Flex w="80%" justify="center" h="10vh">
+            <Button
+              pl="20%"
+              pr="20%"
+              pt="2%"
+              pb="2%"
+              bgColor={'#FF8E3C'}
+              isDisabled={!isActive}
+            >
+              テストを開始します
+            </Button>
+          </Flex>
+        </VStack>
       </Flex>
     </DefaultLayout>
   )
