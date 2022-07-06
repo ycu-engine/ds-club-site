@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { ReactNode, useState, useEffect } from 'react'
 import {
   Box,
   Heading,
@@ -36,8 +36,6 @@ import {
 } from '@chakra-ui/react'
 
 import { DefaultLayout } from '../components/DefaultLayout'
-import { useState } from 'react'
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace'
 
 type RadioChoicesProps = {
   correctIndex: string // 問題に対する正解の番号です。number型ではなくstring型であることに注意してください。
@@ -212,7 +210,7 @@ const AddTestMenu = (props: AddTestMenuProps) => {
   }
 
   // inputsの値が更新されるのを感知して実行する副作用フック
-  React.useEffect(() => {
+  useEffect(() => {
     console.log(inputs)
     // 全て埋まっていたらtrueにする
     setIsFilled(
@@ -311,7 +309,6 @@ const AddTestMenu = (props: AddTestMenuProps) => {
       {/* 写真を追加 */}
       <Input
         placeholder="写真を追加"
-        value={inputs.image}
         type="file"
         accept="image/*"
         name="image"
@@ -340,6 +337,7 @@ const AddTestMenu = (props: AddTestMenuProps) => {
 type AddTestMenuModalProps = {
   children: ReactNode
 }
+// テスト追加画面のモーダル
 const AddTestMenuModal = ({ children }: AddTestMenuModalProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
@@ -424,7 +422,7 @@ function makeTestPage() {
     <DefaultLayout>
       <Flex>
         {/* testDataはオブジェクトを要素にもつリストなのでテスト的に追加されたものを表示する */}
-        <Test {...testData.slice(-1)[testNumber]} />
+        <Test {...testData[testNumber]} />
         <AddTestMenu
           AddTestFunc={AddTestData}
           containerProps={{ display: { base: 'None', md: 'initial' } }}
