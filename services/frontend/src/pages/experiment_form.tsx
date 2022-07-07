@@ -78,18 +78,23 @@ const Page = () => {
     toggleLoading(!isLoading)
   }
 
-  // 確認ページボタンのisDisabledのstate
-  const [isDisabled, toggleIsDisabled] = useState(true)
+  // すべて入力されているかのhook
+  const [isAllFilled, setIsAllFilled] = useState<boolean>(false)
 
+  // 確認ページボタンのIsSamePassのstate
+  const [isDisabled, toggleIsSamePass] = useState<boolean>(true)
+
+  // パスワードが一致するかしないかによる条件分岐
   useEffect(() => {
-    // isDisabledのstate変更
+    // IsSamePassのstate変更
     if (formValue.パスワード === formValue.パスワード確認用) {
-      toggleIsDisabled(false) // 一致すればfalseにしボタンを押せるようにする
+      toggleIsSamePass(false) // 一致すればfalseにしボタンを押せるようにする
     } else {
-      toggleIsDisabled(true) // 一致しなければtrueにしボタンを押せなくする
+      toggleIsSamePass(true) // 一致しなければtrueにしボタンを押せなくする
     }
+    // 何も入力していな時の処理
     if (formValue.パスワード === '' || formValue.パスワード確認用 === '') {
-      toggleIsDisabled(true)
+      toggleIsSamePass(true)
     }
   })
 
@@ -121,9 +126,9 @@ const Page = () => {
                 )
               })}
               {/* パスワードのinput要素 */}
-              {FormNames.slice(3, 5).map((FormName) => {
-                return inputPassword(FormName)
-              })}
+              {inputPassword(FormNames[3])}
+              {/* パスワード確認用のinput要素 */}
+              {inputPassword(FormNames[4])}
             </VStack>
           </Box>
         </Center>
@@ -139,8 +144,8 @@ const Page = () => {
                 colorScheme="orange"
                 _hover={{ bg: '#ffa77a' }}
                 isLoading={isLoading}
-                isDisabled={isDisabled}
                 onClick={handleClickConform}
+                isDisabled={isDisabled}
               >
                 確認ページへ
               </Button>
