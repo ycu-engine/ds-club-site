@@ -1,5 +1,14 @@
 import { DefaultLayout } from '../components/DefaultLayout'
-import { Box, Flex, Text, Input, Button, Link , InputGroup, InputRightElement } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  Text,
+  Input,
+  Button,
+  Link,
+  InputGroup,
+  InputRightElement,
+} from '@chakra-ui/react'
 import React from 'react'
 
 import Logo from '../assets/images/icon.png'
@@ -18,7 +27,7 @@ const Page = () => {
   const isInvalid = !username || !password
 
   return (
-    <DefaultLayout>
+    <DefaultLayout hideHeader={true}>
       <Box pt={5} px={10}>
         <Flex align="center" as="form" direction="column" justify="center">
           <Box
