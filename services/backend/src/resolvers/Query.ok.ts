@@ -1,6 +1,6 @@
 import type { QueryResolvers } from '../generates/graphql'
 
-export const okResolver: QueryResolvers['ok'] = async (
+export const okResolver: NonNullable<QueryResolvers['ok']> = async (
   _root,
   _args,
   _ctx,
