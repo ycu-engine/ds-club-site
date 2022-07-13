@@ -1,9 +1,10 @@
 import type { QueryResolvers } from '../generates/graphql'
-import { firestore } from '../modules/firebase'
 
-export const ok: QueryResolvers['ok'] = async () => {
-  await firestore.collection('test').doc('test').set({
-    test: 'test',
-  })
-  return true
+export const okResolver: QueryResolvers['ok'] = async (
+  _root,
+  _args,
+  _ctx,
+  _info,
+) => {
+  return Promise.resolve(true)
 }

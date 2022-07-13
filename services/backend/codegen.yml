@@ -11,3 +11,4 @@ generates:
       useTypeImports: true
       avoidOptionals:
         resolvers: true
+      contextType: ../context#Context
