@@ -9,4 +9,4 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # [Optional] Uncomment if you want to install more global node modules
 RUN su node -c "npm install -g firebase-tools"
 
-# RUN mkdir -p /home/node/.cache/firebase && chown -R node:node /home/node/.cache/firebase
+RUN mkdir -p /home/node/.cache/firebase && chown -R node:node /home/node/.cache/firebase

@@ -10,7 +10,7 @@ services:
       - ..:/workspace:cached
       - firebase-emulators:/home/node/.cache/firebase/emulators/
 
-    command: sudo chown -R node:node /home/node/.cache/firebase && sleep infinity
+    command: sleep infinity
 
     user: node
 
