@@ -1,5 +1,5 @@
 import { DefaultLayout } from '../components/DefaultLayout'
-import { Box, Flex, Heading, Text, Container, HStack } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, Container } from '@chakra-ui/react'
 
 import Image from 'next/image'
 import Rank from '../assets/images/eva.png'

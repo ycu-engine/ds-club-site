@@ -16,11 +16,11 @@ import { DefaultLayout } from '../components/DefaultLayout'
 const Page = () => {
   // Hook定義, 入力された値を扱う
   const [formValue, setFormValue] = useState({
-    名前: '',
-    メールアドレス: '',
-    '学校・学部・学科名・学年': '',
     パスワード: '',
     パスワード確認用: '',
+    メールアドレス: '',
+    名前: '',
+    '学校・学部・学科名・学年': '',
   })
 
   // Inputのname属性のリスト, Hookと揃える
@@ -46,23 +46,25 @@ const Page = () => {
     return (
       <Box px="20" py="2" w="100%">
         {FormName}
+
         <InputGroup size="md">
           <Input
-            pr="4.5rem"
             borderColor="black"
             name={FormName}
-            value={formValue[FormName]}
-            type={showPass ? 'text' : 'password'}
             onChange={handleChangeInput}
+            pr="4.5rem"
+            type={showPass ? 'text' : 'password'}
+            value={formValue[FormName]}
           />
+
           <InputRightElement width="4.5rem">
             <Button
-              p="1"
               h="1.75rem"
-              size="sm"
               onClick={() => {
                 toggleShowPass(!showPass)
               }}
+              p="1"
+              size="sm"
             >
               {showPass ? '非表示' : '表示'}
             </Button>
@@ -100,52 +102,65 @@ const Page = () => {
 
   // ここからページ
   return (
-    <DefaultLayout hideHeader={true}>
+    <DefaultLayout hideHeader>
       {/* 見出し */}
+
       <Heading p="10">体験入会申請フォーム</Heading>
+
       {/* メインの部分, フォームはここにする */}
+
       <Container>
         <Center>
-          <Box py="5" bg="white" borderRadius="24">
+          <Box bg="white" borderRadius="24" py="5">
             <VStack spacing="1px">
               {/* パスワード以外のinput要素 */}
+
               {FormNames.slice(0, 3).map((FormName) => {
                 return (
                   // コンポーネント化しておく
                   <Box px="20" py="2" w="100%">
                     {FormName}
+
                     {/* name属性を定義してイベントで扱えるようにする */}
+
                     <Input
-                      key={FormName} //　map関数でまとめてコンポーネントを生成したら一意なkey属性を設定する必要がある
-                      borderColor="black"
+                      borderColor="black" //　map関数でまとめてコンポーネントを生成したら一意なkey属性を設定する必要がある
+                      key={FormName}
                       name={FormName}
-                      value={formValue[FormName]}
                       onChange={handleChangeInput}
+                      value={formValue[FormName]}
                     />
                   </Box>
                 )
               })}
+
               {/* パスワードのinput要素 */}
+
               {inputPassword(FormNames[3])}
+
               {/* パスワード確認用のinput要素 */}
+
               {inputPassword(FormNames[4])}
             </VStack>
           </Box>
         </Center>
       </Container>
+
       {/* 確認ページへボタン */}
+
       <Container>
-        <Box w="100%" py="10">
+        <Box py="10" w="100%">
           <Center>
             {/* あとで遷移先のpathを入力します。とりあえず初期ページに遷移させてます */}
-            <Link w="80%" href="./">
+
+            <Link href="./" w="80%">
               <Button
-                w="100%"
-                colorScheme="orange"
                 _hover={{ bg: '#ffa77a' }}
+                colorScheme="orange"
+                isDisabled={isDisabled}
                 isLoading={isLoading}
                 onClick={handleClickConform}
-                isDisabled={isDisabled}
+                w="100%"
               >
                 確認ページへ
               </Button>

@@ -1,17 +1,14 @@
 import {
   Box,
-  Image,
   useRadio,
-  Button,
   Text,
   useRadioGroup,
   Wrap,
   Container,
-} from '@chakra-ui/react'
-import { chakra } from '@chakra-ui/react'
+ chakra } from '@chakra-ui/react'
 
-function Example() {
-  function CustomRadio(props) {
+const Example = () => {
+  const CustomRadio = (props) => {
     const { text, ...radioProps } = props
     const { state, getInputProps, getCheckboxProps, getLabelProps } =
       useRadio(radioProps)
@@ -19,15 +16,16 @@ function Example() {
     return (
       <chakra.label cursor="pointer">
         <input {...getInputProps({})} hidden />
+
         <Box
           {...getCheckboxProps()}
+          bg="orange.400"
           border={state.isChecked ? '2px solid green' : ''}
-          w={200}
+          borderRadius="20"
+          h="80px"
           p={2}
           rounded="20"
-          borderRadius="20"
-          bg="orange.400"
-          h="80px"
+          w={200}
         >
           <Text
             {...getLabelProps()}
@@ -64,7 +62,8 @@ function Example() {
       <Text>
         The selected radio is: {handleCheckAnswer(value) ? '正解' : '不正解'}
       </Text>
-      <Wrap justify={'center'}>
+
+      <Wrap justify="center">
         {choices.map((choice) => {
           return (
             <CustomRadio
@@ -75,6 +74,7 @@ function Example() {
           )
         })}
       </Wrap>
+
       <Text>{isCorrect}</Text>
     </Container>
   )
