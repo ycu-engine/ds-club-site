@@ -1,38 +1,26 @@
-import React from 'react'
-import { Input, FormLabel, Box } from '@chakra-ui/react'
-import type { As } from '@chakra-ui/react'
-import type { UseFormRegisterReturn } from 'react-hook-form'
+import type { ReactNode } from 'react'
+import { Input, FormLabel, Box, forwardRef } from '@chakra-ui/react'
+import type { InputProps } from '@chakra-ui/react'
 
-type LegendInputProps = {
-  as?: As
-  legendValue: string
-  outlineColor?: string
-  placeholder?: string
-  size?: string
-  type?: React.HTMLInputTypeAttribute
-  register: UseFormRegisterReturn
+type LegendInputProps = InputProps & {
+  legend: ReactNode // <- これは 文字列でもOKだし、 JSX でもOKっていう意味
 }
-export const LegendInput = ({
-  legendValue,
-  as = Input,
-  outlineColor = 'black',
-  placeholder = '入力',
-  type = 'text',
-  size = 'sm',
-  register,
-}: LegendInputProps) => {
-  return (
-    <Box>
-      <FormLabel as="legend">{legendValue}</FormLabel>
 
-      <Input
-        as={as}
-        outlineColor={outlineColor}
-        placeholder={placeholder}
-        size={size}
-        type={type}
-        {...register}
-      />
-    </Box>
-  )
-}
+export const LegendInput = forwardRef<LegendInputProps, 'input'>(
+  ({ legend, ...props }, ref) => {
+    return (
+      <Box>
+        <FormLabel as="legend">{legend}</FormLabel>
+
+        <Input
+          outlineColor="black"
+          placeholder="入力"
+          ref={ref}
+          size="sm"
+          type="text"
+          {...props}
+        />
+      </Box>
+    )
+  },
+)
