@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import React, { useState } from 'react'
 import type { ReactNode } from 'react'
 import type { SubmitHandler } from 'react-hook-form'
@@ -32,6 +33,7 @@ import {
   Radio,
   RadioGroup,
   Textarea,
+  FormLabel,
 } from '@chakra-ui/react'
 
 import { DefaultLayout } from '../components/DefaultLayout'
@@ -96,8 +98,8 @@ const Test = ({
   testIndex,
   testSentence,
   radioText,
-  image,
   correctIndex,
+  image = '',
 }: TestProps) => {
   return (
     <Container>
@@ -140,102 +142,103 @@ type AddTestMenuProps = {
   containerProps?: object
 }
 // 問題追加画面のコンポーネント
-const AddTestMenu = ({ AddTestFunc, containerProps }: AddTestMenuProps) => {
+const AddTestMenu = ({ addTestFunc, containerProps }: AddTestMenuProps) => {
   const { register, handleSubmit, control } = useForm<TestProps>()
   const onSubmit: SubmitHandler<TestProps> = (data) => {
     console.info(data)
-    AddTestFunc(data)
+    addTestFunc(data)
   }
 
   return (
-    <VStack
-      bg="gray.100"
-      h="100vh"
-      overflowY="scroll"
-      p="3"
-      spacing="30px"
-      {...containerProps}
-    >
-      <FormControl isRequired>
-        <LegendInput
-          legendValue="問題番号"
-          placeholder="問題番号を入力"
-          {...register('testIndex', { min: 1, required: true })}
-          type="number"
-        />
+    <VStack bg="gray.100" overflowY="scroll" spacing="10" {...containerProps}>
+      <form onSubmit={() => handleSubmit(onSubmit)}>
+        <FormControl isRequired>
+          <LegendInput
+            legend="問題番号"
+            placeholder="問題番号を入力"
+            {...register('testIndex', { min: 1, required: true })}
+            type="number"
+          />
 
-        <LegendInput
-          as={Textarea}
-          legendValue="問題文"
-          placeholder="問題文を入力"
-          register={register('testSentence', { required: true })}
-        />
+          <LegendInput
+            as={Textarea}
+            legend="問題文"
+            placeholder="問題文を入力"
+            {...register('testSentence', { required: true })}
+          />
 
-        <LegendInput
-          legendValue="回答1"
-          placeholder="1つ目の回答を入力"
-          register={register('radioText.0', { required: true })}
-        />
+          <LegendInput
+            legend="回答1"
+            placeholder="1つ目の回答を入力"
+            {...register('radioText.0', { required: true })}
+          />
 
-        <LegendInput
-          legendValue="回答2"
-          placeholder="2つ目の回答を入力"
-          register={register('radioText.1', { required: true })}
-        />
+          <LegendInput
+            legend="回答2"
+            placeholder="2つ目の回答を入力"
+            {...register('radioText.1', { required: true })}
+          />
 
-        <LegendInput
-          legendValue="回答3"
-          placeholder="3つ目の回答を入力"
-          register={register('radioText.2', { required: true })}
-        />
+          <LegendInput
+            legend="回答3"
+            placeholder="3つ目の回答を入力"
+            {...register('radioText.2', { required: true })}
+          />
 
-        <LegendInput
-          legendValue="回答4"
-          placeholder="4つ目の回答を入力"
-          register={register('radioText.3', { required: true })}
-        />
+          <LegendInput
+            legend="回答4"
+            placeholder="4つ目の回答を入力"
+            {...register('radioText.3', { required: true })}
+          />
 
-        <Controller
-          control={control}
-          name="correctIndex"
-          render={({ field: { onChange, value } }) => (
-            <RadioGroup onChange={onChange} value={value}>
-              <Text>正解の番号を入力</Text>
+          <Controller
+            control={control}
+            name="correctIndex"
+            render={({ field: { onChange, value } }) => (
+              <RadioGroup onChange={onChange} p="3" value={value}>
+                <FormLabel as="legend">正解の番号: {value}</FormLabel>
 
-              <HStack>
-                <Radio value="1">1</Radio>
+                <HStack
+                  border="2px black solid"
+                  borderRadius="full"
+                  p="5"
+                  spacing="5"
+                >
+                  <Radio value="1">1</Radio>
 
-                <Radio value="2">2</Radio>
+                  <Radio value="2">2</Radio>
 
-                <Radio value="3">3</Radio>
+                  <Radio value="3">3</Radio>
 
-                <Radio value="4">4</Radio>
-              </HStack>
-            </RadioGroup>
-          )}
-        />
+                  <Radio value="4">4</Radio>
+                </HStack>
+              </RadioGroup>
+            )}
+          />
 
-        {/* 写真を追加 */}
+          {/* 写真を追加 */}
 
-        <Input
-          accept="image/*"
-          placeholder="写真を追加"
-          type="file"
-          {...register('image')}
-        />
+          <Input
+            accept="image/*"
+            placeholder="写真を追加"
+            required={false}
+            type="file"
+            {...register('image')}
+          />
 
-        {/* 問題を追加するボタン */}
+          {/* 問題を追加するボタン */}
 
-        <Button
-          colorScheme="pink"
-          display="block"
-          mx="auto"
-          onClick={handleSubmit(onSubmit)}
-          type="submit"
-        >
-          追加する
-        </Button>
-      </FormControl>
+          <Flex justify="space-around">
+            <Button colorScheme="pink" type="submit">
+              追加する
+            </Button>
+
+            <Button colorScheme="green" type="reset">
+              リセット
+            </Button>
+          </Flex>
+        </FormControl>
+      </form>
     </VStack>
   )
 }
@@ -341,7 +344,7 @@ const MakeTestPage = () => {
         <Test {...testData[testNumber]} />
 
         <AddTestMenu
-          AddTestFunc={AddTestData}
+          addTestFunc={AddTestData}
           containerProps={{ display: { base: 'None', md: 'initial' } }}
         />
       </Flex>
@@ -350,7 +353,7 @@ const MakeTestPage = () => {
 
       <AddTestMenuModal>
         <AddTestMenu
-          AddTestFunc={AddTestData}
+          addTestFunc={AddTestData}
           containerProps={{
             alignItems: 'center',
             bg: 'transparent',

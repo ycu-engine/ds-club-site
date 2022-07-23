@@ -3,13 +3,12 @@ import { Input, FormLabel, Box, forwardRef } from '@chakra-ui/react'
 import type { InputProps } from '@chakra-ui/react'
 
 type LegendInputProps = InputProps & {
-  legend: ReactNode // <- これは 文字列でもOKだし、 JSX でもOKっていう意味
+  legend: ReactNode
 }
-
 export const LegendInput = forwardRef<LegendInputProps, 'input'>(
   ({ legend, ...props }, ref) => {
     return (
-      <Box>
+      <Box p="3">
         <FormLabel as="legend">{legend}</FormLabel>
 
         <Input
