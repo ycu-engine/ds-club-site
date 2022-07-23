@@ -160,7 +160,7 @@ const AddTestMenu = ({ AddTestFunc, containerProps }: AddTestMenuProps) => {
         <LegendInput
           legendValue="問題番号"
           placeholder="問題番号を入力"
-          register={register('testIndex', { min: 1, required: true })}
+          {...register('testIndex', { min: 1, required: true })}
           type="number"
         />
 
