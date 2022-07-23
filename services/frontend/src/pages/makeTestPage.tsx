@@ -136,7 +136,7 @@ const Test = ({
 }
 
 type AddTestMenuProps = {
-  AddTestFunc: (inputs: TestProps) => void
+  addTestFunc: (inputs: TestProps) => void
   containerProps?: object
 }
 // 問題追加画面のコンポーネント
