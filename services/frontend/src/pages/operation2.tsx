@@ -1,16 +1,13 @@
-import { Box, Text, Center, Flex, Select ,
+import { Box, Text, Flex, Select ,
   Table,
-  Thead,
   Tbody,
-  Tfoot,
   Tr,
-  Th,
   Td,
-  TableCaption,
   TableContainer,
 } from '@chakra-ui/react'
 import { DefaultLayout } from '../components/DefaultLayout'
-import { useState, useCallback, ChangeEventHandler } from 'react'
+import type { ChangeEventHandler } from 'react';
+import { useState, useCallback } from 'react'
 
 const Page = () => {
   const [selectedPerson, setSelectedPerson] = useState<string>()
