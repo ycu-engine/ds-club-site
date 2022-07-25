@@ -1,4 +1,5 @@
-import { Box, Button, Container, Heading, VStack } from '@chakra-ui/react'
+import { Box, Container, Heading, VStack } from '@chakra-ui/react'
+import { ErrorMessage } from '@hookform/error-message'
 import { useForm } from 'react-hook-form'
 import { DefaultLayout } from '../components/DefaultLayout'
 
@@ -8,8 +9,9 @@ const Page = () => {
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const onSubmit = (data) => console.log(data)
-  console.log(errors)
+  const onSubmit = (data) => {
+    console.log(data)
+  }
 
   type inputBoxProps = {
     title: string
@@ -22,29 +24,40 @@ const Page = () => {
   const inputBox = (props: inputBoxProps) => {
     const { title, type, registerName, pattern, required } = props
     return (
-      <Container>
+      <Box
+        bg="white"
+        borderColor="black"
+        borderRadius="24"
+        px="2"
+        py="2"
+        w="100%"
+      >
         {title}
 
-        <Box
-          bg="white"
-          borderColor="black"
-          borderRadius="24"
-          px="2"
-          py="2"
-          w="100%"
-        >
-          <input
-            height={100}
-            size={60}
-            type={type}
-            {...register(registerName, {
-              maxLength: 80,
-              pattern: pattern,
-              required: required,
-            })}
-          />
-        </Box>
-      </Container>
+        <input
+          style={{
+            border: '1px solid',
+            borderRadius: '0.5rem',
+            padding: '0.5rem',
+            width: '100%',
+          }}
+          type={type}
+          {...register(registerName, {
+            maxLength: 80,
+            pattern: {
+              message: '正しいメールアドレスを入力してください',
+              value: pattern,
+            },
+            required: { message: '必須項目です', value: required },
+          })}
+        />
+
+        <ErrorMessage
+          errors={errors}
+          name={registerName}
+          render={({ message }) => <p style={{ color: 'red' }}>{message}</p>}
+        />
+      </Box>
     )
   }
 
@@ -52,20 +65,29 @@ const Page = () => {
     <DefaultLayout hideHeader>
       <Heading p="10">体験入会申請フォーム</Heading>
 
-      <Container>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Box bg="white" borderRadius="24" py="5">
+      <Container fontSize="1em" w="100%">
+        <form onSubmit={handleSubmit(onSubmit)} style={{ textAlign: 'center' }}>
+          <Box
+            alignItems="center"
+            bg="white"
+            borderRadius="1.5rem"
+            mx="auto"
+            my="1rem"
+            p="1.5rem"
+            w="80%"
+          >
             <VStack spacing="1px">
               {inputBox({
                 pattern: /.*/,
                 registerName: 'name',
-                required: false,
+                required: true,
                 title: 'お名前',
                 type: 'text',
               })}
 
               {inputBox({
-                pattern: /.*/,
+                pattern:
+                  /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
                 registerName: 'Email',
                 required: true,
                 title: 'メールアドレス',
@@ -85,7 +107,7 @@ const Page = () => {
                 registerName: 'password',
                 required: true,
                 title: 'パスワード',
-                type: 'text',
+                type: 'password',
               })}
 
               {inputBox({
@@ -93,15 +115,23 @@ const Page = () => {
                 registerName: 'confirmPassword',
                 required: true,
                 title: 'パスワード（確認用）',
-                type: 'text',
+                type: 'password',
               })}
             </VStack>
           </Box>
 
-          <Button _hover={{ bg: '#ffa77a' }} colorScheme="orange" w="100%">
-            <input type="submit" />
-            確認ページへ
-          </Button>
+          <input
+            style={{
+              backgroundColor: 'orange',
+              borderRadius: '0.5rem',
+              fontSize: '1.3rem',
+              fontWeight: 'bold',
+              padding: '0.5rem',
+              width: '80%',
+            }}
+            type="submit"
+            value="確認ページへ"
+          />
         </form>
       </Container>
     </DefaultLayout>
