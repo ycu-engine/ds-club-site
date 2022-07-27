@@ -1,8 +1,8 @@
 {
-  "name": "to_make_site",
+  "name": "ds-club-site",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:Kakeru-Sato/to_make_site.git",
+  "repository": "git@github.com:ycu-engine/ds-club-site.git",
   "author": "YutaUra <yuuta3594@outlook.jp>",
   "license": "MIT",
   "private": true,
@@ -15,7 +15,7 @@
     "dev": "run-p dev:*",
     "dev:backend": "yarn --cwd services/backend dev",
     "dev:frontend": "yarn --cwd services/frontend dev",
-    "dev:firebase": "cd firebase && firebase emulators:start --export-on-exit=./firebase/seed --import=./firebase/seed",
+    "dev:firebase": "cd firebase && firebase emulators:start --export-on-exit=./seed --import=./seed",
     "format": "prettier -w services/*/src"
   },
   "devDependencies": {
