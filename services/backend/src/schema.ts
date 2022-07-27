@@ -2,11 +2,19 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { loadSchema } from '@graphql-tools/load'
 import { join } from 'path'
 import type { Resolvers } from './generates/graphql'
+import { updateUserPaymentStatusResolver } from './resolvers/Mutation.updateUserPaymentStatus'
+import { updateUserRankResolver } from './resolvers/Mutation.updateUserRank'
+import { getRegularUsersResolver } from './resolvers/Query.getRegularUsers'
 import { getUserResolver } from './resolvers/Query.getUser'
 import { okResolver } from './resolvers/Query.ok'
 
 const resolvers: Resolvers = {
+  Mutation: {
+    updateUserPaymentStatus: updateUserPaymentStatusResolver,
+    updateUserRank: updateUserRankResolver,
+  },
   Query: {
+    getRegularUsers: getRegularUsersResolver,
     getUser: getUserResolver,
     ok: okResolver,
   },

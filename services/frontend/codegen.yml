@@ -1,0 +1,14 @@
+schema: ../backend/schema.graphql
+
+generates:
+  src/generates/graphql.ts:
+    plugins:
+      - add:
+          content: // @ts-nocheck
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    documents:
+      - src/**/*.graphql
+    config:
+      useTypeImports: true

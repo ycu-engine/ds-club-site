@@ -15,7 +15,7 @@
     "dev": "run-p dev:*",
     "dev:backend": "yarn --cwd services/backend dev",
     "dev:frontend": "yarn --cwd services/frontend dev",
-    "dev:firebase": "cd firebase && firebase emulators:start",
+    "dev:firebase": "cd firebase && firebase emulators:start --export-on-exit=./firebase/seed --import=./firebase/seed",
     "format": "prettier -w services/*/src"
   },
   "devDependencies": {

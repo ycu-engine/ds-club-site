@@ -1,14 +1,19 @@
 {
+  "root": true,
   "extends": [
     "plugin:team-vals/recommended",
     "plugin:team-vals/react",
     "plugin:team-vals/prettier"
   ],
   "parserOptions": {
-    "project": "tsconfig.json",
+    "project": "./tsconfig.json",
     "tsconfigRootDir": "./"
   },
   "rules": {
-    "react/jsx-no-bind": "off"
-  }
+    "react/jsx-no-bind": "off",
+    "@typescript-eslint/no-misused-promises": "off"
+  },
+  "ignorePatterns": [
+    "src/generates"
+  ]
 }

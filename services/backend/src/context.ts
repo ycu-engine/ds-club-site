@@ -1,11 +1,11 @@
-import type { User } from './modules/user/models'
 import type { ContextFunction } from 'apollo-server-core'
 import type { ExpressContext } from 'apollo-server-express'
 import { verifyToken } from './modules/auth'
 import { getUser } from './modules/user'
+import type { RegularUser } from './generates/graphql'
 
 export interface Context {
-  user: User | null
+  user: RegularUser | null
 }
 
 export const createContext: ContextFunction<ExpressContext, Context> = async ({

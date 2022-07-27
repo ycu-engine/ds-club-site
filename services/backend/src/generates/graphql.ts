@@ -16,8 +16,33 @@ export type Scalars = {
   Float: number;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  updateUserPaymentStatus: RegularUser;
+  updateUserRank: RegularUser;
+};
+
+
+export type MutationUpdateUserPaymentStatusArgs = {
+  paymentStatus: PaymentStatus;
+  userId: Scalars['ID'];
+};
+
+
+export type MutationUpdateUserRankArgs = {
+  rank: RankKind;
+  userId: Scalars['ID'];
+};
+
+/** 支払い状況 */
+export enum PaymentStatus {
+  NotPaid = 'NOT_PAID',
+  Paid = 'PAID'
+}
+
 export type Query = {
   __typename?: 'Query';
+  getRegularUsers: Array<RegularUser>;
   getUser?: Maybe<User>;
   ok: Scalars['Boolean'];
 };
@@ -27,11 +52,32 @@ export type QueryGetUserArgs = {
   id: Scalars['ID'];
 };
 
+export enum RankKind {
+  Beginner = 'BEGINNER',
+  Evangelist = 'EVANGELIST',
+  Imperator = 'IMPERATOR',
+  Master = 'MASTER'
+}
+
+export type RegularUser = User & {
+  __typename?: 'RegularUser';
+  /** 段位 */
+  currentRank: RankKind;
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  /** 支払い状況 */
+  paymentStatus: PaymentStatus;
+};
+
 export type User = {
-  __typename?: 'User';
   id: Scalars['ID'];
   name: Scalars['String'];
 };
+
+export enum UserRole {
+  Normal = 'NORMAL',
+  Staff = 'STAFF'
+}
 
 
 
@@ -104,33 +150,56 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Mutation: ResolverTypeWrapper<{}>;
+  PaymentStatus: PaymentStatus;
   Query: ResolverTypeWrapper<{}>;
+  RankKind: RankKind;
+  RegularUser: ResolverTypeWrapper<RegularUser>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  User: ResolverTypeWrapper<User>;
+  User: ResolversTypes['RegularUser'];
+  UserRole: UserRole;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   ID: Scalars['ID'];
+  Mutation: {};
   Query: {};
+  RegularUser: RegularUser;
   String: Scalars['String'];
-  User: User;
+  User: ResolversParentTypes['RegularUser'];
+};
+
+export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  updateUserPaymentStatus?: Resolver<ResolversTypes['RegularUser'], ParentType, ContextType, RequireFields<MutationUpdateUserPaymentStatusArgs, 'paymentStatus' | 'userId'>>;
+  updateUserRank?: Resolver<ResolversTypes['RegularUser'], ParentType, ContextType, RequireFields<MutationUpdateUserRankArgs, 'rank' | 'userId'>>;
 };
 
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getRegularUsers?: Resolver<Array<ResolversTypes['RegularUser']>, ParentType, ContextType>;
   getUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserArgs, 'id'>>;
   ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
 };
 
-export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+export type RegularUserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['RegularUser'] = ResolversParentTypes['RegularUser']> = {
+  currentRank?: Resolver<ResolversTypes['RankKind'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  paymentStatus?: Resolver<ResolversTypes['PaymentStatus'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+  __resolveType: TypeResolveFn<'RegularUser', ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = Context> = {
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  RegularUser?: RegularUserResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
 };
 
