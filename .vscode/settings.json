@@ -6,6 +6,12 @@
     },
     "eslint.workingDirectories": [
         {
+            "directory": "./services/backend",
+        },
+        {
+            "directory": "./services/frontend",
+        },
+        {
             "mode": "auto"
         },
     ]
