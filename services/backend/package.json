@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "dotenv -e .env.local concurrently \"ts-node-dev src/index.ts\" \"graphql-codegen --watch\""
+    "dev": "dotenv -e .env.local concurrently \"ts-node-dev src/index.ts\" \"graphql-codegen --watch\"",
+    "lint": "eslint src"
   },
   "dependencies": {
     "@graphql-tools/graphql-file-loader": "^7.4.0",

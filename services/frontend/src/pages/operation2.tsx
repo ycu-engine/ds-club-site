@@ -1,4 +1,8 @@
-import { Box, Text, Flex, Select ,
+import {
+  Box,
+  Text,
+  Flex,
+  Select,
   Table,
   Tbody,
   Tr,
@@ -6,7 +10,7 @@ import { Box, Text, Flex, Select ,
   TableContainer,
 } from '@chakra-ui/react'
 import { DefaultLayout } from '../components/DefaultLayout'
-import type { ChangeEventHandler } from 'react';
+import type { ChangeEventHandler } from 'react'
 import { useState, useCallback } from 'react'
 
 const Page = () => {

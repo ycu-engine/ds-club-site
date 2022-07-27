@@ -7,9 +7,8 @@ import DS from '../assets/images/DS_degree.png'
 import Engi from '../assets/images/Engineering_degree.png'
 import Sta from '../assets/images/Statistics_degree.png'
 import Learn from '../assets/images/learning_time.png'
+
 const br = '3xl'
-const ranktext = '5xl'
-const bigwidth = 550
 const pink = '#D9376E'
 const font = { base: '2xl', lg: '3xl' }
 

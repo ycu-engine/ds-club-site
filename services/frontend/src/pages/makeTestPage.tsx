@@ -335,13 +335,15 @@ const MakeTestPage = () => {
   // テストの番号を変更
   const [testNumber, setTestNumber] = useState<number>(0)
 
+  const testItem = testData[testNumber]
+
   // makeTestPageのreturn
   return (
     <DefaultLayout>
       <Flex>
         {/* testDataはオブジェクトを要素にもつリストなのでテスト的に追加されたものを表示する */}
 
-        <Test {...testData[testNumber]} />
+        {!!testItem && <Test {...testItem} />}
 
         <AddTestMenu
           addTestFunc={AddTestData}

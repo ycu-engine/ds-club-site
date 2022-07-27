@@ -1,5 +1,5 @@
-import { DefaultLayout } from "../components/DefaultLayout";
-import { 
+import { DefaultLayout } from '../components/DefaultLayout'
+import {
   Button,
   Box,
   Grid,
@@ -8,74 +8,111 @@ import {
   Select,
   Input,
   Center,
- } from '@chakra-ui/react';
+} from '@chakra-ui/react'
 
 const Page = () => {
   return (
     <div>
-    <DefaultLayout >
-      <Grid gap={6} templateColumns='repeat(2, 1fr)' templateRows='repeat(5, 1fr)'>
-        <GridItem colSpan={1} rowSpan={5} w='100%'>
-          <Box bg='white' borderRadius='20px' borderWidth='2px' m='12px' overflow='hidden' p='12px'>
-            <Text fontSize={32}>学習時間の記録</Text>
+      <DefaultLayout>
+        <Grid
+          gap={6}
+          templateColumns="repeat(2, 1fr)"
+          templateRows="repeat(5, 1fr)"
+        >
+          <GridItem colSpan={1} rowSpan={5} w="100%">
+            <Box
+              bg="white"
+              borderRadius="20px"
+              borderWidth="2px"
+              m="12px"
+              overflow="hidden"
+              p="12px"
+            >
+              <Text fontSize={32}>学習時間の記録</Text>
 
-            <Box borderRadius='20px' borderWidth='2px' mt='12px' overflow='hidden' p='12px'>
-              <Text>期間</Text>
+              <Box
+                borderRadius="20px"
+                borderWidth="2px"
+                mt="12px"
+                overflow="hidden"
+                p="12px"
+              >
+                <Text>期間</Text>
 
-              <Select id='start' placeholder='開始日時を選択'>
-                <option>データピッカー用のライブラリを導入したい</option>
+                <Select id="start" placeholder="開始日時を選択">
+                  <option>データピッカー用のライブラリを導入したい</option>
 
-                <option>データピッカー用のライブラリを導入したい</option>
-              </Select>
+                  <option>データピッカー用のライブラリを導入したい</option>
+                </Select>
 
-              <Text>から</Text>
+                <Text>から</Text>
 
-              <Select id='end' placeholder='終了日時を選択'>
-                <option>データピッカー用のライブラリを導入したい</option>
+                <Select id="end" placeholder="終了日時を選択">
+                  <option>データピッカー用のライブラリを導入したい</option>
 
-                <option>データピッカー用のライブラリを導入したい</option>
-              </Select>
+                  <option>データピッカー用のライブラリを導入したい</option>
+                </Select>
 
-              <Text>まで</Text>
+                <Text>まで</Text>
+              </Box>
+
+              <Box
+                borderRadius="20px"
+                borderWidth="2px"
+                mt="12px"
+                overflow="hidden"
+                p="12px"
+              >
+                チャート
+              </Box>
             </Box>
+          </GridItem>
 
-            <Box borderRadius='20px' borderWidth='2px' mt='12px' overflow='hidden' p='12px'>
-              チャート
+          <GridItem colSpan={1} rowSpan={2} w="100%">
+            <Box
+              bg="white"
+              borderRadius="20px"
+              borderWidth="2px"
+              m="12px"
+              overflow="hidden"
+              p="12px"
+            >
+              <Text fontSize={24}>名前：浦 優太</Text>
+
+              <Text fontSize={24}>会員：一般会員</Text>
             </Box>
-          </Box>
-        </GridItem >
+          </GridItem>
 
-        <GridItem colSpan={1} rowSpan={2} w='100%'>
-          <Box bg='white' borderRadius='20px' borderWidth='2px' m='12px' overflow='hidden' p='12px'>
-            <Text fontSize={24}>名前：浦 優太</Text>
+          <GridItem colSpan={1} rowSpan={3} w="100%">
+            <Box
+              bg="white"
+              borderRadius="20px"
+              borderWidth="2px"
+              m="12px"
+              overflow="hidden"
+              p="12px"
+            >
+              <Text mt="12px">勉強内容</Text>
 
-            <Text fontSize={24}>会員：一般会員</Text>
-          </Box>
-        </GridItem>
+              <Input mt="12px" placeholder="勉強内容" rounded="full" />
 
-        <GridItem colSpan={1} rowSpan={3} w='100%'>
-          <Box bg='white' borderRadius='20px' borderWidth='2px' m='12px' overflow='hidden' p='12px'>
-            <Text mt='12px'>勉強内容</Text>
+              <Text mt="12px">勉強時間</Text>
 
-            <Input mt='12px' placeholder='勉強内容' rounded='full' />
+              <Input mt="12px" placeholder="勉強時間" rounded="full" />
 
-            <Text mt='12px'>勉強時間</Text>
+              <Text mt="12px">記入日</Text>
 
-            <Input mt='12px' placeholder='勉強時間' rounded="full" />
+              <Input mt="12px" placeholder="記入日" rounded="full" />
 
-            <Text mt='12px'>記入日</Text>
-
-            <Input mt='12px' placeholder='記入日' rounded="full" />
-
-            <Center h='100%'>
-              <Button mt='12px'>追加</Button>
-            </Center>
-          </Box>
-        </GridItem>
-      </Grid>
+              <Center h="100%">
+                <Button mt="12px">追加</Button>
+              </Center>
+            </Box>
+          </GridItem>
+        </Grid>
       </DefaultLayout>
     </div>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

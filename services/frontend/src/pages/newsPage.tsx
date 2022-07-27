@@ -14,7 +14,7 @@ import {
 import { DefaultLayout } from '../components/DefaultLayout'
 
 // タブ用のprops
-const tabprops: {} = {
+const tabprops = {
   _focus: { outline: 'none' },
   _selected: { bg: 'blackAlpha.200', color: 'red' },
 }
