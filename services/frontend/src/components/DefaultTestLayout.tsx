@@ -1,7 +1,7 @@
 import { Header } from './Header'
 
 import { Box, Flex } from '@chakra-ui/react'
-import type { ReactNode} from 'react';
+import type { ReactNode } from 'react'
 import { useCallback, useState } from 'react'
 
 type DefaultLayoutProps = {

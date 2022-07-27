@@ -14,7 +14,8 @@
 				"ms-azuretools.vscode-docker",
 				"toba.vsfire",
 				"GitHub.copilot",
-				"GraphQL.vscode-graphql"
+				"GraphQL.vscode-graphql",
+				"redhat.vscode-yaml"
 			]
 		}
 	},

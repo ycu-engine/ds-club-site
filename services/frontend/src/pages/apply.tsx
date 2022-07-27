@@ -1,4 +1,4 @@
-import { Header } from '../components/Header';
+import { Header } from '../components/Header'
 import {
   FormControl,
   FormLabel,
@@ -10,28 +10,25 @@ import {
   Box,
   Container,
   Text,
-} from '@chakra-ui/react';
-import React from 'react';
+} from '@chakra-ui/react'
+import React from 'react'
 
 const PasswordInput = () => {
   const [show, setShow] = React.useState(false)
   const handleClick = () => setShow(!show)
 
   return (
-    <InputGroup size='md'>
-      <Input
-        pr='4.5rem'
-        type={show ? 'text' : 'password'}
-      />
+    <InputGroup size="md">
+      <Input pr="4.5rem" type={show ? 'text' : 'password'} />
 
-      <InputRightElement width='4.5rem'>
-        <Button h='1.75rem' onClick={handleClick} size='sm'>
+      <InputRightElement width="4.5rem">
+        <Button h="1.75rem" onClick={handleClick} size="sm">
           {show ? 'Hide' : 'Show'}
         </Button>
       </InputRightElement>
     </InputGroup>
-  );
-};
+  )
+}
 
 const ErrorMessageExample = () => {
   const [input, setInput] = React.useState(null)
@@ -49,24 +46,24 @@ const ErrorMessageExample = () => {
   return (
     <div>
       <FormControl isInvalid={isError}>
-        <FormLabel m='12px'>パスワード</FormLabel>
+        <FormLabel m="12px">パスワード</FormLabel>
 
-        <InputGroup size='md'>
+        <InputGroup size="md">
           <Input
             onChange={handleInputChange}
-            pr='4.5rem'
+            pr="4.5rem"
             type={show ? 'text' : 'password'}
             value={input}
           />
 
-          <InputRightElement width='4.5rem'>
-            <Button h='1.75rem' onClick={handleClick} size='sm'>
+          <InputRightElement width="4.5rem">
+            <Button h="1.75rem" onClick={handleClick} size="sm">
               {show ? 'Hide' : 'Show'}
             </Button>
           </InputRightElement>
         </InputGroup>
 
-        { !isError ? (
+        {!isError ? (
           <span />
         ) : (
           <FormErrorMessage>必須項目です</FormErrorMessage>
@@ -74,24 +71,24 @@ const ErrorMessageExample = () => {
       </FormControl>
 
       <FormControl isInvalid={isError2}>
-        <FormLabel m='12px'>パスワード（確認用）</FormLabel>
+        <FormLabel m="12px">パスワード（確認用）</FormLabel>
 
-        <InputGroup size='md'>
+        <InputGroup size="md">
           <Input
             onChange={handleInputChange2}
-            pr='4.5rem'
+            pr="4.5rem"
             type={show2 ? 'text' : 'password'}
             value={input2}
           />
 
-          <InputRightElement width='4.5rem'>
-            <Button h='1.75rem' onClick={handleClick2} size='sm'>
+          <InputRightElement width="4.5rem">
+            <Button h="1.75rem" onClick={handleClick2} size="sm">
               {show2 ? 'Hide' : 'Show'}
             </Button>
           </InputRightElement>
         </InputGroup>
 
-        { !isError2 ? (
+        {!isError2 ? (
           input2 !== input ? (
             <FormErrorMessage>パスワードが一致しません</FormErrorMessage>
           ) : (
@@ -102,39 +99,51 @@ const ErrorMessageExample = () => {
         )}
       </FormControl>
     </div>
-  );
-};
+  )
+}
 
 const Page = () => {
   return (
-    <div id='app'>
-      <div className='header'>
+    <div id="app">
+      <div className="header">
         <Header />
       </div>
 
-      <Text fontSize={32} m='20px'>体験入会申請フォーム</Text>
+      <Text fontSize={32} m="20px">
+        体験入会申請フォーム
+      </Text>
 
       <Container>
-        <Box borderRadius='20px' borderWidth='2px' mt='12px' overflow='hidden' p='12px'>
+        <Box
+          borderRadius="20px"
+          borderWidth="2px"
+          mt="12px"
+          overflow="hidden"
+          p="12px"
+        >
           <Container>
-            <div className='form'>
+            <div className="form">
               <FormControl>
                 <div>
-                  <FormLabel htmlFor='name' m='12px'>お名前</FormLabel>
+                  <FormLabel htmlFor="name" m="12px">
+                    お名前
+                  </FormLabel>
 
-                  <Input id='name' type='name' />
+                  <Input id="name" type="name" />
                 </div>
 
                 <div>
-                  <FormLabel htmlFor='email' m='12px'>メールアドレス</FormLabel>
+                  <FormLabel htmlFor="email" m="12px">
+                    メールアドレス
+                  </FormLabel>
 
-                  <Input id='email' type='email' />
+                  <Input id="email" type="email" />
                 </div>
 
                 <div>
-                  <FormLabel m='12px'>学校・学部・学科名・学年</FormLabel>
+                  <FormLabel m="12px">学校・学部・学科名・学年</FormLabel>
 
-                  <Input/>
+                  <Input />
                 </div>
 
                 {/* <div>
@@ -147,7 +156,7 @@ const Page = () => {
                 </div> */}
 
                 <div>
-                  <ErrorMessageExample/>
+                  <ErrorMessageExample />
                 </div>
               </FormControl>
             </div>
@@ -155,7 +164,7 @@ const Page = () => {
         </Box>
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

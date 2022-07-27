@@ -5,7 +5,8 @@ import {
   useRadioGroup,
   Wrap,
   Container,
- chakra } from '@chakra-ui/react'
+  chakra,
+} from '@chakra-ui/react'
 
 const Example = () => {
   const CustomRadio = (props) => {
