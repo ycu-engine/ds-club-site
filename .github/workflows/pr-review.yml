@@ -32,3 +32,17 @@ jobs:
       - name: Lint front
         run: yarn lint
         working-directory: services/frontend
+
+  front-type:
+    name: Front Type
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: yarn
+      - name: Type front
+        run: yarn tsc --noEmit
+        working-directory: services/frontend

@@ -11,34 +11,20 @@ import {
   Container,
   Text,
 } from '@chakra-ui/react'
-import React from 'react'
-
-const PasswordInput = () => {
-  const [show, setShow] = React.useState(false)
-  const handleClick = () => setShow(!show)
-
-  return (
-    <InputGroup size="md">
-      <Input pr="4.5rem" type={show ? 'text' : 'password'} />
-
-      <InputRightElement width="4.5rem">
-        <Button h="1.75rem" onClick={handleClick} size="sm">
-          {show ? 'Hide' : 'Show'}
-        </Button>
-      </InputRightElement>
-    </InputGroup>
-  )
-}
+import type { ChangeEventHandler } from 'react'
+import { useState } from 'react'
 
 const ErrorMessageExample = () => {
-  const [input, setInput] = React.useState(null)
-  const [input2, setInput2] = React.useState(null)
-  const [show, setShow] = React.useState(false)
-  const [show2, setShow2] = React.useState(false)
+  const [input, setInput] = useState('')
+  const [input2, setInput2] = useState('')
+  const [show, setShow] = useState(false)
+  const [show2, setShow2] = useState(false)
   const handleClick = () => setShow(!show)
   const handleClick2 = () => setShow2(!show2)
-  const handleInputChange = (e) => setInput(e.target.value)
-  const handleInputChange2 = (e) => setInput2(e.target.value)
+  const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) =>
+    setInput(e.target.value)
+  const handleInputChange2: ChangeEventHandler<HTMLInputElement> = (e) =>
+    setInput2(e.target.value)
 
   const isError = input === ''
   const isError2 = input2 === ''

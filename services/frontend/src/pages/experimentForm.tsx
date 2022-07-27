@@ -1,5 +1,6 @@
 import { Box, Container, Heading, VStack } from '@chakra-ui/react'
 import { ErrorMessage } from '@hookform/error-message'
+import type { FieldValues, SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { DefaultLayout } from '../components/DefaultLayout'
 
@@ -9,8 +10,8 @@ const Page = () => {
     handleSubmit,
     formState: { errors },
   } = useForm()
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.debug(data)
   }
 
   type inputBoxProps = {

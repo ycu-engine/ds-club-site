@@ -12,7 +12,8 @@ const Page = () => {
 
         {/* sandboxのエラーは解決するのが難しそう */}
 
-        <iframe
+        <Box
+          as="iframe"
           frameBorder="0"
           height={[300, 500]}
           // sandbox="allow-downloads"
@@ -31,7 +32,8 @@ const Page = () => {
         {/* sandboxのエラーは解決するのが難しそう */}
 
         <Box textAlign="center">
-          <iframe
+          <Box
+            as="iframe"
             frameBorder="0"
             height="300px"
             // sandbox="allow-downloads"
