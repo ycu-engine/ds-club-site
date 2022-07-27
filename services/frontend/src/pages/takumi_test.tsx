@@ -1,3 +1,4 @@
+import type { UseRadioProps } from '@chakra-ui/react'
 import {
   Box,
   useRadio,
@@ -5,36 +6,38 @@ import {
   useRadioGroup,
   Wrap,
   Container,
- chakra } from '@chakra-ui/react'
+  chakra,
+} from '@chakra-ui/react'
+import type { StringOrNumber } from '@chakra-ui/utils'
+
+const CustomRadio = (props: { text: string } & UseRadioProps) => {
+  const { text, ...radioProps } = props
+  const { state, getInputProps, getCheckboxProps, getLabelProps } =
+    useRadio(radioProps)
+
+  return (
+    <chakra.label cursor="pointer">
+      <input {...getInputProps({})} hidden />
+
+      <Box
+        {...getCheckboxProps()}
+        bg="orange.400"
+        border={state.isChecked ? '2px solid green' : ''}
+        borderRadius="20"
+        h="80px"
+        p={2}
+        rounded="20"
+        w={200}
+      >
+        <Text
+          {...getLabelProps()}
+        >{`${text},isChecked:${state.isChecked}`}</Text>
+      </Box>
+    </chakra.label>
+  )
+}
 
 const Example = () => {
-  const CustomRadio = (props) => {
-    const { text, ...radioProps } = props
-    const { state, getInputProps, getCheckboxProps, getLabelProps } =
-      useRadio(radioProps)
-
-    return (
-      <chakra.label cursor="pointer">
-        <input {...getInputProps({})} hidden />
-
-        <Box
-          {...getCheckboxProps()}
-          bg="orange.400"
-          border={state.isChecked ? '2px solid green' : ''}
-          borderRadius="20"
-          h="80px"
-          p={2}
-          rounded="20"
-          w={200}
-        >
-          <Text
-            {...getLabelProps()}
-          >{`${text},isChecked:${state.isChecked}`}</Text>
-        </Box>
-      </chakra.label>
-    )
-  }
-
   const choices = [
     { index: '1', text: '1:解答1' },
     { index: '2', text: '2:解答2' },
@@ -48,8 +51,8 @@ const Example = () => {
 
   let isCorrect = false
   const answer = '1'
-  const handleCheckAnswer = (value) => {
-    if (answer === value) {
+  const handleCheckAnswer = (v: StringOrNumber) => {
+    if (answer === v) {
       isCorrect = true
     } else {
       isCorrect = false

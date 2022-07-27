@@ -6,7 +6,7 @@ import DS from '../assets/images/DS_degree.png'
 import Engi from '../assets/images/Engineering_degree.png'
 import Sta from '../assets/images/Statistics_degree.png'
 import Learn from '../assets/images/learning_time.png'
-import { COLORS } from 'src/theme'
+import { COLORS } from '../theme'
 
 const Page = () => {
   return (

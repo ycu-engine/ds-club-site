@@ -10,12 +10,65 @@ import {
   Link,
   VStack,
 } from '@chakra-ui/react'
+import type { ChangeEventHandler } from 'react'
 import { useEffect, useState } from 'react'
 import { DefaultLayout } from '../components/DefaultLayout'
 
+type Form = {
+  パスワード: string
+  パスワード確認用: string
+  メールアドレス: string
+  名前: string
+  '学校・学部・学科名・学年': string
+}
+type FormKey = keyof Form
+
+// Password用のコンポーネント定義
+const InputPassword = ({
+  formName,
+  handleChangeInput,
+  value,
+}: {
+  formName: FormKey
+  handleChangeInput: ChangeEventHandler<HTMLInputElement>
+  value: string
+}) => {
+  // Hook定義
+  const [showPass, setShowPass] = useState(false)
+  return (
+    <Box px="20" py="2" w="100%">
+      {formName}
+
+      <InputGroup size="md">
+        <Input
+          borderColor="black"
+          name={formName}
+          onChange={handleChangeInput}
+          pr="4.5rem"
+          type={showPass ? 'text' : 'password'}
+          value={value}
+        />
+
+        <InputRightElement width="4.5rem">
+          <Button
+            h="1.75rem"
+            onClick={() => {
+              setShowPass((prev) => !prev)
+            }}
+            p="1"
+            size="sm"
+          >
+            {showPass ? '非表示' : '表示'}
+          </Button>
+        </InputRightElement>
+      </InputGroup>
+    </Box>
+  )
+}
+
 const Page = () => {
   // Hook定義, 入力された値を扱う
-  const [formValue, setFormValue] = useState({
+  const [formValue, setFormValue] = useState<Form>({
     パスワード: '',
     パスワード確認用: '',
     メールアドレス: '',
@@ -30,75 +83,39 @@ const Page = () => {
     '学校・学部・学科名・学年',
     'パスワード',
     'パスワード確認用',
-  ]
+  ] as const
 
   // Inputが変更されたときの処理
-  const handleChangeInput = (event) => {
+  const handleChangeInput: ChangeEventHandler<HTMLInputElement> = (event) => {
     // イベントが発生した対象のname属性とvalue属性を取得
     const { name, value } = event.target
     setFormValue({ ...formValue, [name]: value })
   }
 
-  // Password用のコンポーネント定義
-  const inputPassword = (FormName) => {
-    // Hook定義
-    const [showPass, toggleShowPass] = useState(false)
-    return (
-      <Box px="20" py="2" w="100%">
-        {FormName}
-
-        <InputGroup size="md">
-          <Input
-            borderColor="black"
-            name={FormName}
-            onChange={handleChangeInput}
-            pr="4.5rem"
-            type={showPass ? 'text' : 'password'}
-            value={formValue[FormName]}
-          />
-
-          <InputRightElement width="4.5rem">
-            <Button
-              h="1.75rem"
-              onClick={() => {
-                toggleShowPass(!showPass)
-              }}
-              p="1"
-              size="sm"
-            >
-              {showPass ? '非表示' : '表示'}
-            </Button>
-          </InputRightElement>
-        </InputGroup>
-      </Box>
-    )
-  }
-
   // 確認ページへボタンの表示状態 trueならspinnerを表示
-  const [isLoading, toggleLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const handleClickConform = () => {
-    toggleLoading(!isLoading)
+    setIsLoading((prev) => !prev)
   }
 
   // すべて入力されているかのhook
-  const [isAllFilled, setIsAllFilled] = useState<boolean>(false)
 
   // 確認ページボタンのIsSamePassのstate
-  const [isDisabled, toggleIsSamePass] = useState<boolean>(true)
+  const [isDisabled, setIsDisabled] = useState<boolean>(true)
 
   // パスワードが一致するかしないかによる条件分岐
   useEffect(() => {
     // IsSamePassのstate変更
     if (formValue.パスワード === formValue.パスワード確認用) {
-      toggleIsSamePass(false) // 一致すればfalseにしボタンを押せるようにする
+      setIsDisabled(false) // 一致すればfalseにしボタンを押せるようにする
     } else {
-      toggleIsSamePass(true) // 一致しなければtrueにしボタンを押せなくする
+      setIsDisabled(true) // 一致しなければtrueにしボタンを押せなくする
     }
     // 何も入力していな時の処理
     if (formValue.パスワード === '' || formValue.パスワード確認用 === '') {
-      toggleIsSamePass(true)
+      setIsDisabled(true)
     }
-  })
+  }, [formValue.パスワード, formValue.パスワード確認用])
 
   // ここからページ
   return (
@@ -118,13 +135,13 @@ const Page = () => {
               {FormNames.slice(0, 3).map((FormName) => {
                 return (
                   // コンポーネント化しておく
-                  <Box px="20" py="2" w="100%">
+                  <Box key={FormName} px="20" py="2" w="100%">
                     {FormName}
 
                     {/* name属性を定義してイベントで扱えるようにする */}
 
                     <Input
-                      borderColor="black" //　map関数でまとめてコンポーネントを生成したら一意なkey属性を設定する必要がある
+                      borderColor="black" // map関数でまとめてコンポーネントを生成したら一意なkey属性を設定する必要がある
                       key={FormName}
                       name={FormName}
                       onChange={handleChangeInput}
@@ -136,11 +153,19 @@ const Page = () => {
 
               {/* パスワードのinput要素 */}
 
-              {inputPassword(FormNames[3])}
+              <InputPassword
+                formName={FormNames[3]}
+                handleChangeInput={handleChangeInput}
+                value={formValue['パスワード']}
+              />
 
               {/* パスワード確認用のinput要素 */}
 
-              {inputPassword(FormNames[4])}
+              <InputPassword
+                formName={FormNames[4]}
+                handleChangeInput={handleChangeInput}
+                value={formValue['パスワード確認用']}
+              />
             </VStack>
           </Box>
         </Center>

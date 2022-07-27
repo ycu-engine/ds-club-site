@@ -11,7 +11,7 @@ type DefaultLayoutProps = {
 export const DefaultLayout = ({ children, hideHeader }: DefaultLayoutProps) => {
   return (
     <Flex bg="#EFF0F3" flexDir="column" h="200vh">
-      {!hideHeader ? <Header /> : <></>}
+      {!hideHeader ? <Header /> : null}
 
       <Flex flex={1}>
         <Box flex={1} overflowY="scroll">

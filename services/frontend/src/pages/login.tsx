@@ -114,11 +114,12 @@ const Page = () => {
             </Flex>
 
             <NextLink
-              fontSize="xs"
               href="https://datascienceclubjp.wixsite.com/home"
-              m={1}
+              passHref
             >
-              パスワードを忘れたら
+              <Link fontSize="xs" m={1}>
+                パスワードを忘れたら
+              </Link>
             </NextLink>
           </Box>
 
