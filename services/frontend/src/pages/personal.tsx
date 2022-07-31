@@ -1,5 +1,5 @@
 import { DefaultLayout } from '../components/DefaultLayout'
-import { Box, Flex, Heading, Text, Container, HStack } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, Container } from '@chakra-ui/react'
 
 import Image from 'next/image'
 import Rank from '../assets/images/eva.png'
@@ -78,7 +78,7 @@ const Page = () => {
               </Flex>
 
               <Flex align="center" direction="column">
-                <Text fontSize={font}>諸田健太朗</Text>
+                <Text fontSize={font}>諸田</Text>
 
                 <Text fontSize={font}>代表</Text>
               </Flex>
