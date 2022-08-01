@@ -13,7 +13,6 @@ const Page = () => {
     watch,
     formState: { errors },
   } = useForm()
-
   const onSubmit = (data) => {
     console.log(data)
     setIsLoading(!isLoading)

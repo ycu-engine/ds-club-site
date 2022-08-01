@@ -1,8 +1,14 @@
+import { ApolloProvider } from '@apollo/client'
 import { ChakraProvider } from '@chakra-ui/react'
-const MyApp = ({ Component, pageProps }) => {
+import { client } from '../clients/apollo'
+import type { AppProps } from 'next/app'
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <ApolloProvider client={client}>
+        <Component {...pageProps} />
+      </ApolloProvider>
     </ChakraProvider>
   )
 }

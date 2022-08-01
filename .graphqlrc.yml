@@ -1,0 +1,5 @@
+projects:
+  frontend:
+    schema: services/backend/schema.graphql
+    documents:
+      - services/frontend/src/**/*.graphql

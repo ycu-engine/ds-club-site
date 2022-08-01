@@ -44,9 +44,12 @@ const Page = () => {
             <Flex justify="left" textAlign="left">
               <VStack>
                 <Heading size="2xl">受験科目を選択してください</Heading>
-                <Select placeholder="Select option" borderColor={'0D0D0D'}>
+
+                <Select borderColor="0D0D0D" placeholder="Select option">
                   <option value="datascience">データサイエンス</option>
+
                   <option value="statistic">統計</option>
+
                   <option value="enginner">エンジニア</option>
                 </Select>
               </VStack>
@@ -62,28 +65,33 @@ const Page = () => {
           >
             <Flex justify="left" textAlign="left">
               <VStack spacing={50}>
-                <Flex bgColor={'#FFFFFE'}>
+                <Flex bgColor="#FFFFFE">
                   <VStack>
-                    <Heading size="2xl" p="5%">
+                    <Heading p="5%" size="2xl">
                       注意事項です。よく読んだ上でテストに臨んでください。
                     </Heading>
+
                     <OrderedList p="10%">
                       <ListItem pb="3%">試験時間は60分です。</ListItem>
+
                       <ListItem pb="3%">80%以上が合格です。</ListItem>
+
                       <ListItem pb="3%">
                         試験時間中の検索は可とします。ただし、第三者と解くことは禁じます。
                       </ListItem>
+
                       <ListItem>
                         不正発覚時には当該試験は0点。運営側で協議の上厳しい処分を下します。
                       </ListItem>
                     </OrderedList>
                   </VStack>
                 </Flex>
+
                 <Flex>
                   <Checkbox
+                    borderColor="#0D0D0D"
                     isChecked={isActive}
                     onChange={handleOnChange}
-                    borderColor={'#0D0D0D'}
                   >
                     上記注意事項を確認しました。
                   </Checkbox>
@@ -91,14 +99,15 @@ const Page = () => {
               </VStack>
             </Flex>
           </Flex>
-          <Flex w="80%" justify="center" h="10vh">
+
+          <Flex h="10vh" justify="center" w="80%">
             <Button
+              bgColor="#FF8E3C"
+              isDisabled={!isActive}
+              pb="2%"
               pl="20%"
               pr="20%"
               pt="2%"
-              pb="2%"
-              bgColor={'#FF8E3C'}
-              isDisabled={!isActive}
             >
               テストを開始します
             </Button>

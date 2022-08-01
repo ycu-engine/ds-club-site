@@ -5,18 +5,7 @@
 	"workspaceFolder": "/workspace",
 	"customizations": {
 		"vscode": {
-			"settings": {
-				"editor.defaultFormatter": "esbenp.prettier-vscode",
-				"editor.formatOnSave": true,
-				"editor.codeActionsOnSave": {
-					"source.fixAll.eslint": true
-				},
-				"eslint.workingDirectories": [
-					{
-						"mode": "auto"
-					}
-				]
-			},
+			"settings": {},
 			"extensions": [
 				"dbaeumer.vscode-eslint",
 				"ms-vsliveshare.vsliveshare",
@@ -25,7 +14,8 @@
 				"ms-azuretools.vscode-docker",
 				"toba.vsfire",
 				"GitHub.copilot",
-				"GraphQL.vscode-graphql"
+				"GraphQL.vscode-graphql",
+				"redhat.vscode-yaml"
 			]
 		}
 	},
