@@ -9,7 +9,7 @@ import {
   InputGroup,
   InputRightElement,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 
 import Logo from '../assets/images/icon.png'
 import Image from 'next/image'
@@ -19,15 +19,15 @@ const ptb = 12
 const plr = 8
 
 const Page = () => {
-  const [show, setShow] = React.useState(false)
-  const [username, setUsername] = React.useState('')
-  const [password, setPassword] = React.useState('')
+  const [show, setShow] = useState(false)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
   const handleClick = () => setShow(!show)
 
   const isInvalid = !username || !password
 
   return (
-    <DefaultLayout hideHeader={true}>
+    <DefaultLayout hideHeader>
       <Box pt={5} px={10}>
         <Flex align="center" as="form" direction="column" justify="center">
           <Box
@@ -114,11 +114,12 @@ const Page = () => {
             </Flex>
 
             <NextLink
-              fontSize="xs"
               href="https://datascienceclubjp.wixsite.com/home"
-              m={1}
+              passHref
             >
-              パスワードを忘れたら
+              <Link fontSize="xs" m={1}>
+                パスワードを忘れたら
+              </Link>
             </NextLink>
           </Box>
 

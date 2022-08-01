@@ -1,0 +1,51 @@
+interface User {
+  id: ID!
+  name: String!
+}
+
+enum UserRole {
+  NORMAL
+  STAFF
+}
+
+"""
+支払い状況
+"""
+enum PaymentStatus {
+  NOT_PAID
+  PAID
+}
+
+enum RankKind {
+  BEGINNER
+  EVANGELIST
+  MASTER
+  IMPERATOR
+}
+
+type RegularUser implements User {
+  id: ID!
+  name: String!
+  """
+  段位
+  """
+  currentRank: RankKind!
+  """
+  支払い状況
+  """
+  paymentStatus: PaymentStatus!
+}
+
+type Query {
+  ok: Boolean!
+  getUser(id: ID!): User
+  getRegularUsers: [RegularUser!]!
+}
+
+type Mutation {
+  updateUserPaymentStatus(
+    userId: ID!
+    paymentStatus: PaymentStatus!
+  ): RegularUser!
+  updateUserRank(userId: ID!, rank: RankKind!): RegularUser!
+}

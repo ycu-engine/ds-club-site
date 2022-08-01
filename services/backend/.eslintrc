@@ -1,0 +1,24 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:team-vals/recommended",
+    "plugin:team-vals/prettier"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": "./"
+  },
+  "rules": {
+    "import/no-unresolved": [
+      "error",
+      {
+        "ignore": [
+          "^firebase-admin/"
+        ]
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "src/generates"
+  ]
+}

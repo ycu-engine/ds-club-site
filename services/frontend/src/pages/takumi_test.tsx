@@ -1,42 +1,43 @@
+import type { UseRadioProps } from '@chakra-ui/react'
 import {
   Box,
-  Image,
   useRadio,
-  Button,
   Text,
   useRadioGroup,
   Wrap,
   Container,
+  chakra,
 } from '@chakra-ui/react'
-import { chakra } from '@chakra-ui/react'
+import type { StringOrNumber } from '@chakra-ui/utils'
 
-function Example() {
-  function CustomRadio(props) {
-    const { text, ...radioProps } = props
-    const { state, getInputProps, getCheckboxProps, getLabelProps } =
-      useRadio(radioProps)
+const CustomRadio = (props: { text: string } & UseRadioProps) => {
+  const { text, ...radioProps } = props
+  const { state, getInputProps, getCheckboxProps, getLabelProps } =
+    useRadio(radioProps)
 
-    return (
-      <chakra.label cursor="pointer">
-        <input {...getInputProps({})} hidden />
-        <Box
-          {...getCheckboxProps()}
-          border={state.isChecked ? '2px solid green' : ''}
-          w={200}
-          p={2}
-          rounded="20"
-          borderRadius="20"
-          bg="orange.400"
-          h="80px"
-        >
-          <Text
-            {...getLabelProps()}
-          >{`${text},isChecked:${state.isChecked}`}</Text>
-        </Box>
-      </chakra.label>
-    )
-  }
+  return (
+    <chakra.label cursor="pointer">
+      <input {...getInputProps({})} hidden />
 
+      <Box
+        {...getCheckboxProps()}
+        bg="orange.400"
+        border={state.isChecked ? '2px solid green' : ''}
+        borderRadius="20"
+        h="80px"
+        p={2}
+        rounded="20"
+        w={200}
+      >
+        <Text
+          {...getLabelProps()}
+        >{`${text},isChecked:${state.isChecked}`}</Text>
+      </Box>
+    </chakra.label>
+  )
+}
+
+const Example = () => {
   const choices = [
     { index: '1', text: '1:解答1' },
     { index: '2', text: '2:解答2' },
@@ -50,8 +51,8 @@ function Example() {
 
   let isCorrect = false
   const answer = '1'
-  const handleCheckAnswer = (value) => {
-    if (answer === value) {
+  const handleCheckAnswer = (v: StringOrNumber) => {
+    if (answer === v) {
       isCorrect = true
     } else {
       isCorrect = false
@@ -64,7 +65,8 @@ function Example() {
       <Text>
         The selected radio is: {handleCheckAnswer(value) ? '正解' : '不正解'}
       </Text>
-      <Wrap justify={'center'}>
+
+      <Wrap justify="center">
         {choices.map((choice) => {
           return (
             <CustomRadio
@@ -75,6 +77,7 @@ function Example() {
           )
         })}
       </Wrap>
+
       <Text>{isCorrect}</Text>
     </Container>
   )

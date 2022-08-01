@@ -1,0 +1,28 @@
+query MemberInfoPage {
+  getRegularUsers {
+    id
+    name
+    currentRank
+    paymentStatus
+  }
+}
+
+mutation MemberInfoPage_UpdatePaymentStatus(
+  $userId: ID!
+  $paymentStatus: PaymentStatus!
+) {
+  updateUserPaymentStatus(userId: $userId, paymentStatus: $paymentStatus) {
+    id
+    paymentStatus
+  }
+}
+
+mutation MemberInfoPage_UpdateCurrentRank(
+  $userId: ID!
+  $currentRank: RankKind!
+) {
+  updateUserRank(userId: $userId, rank: $currentRank) {
+    id
+    currentRank
+  }
+}

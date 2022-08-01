@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    volumes:
+      - ..:/workspace:cached
+      - firebase-emulators:/home/node/.cache/firebase/emulators/
+
+    command: sleep infinity
+
+    user: node
+
+volumes:
+  firebase-emulators:

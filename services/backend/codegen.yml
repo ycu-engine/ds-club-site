@@ -1,0 +1,12 @@
+schema: schema.graphql
+
+generates:
+  src/generates/graphql.ts:
+    plugins:
+      - add:
+          content: // @ts-nocheck
+      - typescript
+      - typescript-resolvers
+    config:
+      useTypeImports: true
+      contextType: ../context#Context
