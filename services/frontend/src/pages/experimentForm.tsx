@@ -1,76 +1,34 @@
-import { Box, Container, Heading, VStack } from '@chakra-ui/react'
+import { Box, Button, Container, Heading, VStack } from '@chakra-ui/react'
 import { ErrorMessage } from '@hookform/error-message'
+import { useState } from 'react'
 import type { FieldValues, SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { DefaultLayout } from '../components/DefaultLayout'
+import { InputBox } from '../components/InputForm/InputBox'
+import { InputPasswordBox } from '../components/InputForm/InputPasswordBox'
 
 const Page = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.debug(data)
+    setIsLoading(!isLoading)
+    window.location.href = '/'
   }
-
-  type inputBoxProps = {
-    title: string
-    type: string
-    registerName: string
-    pattern: RegExp
-    required: boolean
-  }
-
-  const inputBox = (props: inputBoxProps) => {
-    const { title, type, registerName, pattern, required } = props
-    return (
-      <Box
-        bg="white"
-        borderColor="black"
-        borderRadius="24"
-        px="2"
-        py="2"
-        w="100%"
-      >
-        {title}
-
-        <input
-          style={{
-            border: '1px solid',
-            borderRadius: '0.5rem',
-            padding: '0.5rem',
-            width: '100%',
-          }}
-          type={type}
-          {...register(registerName, {
-            maxLength: 80,
-            pattern: {
-              message: '正しいメールアドレスを入力してください',
-              value: pattern,
-            },
-            required: { message: '必須項目です', value: required },
-          })}
-        />
-
-        <ErrorMessage
-          errors={errors}
-          name={registerName}
-          render={({ message }) => <p style={{ color: 'red' }}>{message}</p>}
-        />
-      </Box>
-    )
-  }
+  const [isLoading, setIsLoading] = useState(false)
 
   return (
     <DefaultLayout hideHeader>
       <Heading p="10">体験入会申請フォーム</Heading>
 
       <Container fontSize="1em" w="100%">
-        <form onSubmit={handleSubmit(onSubmit)} style={{ textAlign: 'center' }}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Box
-            alignItems="center"
             bg="white"
             borderRadius="1.5rem"
             mx="auto"
@@ -79,61 +37,97 @@ const Page = () => {
             w="80%"
           >
             <VStack spacing="1px">
-              {inputBox({
-                pattern: /.*/,
-                registerName: 'name',
-                required: true,
-                title: 'お名前',
-                type: 'text',
-              })}
+              <InputBox
+                title="お名前"
+                {...register('name', { required: '必須項目です' })}
+              />
 
-              {inputBox({
-                pattern:
-                  /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
-                registerName: 'Email',
-                required: true,
-                title: 'メールアドレス',
-                type: 'text',
-              })}
+              <ErrorMessage
+                errors={errors}
+                name="name"
+                render={({ message }) => (
+                  <p style={{ color: 'red' }}>{message}</p>
+                )}
+              />
 
-              {inputBox({
-                pattern: /.*/,
-                registerName: 'affiliation',
-                required: false,
-                title: '学校・学部・学科名・学年',
-                type: 'text',
-              })}
+              <InputBox
+                title="メールアドレス"
+                {...register('mail', {
+                  pattern: {
+                    message: '正しいメールアドレスを入力してください',
+                    value:
+                      /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
+                  },
+                  required: '必須項目です',
+                })}
+              />
 
-              {inputBox({
-                pattern: /.*/,
-                registerName: 'password',
-                required: true,
-                title: 'パスワード',
-                type: 'password',
-              })}
+              <ErrorMessage
+                errors={errors}
+                name="mail"
+                render={({ message }) => (
+                  <p style={{ color: 'red' }}>{message}</p>
+                )}
+              />
 
-              {inputBox({
-                pattern: /.*/,
-                registerName: 'confirmPassword',
-                required: true,
-                title: 'パスワード（確認用）',
-                type: 'password',
-              })}
+              <InputBox
+                title="学校・学部・学科名・学年"
+                {...register('affiliation', { required: '必須項目です' })}
+              />
+
+              <ErrorMessage
+                errors={errors}
+                name="affiliation"
+                render={({ message }) => (
+                  <p style={{ color: 'red' }}>{message}</p>
+                )}
+              />
+
+              <InputPasswordBox
+                title="パスワード"
+                {...register('password', {
+                  required: '必須項目です',
+                })}
+              />
+
+              <ErrorMessage
+                errors={errors}
+                name="password"
+                render={({ message }) => (
+                  <p style={{ color: 'red' }}>{message}</p>
+                )}
+              />
+
+              <InputPasswordBox
+                title="パスワード（確認用）"
+                {...register('confirmPassword', {
+                  required: '必須項目です',
+                  validate: (value) =>
+                    value === watch('password') ||
+                    'パスワードが一致していません',
+                })}
+              />
+
+              <ErrorMessage
+                errors={errors}
+                name="confirmPassword"
+                render={({ message }) => (
+                  <p style={{ color: 'red' }}>{message}</p>
+                )}
+              />
             </VStack>
           </Box>
 
-          <input
-            style={{
-              backgroundColor: 'orange',
-              borderRadius: '0.5rem',
-              fontSize: '1.3rem',
-              fontWeight: 'bold',
-              padding: '0.5rem',
-              width: '80%',
-            }}
-            type="submit"
-            value="確認ページへ"
-          />
+          <Box m="auto" w="70%">
+            <Button
+              colorScheme="orange"
+              isLoading={isLoading}
+              type="submit"
+              w="100%"
+            >
+              確認ページへ
+            </Button>
+          </Box>
         </form>
       </Container>
     </DefaultLayout>
