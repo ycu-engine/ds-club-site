@@ -1,6 +1,5 @@
 import { Box, Button, Container, Heading, VStack } from '@chakra-ui/react'
 import { ErrorMessage } from '@hookform/error-message'
-import { useState } from 'react'
 import type { FieldValues, SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { DefaultLayout } from '../components/DefaultLayout'
@@ -12,15 +11,13 @@ const Page = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.debug(data)
-    setIsLoading(!isLoading)
     window.location.href = '/'
   }
-  const [isLoading, setIsLoading] = useState(false)
 
   return (
     <DefaultLayout hideHeader>
@@ -121,7 +118,7 @@ const Page = () => {
           <Box m="auto" w="70%">
             <Button
               colorScheme="orange"
-              isLoading={isLoading}
+              isLoading={isSubmitting}
               type="submit"
               w="100%"
             >
