@@ -1,5 +1,6 @@
 import { Box, Button, Container, Heading, VStack } from '@chakra-ui/react'
 import { ErrorMessage } from '@hookform/error-message'
+import { useRouter } from 'next/router'
 import type { FieldValues, SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { DefaultLayout } from '../components/DefaultLayout'
@@ -14,9 +15,11 @@ const Page = () => {
     formState: { errors, isSubmitting },
   } = useForm()
 
+  const router = useRouter()
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.debug(data)
-    window.location.href = '/'
+    void router.push('/')
   }
 
   return (
