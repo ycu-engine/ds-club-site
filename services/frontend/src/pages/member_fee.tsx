@@ -1,12 +1,14 @@
 import { DefaultLayout } from '../components/DefaultLayout'
-import { Text } from '@chakra-ui/react'
+import { Text, Flex, Box } from '@chakra-ui/react'
 
 const Page = () => {
   return (
     <DefaultLayout>
-      <Text fontFamily="fantasy">Kento Morita</Text>
-
-      <h1>会費ページ</h1>
+      <Box p="4">
+        <Flex justify="center">
+          <Text fontFamily="fantasy">Kento Morita</Text>
+        </Flex>
+      </Box>
     </DefaultLayout>
   )
 }
