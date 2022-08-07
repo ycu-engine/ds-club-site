@@ -13,7 +13,7 @@ import { ErrorMessage } from '@hookform/error-message'
 import Image from 'next/image'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
-import type { FieldValues, SubmitHandler } from 'react-hook-form'
+import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import Logo from '../assets/images/icon.png'
 import { InputBox } from '../components/InputForm/InputBox'
@@ -22,17 +22,23 @@ import { InputPasswordBox } from '../components/InputForm/InputPasswordBox'
 const ptb = 12
 const plr = 8
 
+type LoginForm = {
+  userName: string
+  password: string
+}
+
 const Page = () => {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm()
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  } = useForm<LoginForm>()
+  const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     console.debug(data)
-    void router.push('/')
+    await router.push('/')
   }
-  const router = useRouter()
+
   return (
     <DefaultLayout hideHeader>
       <Container mt="5%" w="100%">
@@ -79,7 +85,7 @@ const Page = () => {
                 {...register('password', {
                   required: '必須項目です',
                   validate: (value) =>
-                    // いつかサーバーに登録したパスワードをとってこれるようにしたい
+                    // いつかデータベースに登録したパスワードをとってこれるようにしたい
                     value === 'aiueo' || '正しいパスワードを入力してください',
                 })}
               />
