@@ -1,11 +1,19 @@
 import { Box, Button, Container, Heading, VStack } from '@chakra-ui/react'
 import { ErrorMessage } from '@hookform/error-message'
 import { useRouter } from 'next/router'
-import type { FieldValues, SubmitHandler } from 'react-hook-form'
+import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import { DefaultLayout } from '../components/DefaultLayout'
 import { InputBox } from '../components/InputForm/InputBox'
 import { InputPasswordBox } from '../components/InputForm/InputPasswordBox'
+
+type FormValues = {
+  name: string
+  mail: string
+  affiliation: string
+  password: string
+  confirmPassword: string
+}
 
 const Page = () => {
   const {
@@ -13,11 +21,11 @@ const Page = () => {
     handleSubmit,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm()
+  } = useForm<FormValues>()
 
   const router = useRouter()
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.debug(data)
     void router.push('/')
   }
