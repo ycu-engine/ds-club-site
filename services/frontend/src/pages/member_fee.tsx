@@ -1,14 +1,26 @@
 import { DefaultLayout } from '../components/DefaultLayout'
-import { Text, Flex, Box } from '@chakra-ui/react'
+import { Text, Box, Heading, Flex } from '@chakra-ui/react'
 
 const Page = () => {
   return (
     <DefaultLayout>
-      <Box p="4">
-        <Flex justify="center">
-          <Text fontFamily="fantasy">Kento Morita</Text>
+      <Flex direction={{ base: 'column', md: 'row' }} gap={5}>
+        <Box background="#fff" borderRadius="3xl" flex={1} p={5}>
+          <Heading textAlign="center">支払い状況</Heading>
+        </Box>
+
+        <Flex direction="column" flex={1}>
+          <Box background="#fff" borderRadius="3xl" flex={1} p={5}>
+            <Heading textAlign="center">支払い状況</Heading>
+          </Box>
+
+          <Box background="#fff" borderRadius="3xl" flex={1} p={5}>
+            <Heading textAlign="center">支払い状況</Heading>
+          </Box>
         </Flex>
-      </Box>
+      </Flex>
+
+      <Text>支払い状況</Text>
     </DefaultLayout>
   )
 }
