@@ -1,50 +1,58 @@
-import { DefaultLayout } from '../components/DefaultLayout'
 import {
   Box,
-  Flex,
-  Text,
-  Input,
   Button,
+  Container,
+  Flex,
   Link,
-  InputGroup,
-  InputRightElement,
+  Text,
+  VStack,
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { DefaultLayout } from '../components/DefaultLayout'
 
-import Logo from '../assets/images/icon.png'
+import { ErrorMessage } from '@hookform/error-message'
 import Image from 'next/image'
 import NextLink from 'next/link'
+import { useRouter } from 'next/router'
+import type { SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import Logo from '../assets/images/icon.png'
+import { InputBox } from '../components/InputForm/InputBox'
+import { InputPasswordBox } from '../components/InputForm/InputPasswordBox'
 
 const ptb = 12
 const plr = 8
 
-const Page = () => {
-  const [show, setShow] = useState(false)
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const handleClick = () => setShow(!show)
+type LoginForm = {
+  userName: string
+  password: string
+}
 
-  const isInvalid = !username || !password
+const Page = () => {
+  const router = useRouter()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginForm>()
+  const onSubmit: SubmitHandler<LoginForm> = async (data) => {
+    console.debug(data)
+    await router.push('/')
+  }
 
   return (
     <DefaultLayout hideHeader>
-      <Box pt={5} px={10}>
-        <Flex align="center" as="form" direction="column" justify="center">
-          <Box
-            borderRadius="full"
-            boxSize="40px"
-            m="3"
-            mt="4"
-            overflow="hidden"
-          >
-            <Image
-              alt="icon"
-              height="40px"
-              objectFit="cover"
-              src={Logo}
-              width="40px"
-            />
-          </Box>
+      <Container mt="5%" w="100%">
+        {/* <Flex align="center" as="form" direction="column" justify="center"> */}
+
+        <VStack align="center">
+          <Image
+            alt="icon"
+            height="40px"
+            objectFit="cover"
+            src={Logo}
+            style={{ borderRadius: '100%' }}
+            width="40px"
+          />
 
           <Text fontSize="4xl">こんにちは</Text>
 
@@ -56,62 +64,51 @@ const Page = () => {
             pl={plr}
             pr={plr}
             pt={ptb}
-            w={350}
+            w="80%"
           >
-            <Flex direction="column" h="87%" justify="space-between" w="100%">
-              <Box>
-                <Text>ユーザー名</Text>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <InputBox
+                title="ユーザー名"
+                {...register('userName', { required: '必須項目です' })}
+              />
 
-                <Input
-                  onChange={(e) => {
-                    setUsername(e.target.value)
-                  }}
-                  placeholder=""
-                  pr="4.5rem"
-                  required
-                  value={username}
-                />
-              </Box>
+              <ErrorMessage
+                errors={errors}
+                name="userName"
+                render={({ message }) => (
+                  <p style={{ color: 'red' }}>{message}</p>
+                )}
+              />
 
-              <Box h="45%">
-                <Text>パスワード</Text>
+              <InputPasswordBox
+                title="パスワード"
+                {...register('password', {
+                  required: '必須項目です',
+                  validate: (value) =>
+                    // いつかデータベースに登録したパスワードをとってこれるようにしたい
+                    value === 'aiueo' || '正しいパスワードを入力してください',
+                })}
+              />
 
-                {/* <Input placeholder='' mb={5} variant='flushed'></Input> */}
-
-                <InputGroup mt={2} size="md">
-                  <Input
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder=""
-                    pr="4.5rem"
-                    required
-                    type={show ? 'text' : 'password'}
-                    value={password}
-                  />
-
-                  <InputRightElement width="4.5rem">
-                    <Button
-                      bg="#FF8E3C"
-                      color="#FFFFFE"
-                      h="1.75rem"
-                      onClick={handleClick}
-                      size="sm"
-                    >
-                      {show ? 'Hide' : 'Show'}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-              </Box>
+              <ErrorMessage
+                errors={errors}
+                name="password"
+                render={({ message }) => (
+                  <p style={{ color: 'red' }}>{message}</p>
+                )}
+              />
 
               <Button
-                bg={isInvalid ? '#909090' : '#D9376E'}
                 color="#FFFFFE"
-                h="15%"
+                colorScheme="orange"
+                isLoading={isSubmitting}
+                mt="10"
                 type="submit"
                 w="100%"
               >
                 サインイン
               </Button>
-            </Flex>
+            </form>
 
             <NextLink
               href="https://datascienceclubjp.wixsite.com/home"
@@ -135,8 +132,10 @@ const Page = () => {
               </Link>
             </NextLink>
           </Flex>
-        </Flex>
-      </Box>
+        </VStack>
+
+        {/* </Flex> */}
+      </Container>
     </DefaultLayout>
   )
 }
