@@ -21,9 +21,6 @@ import { InputBox } from '../components/InputForm/InputBox'
 import { InputPasswordBox } from '../components/InputForm/InputPasswordBox'
 import { auth } from '../clients/firebase'
 
-const ptb = 12
-const plr = 8
-
 type LoginForm = {
   userName: string
   password: string
@@ -40,8 +37,8 @@ const Page = () => {
   } = useForm<LoginForm>()
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     console.debug(data)
-    // await router.push('/')
     await signInWithEmailAndPassword(data.userName, data.password)
+    await router.push('/')
   }
 
   console.log({ error, loading, user })
@@ -49,8 +46,6 @@ const Page = () => {
   return (
     <DefaultLayout hideHeader>
       <Container mt="5%" w="100%">
-        {/* <Flex align="center" as="form" direction="column" justify="center"> */}
-
         <VStack align="center">
           <Image
             alt="icon"
