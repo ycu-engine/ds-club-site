@@ -27,7 +27,7 @@ type LoginForm = {
 }
 
 const Page = () => {
-  const [signInWithEmailAndPassword, loading, error] =
+  const [signInWithEmailAndPassword, _user, loading, error] =
     useSignInWithEmailAndPassword(auth)
   const router = useRouter()
   const {
@@ -96,6 +96,7 @@ const Page = () => {
               <Button
                 color="#FFFFFE"
                 colorScheme="orange"
+                isDisabled={loading}
                 isLoading={isSubmitting}
                 mt="10"
                 type="submit"
