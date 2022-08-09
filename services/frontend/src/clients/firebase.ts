@@ -2,9 +2,9 @@ import { initializeApp } from 'firebase/app'
 import { getAuth, connectAuthEmulator } from 'firebase/auth'
 
 export const firebase = initializeApp({
-  projectId: 'test',
-  appId: 'test',
   apiKey: 'test',
+  appId: 'test',
+  projectId: 'test',
 })
 
 export const auth = getAuth(firebase)

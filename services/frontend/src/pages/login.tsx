@@ -27,7 +27,7 @@ type LoginForm = {
 }
 
 const Page = () => {
-  const [signInWithEmailAndPassword, user, loading, error] =
+  const [signInWithEmailAndPassword, loading, error] =
     useSignInWithEmailAndPassword(auth)
   const router = useRouter()
   const {
@@ -40,8 +40,6 @@ const Page = () => {
     await signInWithEmailAndPassword(data.userName, data.password)
     await router.push('/')
   }
-
-  console.log({ error, loading, user })
 
   return (
     <DefaultLayout hideHeader>
@@ -62,8 +60,8 @@ const Page = () => {
             background="#FFFFFE"
             borderRadius={10}
             h={400}
-            py={12}
             px={8}
+            py={12}
             w="80%"
           >
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -105,6 +103,8 @@ const Page = () => {
               >
                 サインイン
               </Button>
+
+              {error ? <p>ログインに失敗しました</p> : null}
             </form>
 
             <NextLink
