@@ -1,3 +1,4 @@
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import {
   Box,
   Button,
@@ -18,6 +19,7 @@ import { useForm } from 'react-hook-form'
 import Logo from '../assets/images/icon.png'
 import { InputBox } from '../components/InputForm/InputBox'
 import { InputPasswordBox } from '../components/InputForm/InputPasswordBox'
+import { auth } from '../clients/firebase'
 
 const ptb = 12
 const plr = 8
@@ -28,6 +30,8 @@ type LoginForm = {
 }
 
 const Page = () => {
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth)
   const router = useRouter()
   const {
     register,
@@ -36,8 +40,11 @@ const Page = () => {
   } = useForm<LoginForm>()
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     console.debug(data)
-    await router.push('/')
+    // await router.push('/')
+    await signInWithEmailAndPassword(data.userName, data.password)
   }
+
+  console.log({ error, loading, user })
 
   return (
     <DefaultLayout hideHeader>
@@ -60,10 +67,8 @@ const Page = () => {
             background="#FFFFFE"
             borderRadius={10}
             h={400}
-            pb={ptb}
-            pl={plr}
-            pr={plr}
-            pt={ptb}
+            py={12}
+            px={8}
             w="80%"
           >
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -84,9 +89,6 @@ const Page = () => {
                 title="パスワード"
                 {...register('password', {
                   required: '必須項目です',
-                  validate: (value) =>
-                    // いつかデータベースに登録したパスワードをとってこれるようにしたい
-                    value === 'aiueo' || '正しいパスワードを入力してください',
                 })}
               />
 
