@@ -1,0 +1,20 @@
+{
+  "name": "sample.txt",
+  "bucket": "local.appspot.com",
+  "contentType": "text/plain",
+  "metageneration": 1,
+  "generation": 1660035099436,
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "cacheControl": "public, max-age=3600",
+  "contentEncoding": "identity",
+  "downloadTokens": [
+    "c7e3d681-1726-4a65-8592-176410a36e6b"
+  ],
+  "etag": "GbuoqYelVGk2QS+R1AW2kBXscdM",
+  "timeCreated": "2022-08-09T08:51:39.435Z",
+  "updated": "2022-08-09T08:51:39.436Z",
+  "size": 0,
+  "md5Hash": "1B2M2Y8AsgTpgAmY7PhCfg==",
+  "crc32c": "0"
+}
