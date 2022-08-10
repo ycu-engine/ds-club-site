@@ -42,10 +42,17 @@ type Query {
   getRegularUsers: [RegularUser!]!
 }
 
+input SubmitTrialApplicationInput {
+  name: String!
+  email: String!
+  affiliation: String!
+}
+
 type Mutation {
   updateUserPaymentStatus(
     userId: ID!
     paymentStatus: PaymentStatus!
   ): RegularUser!
   updateUserRank(userId: ID!, rank: RankKind!): RegularUser!
+  submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
 }
