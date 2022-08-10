@@ -31,13 +31,13 @@ export const SubmitTrialApplicationPage = () => {
     reset,
   } = useForm<TrialApplicationForm>()
 
-  const onSubmit: SubmitHandler<TrialApplicationForm> = async (data) => {
+  const onSubmit: SubmitHandler<TrialApplicationForm> = async (forms) => {
     const { data } = await mutateSubmitTrialApplication({
       variables: {
-        input: data,
+        input: forms,
       },
     })
-    if (data.submitTrialApplication) {
+    if (data?.submitTrialApplication) {
       reset()
       toast({
         description: 'これからよろしくね〜〜',
