@@ -2,6 +2,7 @@ import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { loadSchema } from '@graphql-tools/load'
 import { join } from 'path'
 import type { Resolvers } from './generates/graphql'
+import { submitTrialApplicationResolver } from './resolvers/Mutation.submitTrialApplication'
 import { updateUserPaymentStatusResolver } from './resolvers/Mutation.updateUserPaymentStatus'
 import { updateUserRankResolver } from './resolvers/Mutation.updateUserRank'
 import { getRegularUsersResolver } from './resolvers/Query.getRegularUsers'
@@ -10,6 +11,7 @@ import { okResolver } from './resolvers/Query.ok'
 
 const resolvers: Resolvers = {
   Mutation: {
+    submitTrialApplication: submitTrialApplicationResolver,
     updateUserPaymentStatus: updateUserPaymentStatusResolver,
     updateUserRank: updateUserRankResolver,
   },

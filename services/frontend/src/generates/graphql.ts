@@ -18,8 +18,14 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  submitTrialApplication: Scalars['Boolean'];
   updateUserPaymentStatus: RegularUser;
   updateUserRank: RegularUser;
+};
+
+
+export type MutationSubmitTrialApplicationArgs = {
+  input: SubmitTrialApplicationInput;
 };
 
 
@@ -69,6 +75,12 @@ export type RegularUser = User & {
   paymentStatus: PaymentStatus;
 };
 
+export type SubmitTrialApplicationInput = {
+  affiliation: Scalars['String'];
+  email: Scalars['String'];
+  name: Scalars['String'];
+};
+
 export type User = {
   id: Scalars['ID'];
   name: Scalars['String'];
@@ -99,6 +111,13 @@ export type MemberInfoPage_UpdateCurrentRankMutationVariables = Exact<{
 
 
 export type MemberInfoPage_UpdateCurrentRankMutation = { __typename?: 'Mutation', updateUserRank: { __typename?: 'RegularUser', id: string, currentRank: RankKind } };
+
+export type SubmitTrialApplicationPage_SubmitTrialApplicationMutationVariables = Exact<{
+  input: SubmitTrialApplicationInput;
+}>;
+
+
+export type SubmitTrialApplicationPage_SubmitTrialApplicationMutation = { __typename?: 'Mutation', submitTrialApplication: boolean };
 
 
 export const MemberInfoPageDocument = gql`
@@ -208,3 +227,34 @@ export function useMemberInfoPage_UpdateCurrentRankMutation(baseOptions?: Apollo
 export type MemberInfoPage_UpdateCurrentRankMutationHookResult = ReturnType<typeof useMemberInfoPage_UpdateCurrentRankMutation>;
 export type MemberInfoPage_UpdateCurrentRankMutationResult = Apollo.MutationResult<MemberInfoPage_UpdateCurrentRankMutation>;
 export type MemberInfoPage_UpdateCurrentRankMutationOptions = Apollo.BaseMutationOptions<MemberInfoPage_UpdateCurrentRankMutation, MemberInfoPage_UpdateCurrentRankMutationVariables>;
+export const SubmitTrialApplicationPage_SubmitTrialApplicationDocument = gql`
+    mutation SubmitTrialApplicationPage_SubmitTrialApplication($input: SubmitTrialApplicationInput!) {
+  submitTrialApplication(input: $input)
+}
+    `;
+export type SubmitTrialApplicationPage_SubmitTrialApplicationMutationFn = Apollo.MutationFunction<SubmitTrialApplicationPage_SubmitTrialApplicationMutation, SubmitTrialApplicationPage_SubmitTrialApplicationMutationVariables>;
+
+/**
+ * __useSubmitTrialApplicationPage_SubmitTrialApplicationMutation__
+ *
+ * To run a mutation, you first call `useSubmitTrialApplicationPage_SubmitTrialApplicationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSubmitTrialApplicationPage_SubmitTrialApplicationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [submitTrialApplicationPageSubmitTrialApplicationMutation, { data, loading, error }] = useSubmitTrialApplicationPage_SubmitTrialApplicationMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSubmitTrialApplicationPage_SubmitTrialApplicationMutation(baseOptions?: Apollo.MutationHookOptions<SubmitTrialApplicationPage_SubmitTrialApplicationMutation, SubmitTrialApplicationPage_SubmitTrialApplicationMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SubmitTrialApplicationPage_SubmitTrialApplicationMutation, SubmitTrialApplicationPage_SubmitTrialApplicationMutationVariables>(SubmitTrialApplicationPage_SubmitTrialApplicationDocument, options);
+      }
+export type SubmitTrialApplicationPage_SubmitTrialApplicationMutationHookResult = ReturnType<typeof useSubmitTrialApplicationPage_SubmitTrialApplicationMutation>;
+export type SubmitTrialApplicationPage_SubmitTrialApplicationMutationResult = Apollo.MutationResult<SubmitTrialApplicationPage_SubmitTrialApplicationMutation>;
+export type SubmitTrialApplicationPage_SubmitTrialApplicationMutationOptions = Apollo.BaseMutationOptions<SubmitTrialApplicationPage_SubmitTrialApplicationMutation, SubmitTrialApplicationPage_SubmitTrialApplicationMutationVariables>;

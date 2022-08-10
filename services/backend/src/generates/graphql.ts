@@ -18,8 +18,14 @@ export type Scalars = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  submitTrialApplication: Scalars['Boolean'];
   updateUserPaymentStatus: RegularUser;
   updateUserRank: RegularUser;
+};
+
+
+export type MutationSubmitTrialApplicationArgs = {
+  input: SubmitTrialApplicationInput;
 };
 
 
@@ -67,6 +73,12 @@ export type RegularUser = User & {
   name: Scalars['String'];
   /** 支払い状況 */
   paymentStatus: PaymentStatus;
+};
+
+export type SubmitTrialApplicationInput = {
+  affiliation: Scalars['String'];
+  email: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type User = {
@@ -156,6 +168,7 @@ export type ResolversTypes = {
   RankKind: RankKind;
   RegularUser: ResolverTypeWrapper<RegularUser>;
   String: ResolverTypeWrapper<Scalars['String']>;
+  SubmitTrialApplicationInput: SubmitTrialApplicationInput;
   User: ResolversTypes['RegularUser'];
   UserRole: UserRole;
 };
@@ -168,10 +181,12 @@ export type ResolversParentTypes = {
   Query: {};
   RegularUser: RegularUser;
   String: Scalars['String'];
+  SubmitTrialApplicationInput: SubmitTrialApplicationInput;
   User: ResolversParentTypes['RegularUser'];
 };
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  submitTrialApplication?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationSubmitTrialApplicationArgs, 'input'>>;
   updateUserPaymentStatus?: Resolver<ResolversTypes['RegularUser'], ParentType, ContextType, RequireFields<MutationUpdateUserPaymentStatusArgs, 'paymentStatus' | 'userId'>>;
   updateUserRank?: Resolver<ResolversTypes['RegularUser'], ParentType, ContextType, RequireFields<MutationUpdateUserRankArgs, 'rank' | 'userId'>>;
 };
