@@ -34,6 +34,14 @@ export type MutationUpdateUserRankArgs = {
   userId: Scalars['ID'];
 };
 
+/** お知らせ */
+export type News = {
+  __typename?: 'News';
+  body: Scalars['String'];
+  id: Scalars['ID'];
+  title: Scalars['String'];
+};
+
 /** 支払い状況 */
 export enum PaymentStatus {
   NotPaid = 'NOT_PAID',
@@ -42,6 +50,7 @@ export enum PaymentStatus {
 
 export type Query = {
   __typename?: 'Query';
+  getNews?: Maybe<Array<News>>;
   getRegularUsers: Array<RegularUser>;
   getUser?: Maybe<User>;
   ok: Scalars['Boolean'];
@@ -151,6 +160,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Mutation: ResolverTypeWrapper<{}>;
+  News: ResolverTypeWrapper<News>;
   PaymentStatus: PaymentStatus;
   Query: ResolverTypeWrapper<{}>;
   RankKind: RankKind;
@@ -165,6 +175,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
   ID: Scalars['ID'];
   Mutation: {};
+  News: News;
   Query: {};
   RegularUser: RegularUser;
   String: Scalars['String'];
@@ -176,7 +187,15 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
   updateUserRank?: Resolver<ResolversTypes['RegularUser'], ParentType, ContextType, RequireFields<MutationUpdateUserRankArgs, 'rank' | 'userId'>>;
 };
 
+export type NewsResolvers<ContextType = Context, ParentType extends ResolversParentTypes['News'] = ResolversParentTypes['News']> = {
+  body?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type QueryResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
+  getNews?: Resolver<Maybe<Array<ResolversTypes['News']>>, ParentType, ContextType>;
   getRegularUsers?: Resolver<Array<ResolversTypes['RegularUser']>, ParentType, ContextType>;
   getUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<QueryGetUserArgs, 'id'>>;
   ok?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
@@ -198,6 +217,7 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
 
 export type Resolvers<ContextType = Context> = {
   Mutation?: MutationResolvers<ContextType>;
+  News?: NewsResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   RegularUser?: RegularUserResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

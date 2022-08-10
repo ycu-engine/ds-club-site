@@ -34,6 +34,14 @@ export type MutationUpdateUserRankArgs = {
   userId: Scalars['ID'];
 };
 
+/** お知らせ */
+export type News = {
+  __typename?: 'News';
+  body: Scalars['String'];
+  id: Scalars['ID'];
+  title: Scalars['String'];
+};
+
 /** 支払い状況 */
 export enum PaymentStatus {
   NotPaid = 'NOT_PAID',
@@ -42,6 +50,7 @@ export enum PaymentStatus {
 
 export type Query = {
   __typename?: 'Query';
+  getNews?: Maybe<Array<News>>;
   getRegularUsers: Array<RegularUser>;
   getUser?: Maybe<User>;
   ok: Scalars['Boolean'];

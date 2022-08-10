@@ -4,6 +4,7 @@ import { join } from 'path'
 import type { Resolvers } from './generates/graphql'
 import { updateUserPaymentStatusResolver } from './resolvers/Mutation.updateUserPaymentStatus'
 import { updateUserRankResolver } from './resolvers/Mutation.updateUserRank'
+import { getNewsResolver } from './resolvers/Query.getNews.resolvers'
 import { getRegularUsersResolver } from './resolvers/Query.getRegularUsers'
 import { getUserResolver } from './resolvers/Query.getUser'
 import { okResolver } from './resolvers/Query.ok'
@@ -14,6 +15,7 @@ const resolvers: Resolvers = {
     updateUserRank: updateUserRankResolver,
   },
   Query: {
+    getNews: getNewsResolver,
     getRegularUsers: getRegularUsersResolver,
     getUser: getUserResolver,
     ok: okResolver,
