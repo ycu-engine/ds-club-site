@@ -35,11 +35,20 @@ type RegularUser implements User {
   """
   paymentStatus: PaymentStatus!
 }
+"""
+お知らせ
+"""
+type News {
+  id: ID!
+  title: String!
+  body: String!
+}
 
 type Query {
   ok: Boolean!
   getUser(id: ID!): User
   getRegularUsers: [RegularUser!]!
+  getNews: [News!]
 }
 
 input SubmitTrialApplicationInput {
