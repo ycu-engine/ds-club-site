@@ -1,12 +1,10 @@
 {
-  "root": true,
   "extends": [
     "plugin:team-vals/recommended",
     "plugin:team-vals/prettier"
   ],
   "parserOptions": {
-    "project": "./tsconfig.json",
-    "tsconfigRootDir": "./"
+    "project": "./tsconfig.json"
   },
   "rules": {
     "import/no-unresolved": [

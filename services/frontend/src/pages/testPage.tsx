@@ -1,5 +1,4 @@
 import { Flex, Text, Button, Heading, Checkbox } from '@chakra-ui/react'
-
 import React from 'react'
 import { DefaultTestLayout } from '../components/DefaultTestLayout'
 const Page = () => {
