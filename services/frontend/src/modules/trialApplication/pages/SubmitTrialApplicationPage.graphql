@@ -1,0 +1,5 @@
+mutation SubmitTrialApplicationPage_SubmitTrialApplication(
+  $input: SubmitTrialApplicationInput!
+) {
+  submitTrialApplication(input: $input)
+}

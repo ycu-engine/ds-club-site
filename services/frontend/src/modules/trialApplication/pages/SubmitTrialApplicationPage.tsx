@@ -1,33 +1,52 @@
-import { Box, Button, Container, Heading, VStack } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Container,
+  Heading,
+  useToast,
+  VStack,
+} from '@chakra-ui/react'
 import { ErrorMessage } from '@hookform/error-message'
-import { useRouter } from 'next/router'
 import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
-import { DefaultLayout } from '../components/DefaultLayout'
-import { InputBox } from '../components/InputForm/InputBox'
-import { InputPasswordBox } from '../components/InputForm/InputPasswordBox'
+import { DefaultLayout } from '../../../components/DefaultLayout'
+import { InputBox } from '../../../components/InputForm/InputBox'
+import { useSubmitTrialApplicationPage_SubmitTrialApplicationMutation } from '../../../generates/graphql'
 
-type FormValues = {
+type TrialApplicationForm = {
   name: string
-  mail: string
+  email: string
   affiliation: string
-  password: string
-  confirmPassword: string
 }
 
-const Page = () => {
+export const SubmitTrialApplicationPage = () => {
+  const [mutateSubmitTrialApplication] =
+    useSubmitTrialApplicationPage_SubmitTrialApplicationMutation({})
+  const toast = useToast()
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting },
-  } = useForm<FormValues>()
+    reset,
+  } = useForm<TrialApplicationForm>()
 
-  const router = useRouter()
-
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.debug(data)
-    void router.push('/')
+  const onSubmit: SubmitHandler<TrialApplicationForm> = async (forms) => {
+    const { data } = await mutateSubmitTrialApplication({
+      variables: {
+        input: forms,
+      },
+    })
+    if (data?.submitTrialApplication) {
+      reset()
+      toast({
+        description: 'これからよろしくね〜〜',
+        duration: 9000,
+        isClosable: true,
+        status: 'success',
+        title: '登録完了です',
+      })
+    }
   }
 
   return (
@@ -60,7 +79,7 @@ const Page = () => {
 
               <InputBox
                 title="メールアドレス"
-                {...register('mail', {
+                {...register('email', {
                   pattern: {
                     message: '正しいメールアドレスを入力してください',
                     value:
@@ -72,7 +91,7 @@ const Page = () => {
 
               <ErrorMessage
                 errors={errors}
-                name="mail"
+                name="email"
                 render={({ message }) => (
                   <p style={{ color: 'red' }}>{message}</p>
                 )}
@@ -86,39 +105,6 @@ const Page = () => {
               <ErrorMessage
                 errors={errors}
                 name="affiliation"
-                render={({ message }) => (
-                  <p style={{ color: 'red' }}>{message}</p>
-                )}
-              />
-
-              <InputPasswordBox
-                title="パスワード"
-                {...register('password', {
-                  required: '必須項目です',
-                })}
-              />
-
-              <ErrorMessage
-                errors={errors}
-                name="password"
-                render={({ message }) => (
-                  <p style={{ color: 'red' }}>{message}</p>
-                )}
-              />
-
-              <InputPasswordBox
-                title="パスワード（確認用）"
-                {...register('confirmPassword', {
-                  required: '必須項目です',
-                  validate: (value) =>
-                    value === watch('password') ||
-                    'パスワードが一致していません',
-                })}
-              />
-
-              <ErrorMessage
-                errors={errors}
-                name="confirmPassword"
                 render={({ message }) => (
                   <p style={{ color: 'red' }}>{message}</p>
                 )}
@@ -141,4 +127,3 @@ const Page = () => {
     </DefaultLayout>
   )
 }
-export default Page
