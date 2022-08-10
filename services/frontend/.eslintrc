@@ -12,7 +12,10 @@
   "rules": {
     "react/jsx-no-bind": "off",
     "@typescript-eslint/no-misused-promises": "off",
-    "react/jsx-no-useless-fragment": "off"
+    "react/jsx-no-useless-fragment": "off",
+    "@typescript-eslint/consistent-type-imports": "off"
   },
-  "ignorePatterns": ["src/generates"]
+  "ignorePatterns": [
+    "src/generates"
+  ]
 }
