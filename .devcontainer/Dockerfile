@@ -7,6 +7,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
         openjdk-11-jre-headless
 
 # [Optional] Uncomment if you want to install more global node modules
-RUN su node -c "npm install -g firebase-tools"
+RUN su node -c "npm install -g firebase-tools@11.3.0"
 
 RUN mkdir -p /home/node/.cache/firebase && chown -R node:node /home/node/.cache/firebase
