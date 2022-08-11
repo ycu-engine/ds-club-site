@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import type { ReactNode } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../clients/firebase'
-import { LoadingPage } from './LoadingPage'
+import { Loading } from './Loading'
 
 type AuthenticatedProps = {
   children: ReactNode
@@ -16,7 +16,7 @@ export const Authenticated = ({ children }: AuthenticatedProps) => {
   }
 
   if (loading) {
-    return <LoadingPage />
+    return <Loading />
   }
 
   void router.push('/login')

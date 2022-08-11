@@ -16,7 +16,7 @@ const MotionDivStyle: MotionStyle = {
   top: 0,
 }
 
-export const LoadingPage: React.FC = () => {
+export const Loading: React.FC = () => {
   return (
     <motion.div style={MotionDivStyle}>
       <Text color="orange.500" fontSize="5xl">
