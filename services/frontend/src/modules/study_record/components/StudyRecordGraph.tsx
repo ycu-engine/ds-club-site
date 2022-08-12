@@ -3,14 +3,14 @@ import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts'
 import type { CategoricalChartProps } from 'recharts/types/chart/generateCategoricalChart'
 import type {
   NameType,
-  ValueType
+  ValueType,
 } from 'recharts/types/component/DefaultTooltipContent'
 import type { ContentType } from 'recharts/types/component/Tooltip'
 
 /**
  * 仮のタイプ。APIができたら、そっちに変更する
  */
-type StudyLog = {
+type StudyRecord = {
   amount: number
   week: Date
   contents: string[]
@@ -20,7 +20,7 @@ const TooltipContent: ContentType<ValueType, NameType> = ({
   active,
   payload,
 }) => {
-  const item = payload?.[0]?.payload as StudyLog | undefined
+  const item = payload?.[0]?.payload as StudyRecord | undefined
   if (active && item) {
     return (
       <Box
@@ -46,11 +46,11 @@ const TooltipContent: ContentType<ValueType, NameType> = ({
   return null
 }
 
-export type StudyLogGraphProps = Omit<CategoricalChartProps, 'data'> & {
-  data: StudyLog[]
+export type StudyRecordGraphProps = Omit<CategoricalChartProps, 'data'> & {
+  data: StudyRecord[]
 }
 
-export const StudyLogGraph = ({ ...props }: StudyLogGraphProps) => {
+export const StudyRecordGraph = ({ ...props }: StudyRecordGraphProps) => {
   return (
     <LineChart
       height={400}
