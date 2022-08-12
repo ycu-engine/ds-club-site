@@ -1,17 +1,17 @@
 {
-  "root": true,
   "extends": [
     "plugin:team-vals/recommended",
     "plugin:team-vals/react",
     "plugin:team-vals/prettier"
   ],
   "parserOptions": {
-    "project": "./tsconfig.json",
-    "tsconfigRootDir": "./"
+    "project": "./tsconfig.json"
   },
   "rules": {
     "react/jsx-no-bind": "off",
-    "@typescript-eslint/no-misused-promises": "off"
+    "@typescript-eslint/no-misused-promises": "off",
+    "react/jsx-no-useless-fragment": "off",
+    "@typescript-eslint/consistent-type-imports": "off"
   },
   "ignorePatterns": [
     "src/generates"

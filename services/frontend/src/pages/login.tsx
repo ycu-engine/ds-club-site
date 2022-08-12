@@ -7,6 +7,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
+import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
 import { DefaultLayout } from '../components/DefaultLayout'
 
 import { ErrorMessage } from '@hookform/error-message'
@@ -16,11 +17,9 @@ import { useRouter } from 'next/router'
 import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import Logo from '../assets/images/icon.png'
+import { auth } from '../clients/firebase'
 import { InputBox } from '../components/InputForm/InputBox'
 import { InputPasswordBox } from '../components/InputForm/InputPasswordBox'
-
-const ptb = 12
-const plr = 8
 
 type LoginForm = {
   userName: string
@@ -28,6 +27,8 @@ type LoginForm = {
 }
 
 const Page = () => {
+  const [signInWithEmailAndPassword, _user, loading, error] =
+    useSignInWithEmailAndPassword(auth)
   const router = useRouter()
   const {
     register,
@@ -36,14 +37,13 @@ const Page = () => {
   } = useForm<LoginForm>()
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     console.debug(data)
+    await signInWithEmailAndPassword(data.userName, data.password)
     await router.push('/')
   }
 
   return (
     <DefaultLayout hideHeader>
       <Container mt="5%" w="100%">
-        {/* <Flex align="center" as="form" direction="column" justify="center"> */}
-
         <VStack align="center">
           <Image
             alt="icon"
@@ -60,10 +60,8 @@ const Page = () => {
             background="#FFFFFE"
             borderRadius={10}
             h={400}
-            pb={ptb}
-            pl={plr}
-            pr={plr}
-            pt={ptb}
+            px={8}
+            py={12}
             w="80%"
           >
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -84,9 +82,6 @@ const Page = () => {
                 title="パスワード"
                 {...register('password', {
                   required: '必須項目です',
-                  validate: (value) =>
-                    // いつかデータベースに登録したパスワードをとってこれるようにしたい
-                    value === 'aiueo' || '正しいパスワードを入力してください',
                 })}
               />
 
@@ -101,6 +96,7 @@ const Page = () => {
               <Button
                 color="#FFFFFE"
                 colorScheme="orange"
+                isDisabled={loading}
                 isLoading={isSubmitting}
                 mt="10"
                 type="submit"
@@ -108,6 +104,8 @@ const Page = () => {
               >
                 サインイン
               </Button>
+
+              {error ? <p>ログインに失敗しました</p> : null}
             </form>
 
             <NextLink
