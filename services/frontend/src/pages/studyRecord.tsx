@@ -1,21 +1,21 @@
-import { DefaultLayout } from '../components/DefaultLayout'
 import {
-  Button,
   Box,
+  Button,
+  Center,
   Grid,
   GridItem,
-  Text,
-  Select,
   Input,
-  Center,
+  Select,
+  Text,
 } from '@chakra-ui/react'
-import type { StudyLogGraphProps } from '../modules/study_log/components/StudyLogGraph'
 import dynamic from 'next/dynamic'
+import { DefaultLayout } from '../components/DefaultLayout'
+import type { StudyRecordGraphProps } from '../modules/study_record/components/StudyRecordGraph'
 
-const StudyLogGraph = dynamic<StudyLogGraphProps>(
+const StudyLogGraph = dynamic<StudyRecordGraphProps>(
   () =>
-    import('../modules/study_log/components/StudyLogGraph').then(
-      (mod) => mod.StudyLogGraph,
+    import('../modules/study_record/components/StudyRecordGraph').then(
+      (mod) => mod.StudyRecordGraph,
     ),
   { loading: () => <div>loading...</div>, ssr: false },
 )
