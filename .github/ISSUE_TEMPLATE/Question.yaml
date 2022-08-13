@@ -3,14 +3,17 @@ description: 質問をする際のテンプレートです
 labels: ["question"]
 body:
   - type: textarea
+    id: body
     attributes:
       label: 質問の内容
       description: 解決したいことなどを簡潔に書く。それに加えて、なぜ解決したいかや、その問題が解決した上であなたが本当に解決したいことがあるならばそれも合わせて併記する。
   - type: textarea
+    id: code
     attributes:
       label: スクリーンショットや該当のコード
       description: 回答する人が回答しやすいようになるべく多くの情報を貼り付ける。
   - type: textarea
+    id: refs
     attributes:
       label: 参考にした資料など
       description: 解決するために参考にしたサイトなどがあれば貼る
