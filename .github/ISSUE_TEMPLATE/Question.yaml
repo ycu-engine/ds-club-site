@@ -1,4 +1,4 @@
-name: 質問
+name: 質問用テンプレート
 description: 質問をする際のテンプレートです
 labels: ["question"]
 body:
