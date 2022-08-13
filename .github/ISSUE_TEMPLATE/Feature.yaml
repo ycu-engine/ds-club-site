@@ -1,0 +1,29 @@
+name: 新規機能追加
+description: 機能開発を行う際のテンプレートです
+body:
+  - type: textarea
+    id: prerequisites
+    attributes:
+      label: 前提条件
+      description: この機能開発を行う上で終了している必要がある issue や pr がある場合は記入する。
+      value: |
+        - [ ] xxx
+  - type: textarea
+    id: condition-of-completion
+    attributes:
+      label: 完了条件
+      description: 何が達成されたらこの機能開発が完了したといえるかの条件を記入する
+      value: |
+        - [ ] 
+  - type: textarea
+    id: why
+    attributes:
+      label: この issue が必要な理由
+      description: もしこの機能開発をする意味についてわかりにくい可能性がある場合は、ここでその理由について記入する
+  - type: textarea
+    id: refs
+    attributes:
+      label: 参考資料
+      description: 実装者が実装に困らないように、すでにわかっている情報があれば記述する。（例えば Figma へのリンクなど）
+      value: |
+        Figmaへのリンク: 
