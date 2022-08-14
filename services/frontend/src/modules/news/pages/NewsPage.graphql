@@ -1,0 +1,6 @@
+query NewsPage {
+  getNews {
+    title
+    body
+  }
+}
