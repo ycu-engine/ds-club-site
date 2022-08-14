@@ -2,12 +2,9 @@
   "extends": "@tsconfig/strictest/tsconfig.json",
   "compilerOptions": {
     "target": "ES2022",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "exactOptionalPropertyTypes": false
   },
-  "include": [
-    "src",
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

@@ -44,6 +44,10 @@ type News {
   body: String!
 }
 
+type DateTime {
+  iso: String!
+}
+
 type StudyLog {
   id: ID!
   user: User!
@@ -70,13 +74,18 @@ type Query {
   getUser(id: ID!): User
   getRegularUsers: [RegularUser!]!
   getNews: [News!]
-  getStudyLog: [StudyLog!]
+  getStudyLog(userId: ID!): [StudyLog!]
 }
 
 input SubmitTrialApplicationInput {
   name: String!
   email: String!
   affiliation: String!
+}
+
+input CreateStudyLogInput {
+  studyTime: Int!
+  studyContent: String!
 }
 
 type Mutation {
@@ -86,4 +95,5 @@ type Mutation {
   ): RegularUser!
   updateUserRank(userId: ID!, rank: RankKind!): RegularUser!
   submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
+  createStudyLog(input: CreateStudyLogInput!): StudyLog!
 }
