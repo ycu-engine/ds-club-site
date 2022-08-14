@@ -56,7 +56,7 @@ export enum PaymentStatus {
 
 export type Query = {
   __typename?: 'Query';
-  getNews?: Maybe<Array<News>>;
+  getNews: Array<News>;
   getRegularUsers: Array<RegularUser>;
   getUser?: Maybe<User>;
   ok: Scalars['Boolean'];
@@ -121,10 +121,10 @@ export type MemberInfoPage_UpdateCurrentRankMutationVariables = Exact<{
 
 export type MemberInfoPage_UpdateCurrentRankMutation = { __typename?: 'Mutation', updateUserRank: { __typename?: 'RegularUser', id: string, currentRank: RankKind } };
 
-export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
+export type NewsPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_1_Query = { __typename?: 'Query', getNews?: Array<{ __typename?: 'News', title: string, body: string }> | null };
+export type NewsPageQuery = { __typename?: 'Query', getNews: Array<{ __typename?: 'News', id: string, title: string, body: string }> };
 
 export type SubmitTrialApplicationPage_SubmitTrialApplicationMutationVariables = Exact<{
   input: SubmitTrialApplicationInput;
@@ -241,9 +241,10 @@ export function useMemberInfoPage_UpdateCurrentRankMutation(baseOptions?: Apollo
 export type MemberInfoPage_UpdateCurrentRankMutationHookResult = ReturnType<typeof useMemberInfoPage_UpdateCurrentRankMutation>;
 export type MemberInfoPage_UpdateCurrentRankMutationResult = Apollo.MutationResult<MemberInfoPage_UpdateCurrentRankMutation>;
 export type MemberInfoPage_UpdateCurrentRankMutationOptions = Apollo.BaseMutationOptions<MemberInfoPage_UpdateCurrentRankMutation, MemberInfoPage_UpdateCurrentRankMutationVariables>;
-export const Document = gql`
-    {
+export const NewsPageDocument = gql`
+    query NewsPage {
   getNews {
+    id
     title
     body
   }
@@ -251,31 +252,31 @@ export const Document = gql`
     `;
 
 /**
- * __useQuery__
+ * __useNewsPageQuery__
  *
- * To run a query within a React component, call `useQuery` and pass it any options that fit your needs.
- * When your component renders, `useQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useNewsPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNewsPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useQuery({
+ * const { data, loading, error } = useNewsPageQuery({
  *   variables: {
  *   },
  * });
  */
-export function useQuery(baseOptions?: Apollo.QueryHookOptions<Query, QueryVariables>) {
+export function useNewsPageQuery(baseOptions?: Apollo.QueryHookOptions<NewsPageQuery, NewsPageQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<Query, QueryVariables>(Document, options);
+        return Apollo.useQuery<NewsPageQuery, NewsPageQueryVariables>(NewsPageDocument, options);
       }
-export function useLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Query, QueryVariables>) {
+export function useNewsPageLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NewsPageQuery, NewsPageQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<Query, QueryVariables>(Document, options);
+          return Apollo.useLazyQuery<NewsPageQuery, NewsPageQueryVariables>(NewsPageDocument, options);
         }
-export type QueryHookResult = ReturnType<typeof useQuery>;
-export type LazyQueryHookResult = ReturnType<typeof useLazyQuery>;
-export type QueryResult = Apollo.QueryResult<Query, QueryVariables>;
+export type NewsPageQueryHookResult = ReturnType<typeof useNewsPageQuery>;
+export type NewsPageLazyQueryHookResult = ReturnType<typeof useNewsPageLazyQuery>;
+export type NewsPageQueryResult = Apollo.QueryResult<NewsPageQuery, NewsPageQueryVariables>;
 export const SubmitTrialApplicationPage_SubmitTrialApplicationDocument = gql`
     mutation SubmitTrialApplicationPage_SubmitTrialApplication($input: SubmitTrialApplicationInput!) {
   submitTrialApplication(input: $input)

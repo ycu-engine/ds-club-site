@@ -48,7 +48,7 @@ type Query {
   ok: Boolean!
   getUser(id: ID!): User
   getRegularUsers: [RegularUser!]!
-  getNews: [News!]
+  getNews: [News!]!
 }
 
 input SubmitTrialApplicationInput {

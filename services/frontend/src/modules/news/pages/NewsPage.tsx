@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import {
   Box,
   Tabs,
@@ -12,30 +11,25 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { DefaultLayout } from '../../../components/DefaultLayout'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../../../clients/firebase'
+import { useNewsPageQuery } from '../../../generates/graphql'
 
-type NewsType = {
-  title: string
-  body: string
-}
-const sampleNews: NewsType[] = [
-  { body: 'fugafuga1', title: 'hogehoge1' },
-  { body: 'fugafuga2', title: 'hogehoge2' },
-  { body: 'fugafuga3', title: 'hogehoge3' },
-]
-
+// type NewsType = {
+//   title: string
+//   body: string
+// }
+// const sampleNews: NewsType[] = [
+//   { body: 'fugafuga1', title: 'hogehoge1' },
+//   { body: 'fugafuga2', title: 'hogehoge2' },
+//   { body: 'fugafuga3', title: 'hogehoge3' },
+// ]
 const NewsPage = () => {
-  const [user] = useAuthState(auth)
-
-  useEffect(() => {
-    if (user) {
-      void user.getIdToken(true).then((Token) => {
-        console.debug(Token)
-      })
-    }
-  }, [user])
-
+  const { data, loading, error } = useNewsPageQuery({
+    variables: {},
+  })
+  console.info(data, loading, error)
+  if (!data) {
+    return null
+  }
   return (
     <DefaultLayout>
       {/* お知らせ */}
@@ -56,7 +50,7 @@ const NewsPage = () => {
               <TabPanels h="50vh" overflow="scroll" p="5">
                 {/* TabPanelにお知らせを追加する */}
 
-                {sampleNews.map((news: NewsType) => {
+                {data.getNews.map((news) => {
                   console.info(news)
                   return (
                     <TabPanel key={news.title}>
@@ -74,7 +68,7 @@ const NewsPage = () => {
             </Box>
 
             <TabList justifyContent="center">
-              {sampleNews.map((news: NewsType) => {
+              {data.getNews.map((news) => {
                 return (
                   <Tab
                     _focus={{ outline: 'none' }}

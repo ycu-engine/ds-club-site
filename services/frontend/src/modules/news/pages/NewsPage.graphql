@@ -1,5 +1,6 @@
 query NewsPage {
   getNews {
+    id
     title
     body
   }
