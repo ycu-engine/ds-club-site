@@ -4,8 +4,10 @@ interface User {
 }
 
 enum UserRole {
-  NORMAL
+  ADMIN
   STAFF
+  TREASURER
+  MENTER
 }
 
 """
@@ -34,6 +36,10 @@ type RegularUser implements User {
   支払い状況
   """
   paymentStatus: PaymentStatus!
+  """
+  役割
+  """
+  roles: [UserRole!]!
 }
 """
 お知らせ
