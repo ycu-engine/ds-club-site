@@ -1,13 +1,14 @@
 import type { FirestoreDataConverter } from 'firebase-admin/firestore'
 import { z } from 'zod'
 import { timestamp } from '../../clients/firebase/timestamp'
-import { PaymentStatus, RankKind } from '../../generates/graphql'
+import { PaymentStatus, RankKind, UserRole } from '../../generates/graphql'
 
 export const UserModelSchema = z.object({
   createdAt: timestamp,
   currentRank: z.nativeEnum(RankKind),
   name: z.string(),
   paymentStatus: z.nativeEnum(PaymentStatus),
+  roles: z.array(z.nativeEnum(UserRole)),
   updatedAt: timestamp,
 })
 
