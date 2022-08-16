@@ -13,15 +13,6 @@ import {
 import { DefaultLayout } from '../../../components/DefaultLayout'
 import { useNewsPageQuery } from '../../../generates/graphql'
 
-// type NewsType = {
-//   title: string
-//   body: string
-// }
-// const sampleNews: NewsType[] = [
-//   { body: 'fugafuga1', title: 'hogehoge1' },
-//   { body: 'fugafuga2', title: 'hogehoge2' },
-//   { body: 'fugafuga3', title: 'hogehoge3' },
-// ]
 const NewsPage = () => {
   const { data, loading, error } = useNewsPageQuery({
     variables: {},
