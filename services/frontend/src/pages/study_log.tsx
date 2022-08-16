@@ -10,11 +10,11 @@ import {
 } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import { DefaultLayout } from '../components/DefaultLayout'
-import type { StudyLogGraphProps } from '../modules/admin/study_log/components/StudyLogGraph'
+import type { StudyLogGraphProps } from '../modules/studyLog/components/StudyLogGraph'
 
 const StudyLogGraph = dynamic<StudyLogGraphProps>(
   () =>
-    import('../modules/admin/study_log/components/StudyLogGraph').then(
+    import('../modules/studyLog/components/StudyLogGraph').then(
       (mod) => mod.StudyLogGraph,
     ),
   { loading: () => <div>loading...</div>, ssr: false },
