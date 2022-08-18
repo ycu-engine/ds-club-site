@@ -50,7 +50,7 @@ export const SubmitTrialApplicationPage = () => {
   }
 
   return (
-    <DefaultLayout hideHeader>
+    <DefaultLayout authenticated={false} hideHeader>
       <Heading p="10">体験入会申請フォーム</Heading>
 
       <Container fontSize="1em" w="100%">

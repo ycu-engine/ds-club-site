@@ -1,10 +1,10 @@
-import { Heading, Box } from '@chakra-ui/react'
+import { Box, Heading } from '@chakra-ui/react'
 import { DefaultLayout } from '../components/DefaultLayout'
 // import { useState } from 'react'
 
 const Page = () => {
   return (
-    <DefaultLayout>
+    <DefaultLayout authenticated={false}>
       {/* <Text>あいうえお</Text> */}
 
       <Box justifyContent="center" p={5}>
