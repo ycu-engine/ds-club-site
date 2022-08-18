@@ -42,7 +42,7 @@ const Page = () => {
   }
 
   return (
-    <DefaultLayout hideHeader>
+    <DefaultLayout authenticated={false} hideHeader>
       <Container mt="5%" w="100%">
         <VStack align="center">
           <Image
