@@ -79,7 +79,7 @@ type Query {
   ok: Boolean!
   getUser(id: ID!): User
   getRegularUsers: [RegularUser!]!
-  getNews: [News!]
+  getNews: [News!]!
   getStudyLog(userId: ID!): [StudyLog!]
 }
 
