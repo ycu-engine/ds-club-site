@@ -10,3 +10,5 @@ generates:
     config:
       useTypeImports: true
       contextType: ../context#Context
+      mappers:
+        StudyLog: ../modules/studyLog/types#StudyLogModelMapper

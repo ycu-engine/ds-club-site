@@ -4,8 +4,10 @@ interface User {
 }
 
 enum UserRole {
-  NORMAL
+  ADMIN
   STAFF
+  TREASURER
+  MENTER
 }
 
 """
@@ -34,6 +36,10 @@ type RegularUser implements User {
   支払い状況
   """
   paymentStatus: PaymentStatus!
+  """
+  役割
+  """
+  roles: [UserRole!]!
 }
 """
 お知らせ
@@ -44,17 +50,48 @@ type News {
   body: String!
 }
 
+type DateTime {
+  iso: String!
+}
+
+type StudyLog {
+  id: ID!
+  user: User!
+  """
+  作成日時
+  """
+  createdAt: DateTime!
+  """
+  更新日時
+  """
+  updatedAt: DateTime!
+  """
+  学習時間（分）
+  """
+  studyTime: Int!
+  """
+  本日の学習内容
+  """
+  studyContent: String!
+}
+
 type Query {
   ok: Boolean!
   getUser(id: ID!): User
   getRegularUsers: [RegularUser!]!
-  getNews: [News!]!
+  getNews: [News!]
+  getStudyLog(userId: ID!): [StudyLog!]
 }
 
 input SubmitTrialApplicationInput {
   name: String!
   email: String!
   affiliation: String!
+}
+
+input CreateStudyLogInput {
+  studyTime: Int!
+  studyContent: String!
 }
 
 type Mutation {
@@ -64,4 +101,5 @@ type Mutation {
   ): RegularUser!
   updateUserRank(userId: ID!, rank: RankKind!): RegularUser!
   submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
+  createStudyLog(input: CreateStudyLogInput!): StudyLog!
 }
