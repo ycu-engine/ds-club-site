@@ -1,4 +1,4 @@
-query NewsPage {
+query News {
   getNews {
     id
     title
