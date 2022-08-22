@@ -1,5 +1,12 @@
 import { DefaultLayout } from '../components/DefaultLayout'
-import { Text, Box, Heading, Flex } from '@chakra-ui/react'
+import {
+  Text,
+  Box,
+  Heading,
+  Flex,
+  OrderedList,
+  ListItem,
+} from '@chakra-ui/react'
 
 const Page = () => {
   return (
@@ -31,11 +38,19 @@ const Page = () => {
               &emsp;会費についての注意事項
             </Text>
 
-            <Text fontSize="2xl" textAlign="center">
-              1.会費の徴収は4月と10月に行います 2.徴収金額は3000円です
-              3.脱退される場合、月割り計算で差額を返金致します
-              4.会費を期限内に納めていただけない場合、除名処分及び在籍期間中の会費を請求します
-            </Text>
+            <OrderedList fontSize="2xl" textAlign="center">
+              <ListItem>1.会費の徴収は4月と10月に行います</ListItem>
+
+              <ListItem>2.徴収金額は3000円です</ListItem>
+
+              <ListItem>
+                3.脱退される場合、月割り計算で差額を返金致します
+              </ListItem>
+
+              <ListItem>
+                4.会費を期限内に納めていただけない場合、除名処分及び在籍期間中の会費を請求します
+              </ListItem>
+            </OrderedList>
           </Box>
         </Flex>
       </Flex>
