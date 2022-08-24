@@ -59,7 +59,7 @@ const StyledAppointmentsAppointment = styled(Appointments.Appointment)(() => ({
 // 予定がある場合のセル内部の見た目を変更
 const StyledAppointmentsAppointmentContent = styled(
   Appointments.AppointmentContent,
-)(({ theme: { palette } }) => ({
+)(() => ({
   // セル内テキスト全般
   [`& .${classes.text}`]: {
     overflow: 'hidden',
@@ -141,37 +141,39 @@ Appointments.AppointmentContentProps) => {
         <div className={classes.text}>{data.title}</div>
 
         <div className={classNames(classes.text, classes.content)}>
-          {`Location: ${data.location}`}
+          {`Location: ${data['location']}`}
         </div>
       </div>
     </StyledAppointmentsAppointmentContent>
   )
 }
 
-export default () => (
-  <div>
-    <Scheduler data={appointments}>
-      <ViewState defaultCurrentDate={defaultCurrentDate} />
+export const DSScheduler = () => {
+  return (
+    <>
+      <Scheduler data={appointments}>
+        <ViewState defaultCurrentDate={defaultCurrentDate} />
 
-      <MonthView
-        dayScaleCellComponent={DayScaleCell}
-        timeTableCellComponent={TimeTableCell}
-      />
+        <MonthView
+          dayScaleCellComponent={DayScaleCell}
+          timeTableCellComponent={TimeTableCell}
+        />
 
-      <Appointments
-        appointmentComponent={Appointment}
-        appointmentContentComponent={AppointmentContent}
-      />
+        <Appointments
+          appointmentComponent={Appointment}
+          appointmentContentComponent={AppointmentContent}
+        />
 
-      <Resources data={resources} />
+        <Resources data={resources} />
 
-      <AppointmentTooltip showCloseButton />
+        <AppointmentTooltip showCloseButton />
 
-      <Toolbar />
+        <Toolbar />
 
-      <DateNavigator />
+        <DateNavigator />
 
-      <TodayButton />
-    </Scheduler>
-  </div>
-)
+        <TodayButton />
+      </Scheduler>
+    </>
+  )
+}
