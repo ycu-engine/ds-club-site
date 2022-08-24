@@ -1,7 +1,7 @@
 import { Header } from './Header'
 
 import { Box, Flex } from '@chakra-ui/react'
-import type { ReactNode } from 'react'
+import { Fragment, ReactNode } from 'react'
 import { Authenticated } from './Authenticated'
 
 type DefaultLayoutProps = {
@@ -15,35 +15,18 @@ export const DefaultLayout = ({
   hideHeader,
   authenticated = true,
 }: DefaultLayoutProps) => {
-  if (authenticated) {
-    return (
-      <Authenticated>
-        <Flex bg="#EFF0F3" flexDir="column" h="100vh">
-          {!hideHeader ? <Header /> : null}
-
-          <Flex flex={1} overflowY="hidden">
-            <Box flex={1} overflowY="scroll">
-              {children}
-
-              {/* <Sidebar display={isOpen?'block':'none'}/> */}
-            </Box>
-          </Flex>
-        </Flex>
-      </Authenticated>
-    )
-  } else {
-    return (
+  const Wrapper = authenticated ? Authenticated : Fragment
+  return (
+    <Wrapper>
       <Flex bg="#EFF0F3" flexDir="column" h="100vh">
         {!hideHeader ? <Header /> : null}
 
         <Flex flex={1} overflowY="hidden">
           <Box flex={1} overflowY="scroll">
             {children}
-
-            {/* <Sidebar display={isOpen?'block':'none'}/> */}
           </Box>
         </Flex>
       </Flex>
-    )
-  }
+    </Wrapper>
+  )
 }
