@@ -27,7 +27,7 @@ const Page = () => {
             <Flex justify="center">
               <Heading color={COLORS.pink}>段位:</Heading>
 
-              <Heading color="#0D0D0D">エヴァンジェリスト</Heading>
+              <Heading color={COLORS.black}>エヴァンジェリスト</Heading>
             </Flex>
 
             <Image src={Rank} />
@@ -42,7 +42,9 @@ const Page = () => {
               minW="24"
             >
               名前：
-              <Text as="span">諸田健太朗</Text>
+              <Text as="span" color={COLORS.black}>
+                諸田健太朗
+              </Text>
             </Text>
 
             <Text
@@ -51,7 +53,9 @@ const Page = () => {
               minW="24"
             >
               会員：
-              <Text as="span">代表</Text>
+              <Text as="span" color={COLORS.black}>
+                代表
+              </Text>
             </Text>
           </Box>
         </Flex>
