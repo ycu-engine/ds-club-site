@@ -54,13 +54,13 @@ export const StudyLogGraph = ({ ...props }: StudyLogGraphProps) => {
       <CartesianGrid stroke="#ccc" />
 
       <XAxis
-        dataKey="week"
-        tickFormatter={(date: Date) => date.toLocaleDateString()}
+        dataKey="studiedAt.iso"
+        tickFormatter={(date: string) => new Date(date).toLocaleDateString()}
       />
 
       <YAxis />
 
-      <Line dataKey="amount" stroke="#8884d8" type="monotone" />
+      <Line dataKey="studyTime" stroke="#8884d8" type="monotone" />
 
       <Tooltip content={TooltipContent} />
     </LineChart>

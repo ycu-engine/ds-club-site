@@ -73,6 +73,10 @@ type StudyLog {
   本日の学習内容
   """
   studyContent: String!
+  """
+  学習日
+  """
+  studiedAt: DateTime!
 }
 
 type Query {
@@ -80,7 +84,7 @@ type Query {
   getUser(id: ID!): User
   getRegularUsers: [RegularUser!]!
   getNews: [News!]!
-  getStudyLog(userId: ID!): [StudyLog!]
+  getStudyLog(userId: ID!): [StudyLog!]!
 }
 
 input SubmitTrialApplicationInput {
@@ -92,6 +96,7 @@ input SubmitTrialApplicationInput {
 input CreateStudyLogInput {
   studyTime: Int!
   studyContent: String!
+  studiedAt: Int!
 }
 
 type Mutation {

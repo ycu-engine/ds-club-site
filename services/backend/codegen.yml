@@ -12,3 +12,4 @@ generates:
       contextType: ../context#Context
       mappers:
         StudyLog: ../modules/studyLog/types#StudyLogModelMapper
+        DateTime: Date
