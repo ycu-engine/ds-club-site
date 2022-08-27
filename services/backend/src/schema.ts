@@ -12,6 +12,7 @@ import { getStudyLogResolver } from './resolvers/Query.getStudyLog'
 import { getUserResolver } from './resolvers/Query.getUser'
 import { okResolver } from './resolvers/Query.ok'
 import { userResolver } from './resolvers/StudyLog.user'
+import { __resolveTypeResolve } from './resolvers/User.__resolveType'
 
 const resolvers: Resolvers = {
   Mutation: {
@@ -29,6 +30,9 @@ const resolvers: Resolvers = {
   },
   StudyLog: {
     user: userResolver,
+  },
+  User: {
+    __resolveType: __resolveTypeResolve,
   },
 }
 

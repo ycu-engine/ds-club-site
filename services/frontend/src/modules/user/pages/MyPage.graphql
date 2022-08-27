@@ -1,0 +1,10 @@
+query MyPage($userId: ID!) {
+  getUser(id: $userId) {
+    id
+    name
+    ... on RegularUser {
+      currentRank
+      roles
+    }
+  }
+}
