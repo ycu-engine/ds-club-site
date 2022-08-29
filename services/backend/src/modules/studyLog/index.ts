@@ -1,4 +1,4 @@
-import { FieldValue } from 'firebase-admin/firestore'
+import { FieldValue, Timestamp } from 'firebase-admin/firestore'
 import { firestore } from '../../clients/firebase'
 
 import { studyLogModelConverter } from './models'
@@ -46,11 +46,13 @@ export const createStudyLog = async (
   obj: {
     studyTime: number
     studyContent: string
+    studiedAt: number
   },
 ): Promise<StudyLogModelMapper> => {
   const ref = await getStudyLogCollection(userId).add({
     ...obj,
     createdAt: FieldValue.serverTimestamp(),
+    studiedAt: Timestamp.fromMillis(obj.studiedAt),
     updatedAt: FieldValue.serverTimestamp(),
   })
   const studyLog = await getStudyLog({ id: ref.id, userId: userId })
@@ -63,10 +65,15 @@ export const createStudyLog = async (
 export const updateStudyLog = async (
   userId: string,
   id: string,
-  obj: { studyTime?: number; studyContent?: string },
+  obj: { studyTime?: number; studyContent?: string; studiedAt?: number },
 ): Promise<StudyLogModelMapper> => {
   const ref = getStudyLogCollection(userId).doc(id)
-  await ref.update({ ...obj, updatedAt: FieldValue.serverTimestamp() })
+
+  await ref.update({
+    ...obj,
+    studiedAt: obj.studiedAt ? Timestamp.fromMillis(obj.studiedAt) : undefined,
+    updatedAt: FieldValue.serverTimestamp(),
+  })
   const studyLog = await getStudyLog({ id: ref.id, userId: userId })
   if (!studyLog) {
     throw new Error('StudyLog not updated')
