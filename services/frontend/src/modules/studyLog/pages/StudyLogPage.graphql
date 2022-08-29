@@ -1,0 +1,6 @@
+query StudyLogPage($userId: ID!) {
+  getStudyLog(userId: $userId) {
+    ...StudyLogGraph_StudyLog
+    # id
+  }
+}

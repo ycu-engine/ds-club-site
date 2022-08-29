@@ -4,6 +4,7 @@ import { timestamp } from '../../clients/firebase/timestamp'
 
 export const StudyLogModelSchema = z.object({
   createdAt: timestamp,
+  studiedAt: timestamp,
   studyContent: z.string(),
   studyTime: z.number().int().nonnegative(),
   updatedAt: timestamp,
