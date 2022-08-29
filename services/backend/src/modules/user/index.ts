@@ -5,6 +5,7 @@ import type {
   PaymentStatus,
   RankKind,
   RegularUser,
+  UserRole,
 } from '../../generates/graphql'
 
 const userCollection = firestore
@@ -29,8 +30,31 @@ export const createUser = async (obj: {
   name: string
   currentRank: RankKind
   paymentStatus: PaymentStatus
+  roles: UserRole[]
 }): Promise<RegularUser> => {
   const ref = await userCollection.add({
+    ...obj,
+    createdAt: FieldValue.serverTimestamp(),
+    updatedAt: FieldValue.serverTimestamp(),
+  })
+  const user = await getUser(ref.id)
+  if (!user) {
+    throw new Error('RegularUser not created')
+  }
+  return user
+}
+
+export const createUserWithId = async (
+  id: string,
+  obj: {
+    name: string
+    currentRank: RankKind
+    paymentStatus: PaymentStatus
+    roles: UserRole[]
+  },
+): Promise<RegularUser> => {
+  const ref = userCollection.doc(id)
+  await ref.set({
     ...obj,
     createdAt: FieldValue.serverTimestamp(),
     updatedAt: FieldValue.serverTimestamp(),

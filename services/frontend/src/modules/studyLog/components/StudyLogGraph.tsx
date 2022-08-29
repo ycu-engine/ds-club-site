@@ -6,21 +6,14 @@ import type {
   ValueType,
 } from 'recharts/types/component/DefaultTooltipContent'
 import type { ContentType } from 'recharts/types/component/Tooltip'
-
-/**
- * 仮のタイプ。APIができたら、そっちに変更する
- */
-type StudyRecord = {
-  amount: number
-  week: Date
-  contents: string[]
-}
+import type { StudyLogGraph_StudyLogFragment } from '../../../generates/graphql'
 
 const TooltipContent: ContentType<ValueType, NameType> = ({
   active,
   payload,
 }) => {
-  const item = payload?.[0]?.payload as StudyRecord | undefined
+  const item = payload?.[0]?.payload as StudyLogGraph_StudyLogFragment
+
   if (active && item) {
     return (
       <Box
@@ -30,14 +23,14 @@ const TooltipContent: ContentType<ValueType, NameType> = ({
         px="2"
         py="1"
       >
-        <Text className="tooltipLabel">{item.week.toLocaleDateString()}</Text>
+        <Text className="tooltipLabel">
+          {new Date(item.createdAt.iso).toLocaleDateString()}
+        </Text>
 
-        <Text className="tooltipDesc">{`${item.amount}分`}</Text>
+        <Text className="tooltipDesc">{`${item.studyTime}分`}</Text>
 
         <List>
-          {item.contents.map((content) => (
-            <ListItem key={content}>{content}</ListItem>
-          ))}
+          <ListItem>{item.studyContent}</ListItem>
         </List>
       </Box>
     )
@@ -46,11 +39,11 @@ const TooltipContent: ContentType<ValueType, NameType> = ({
   return null
 }
 
-export type StudyRecordGraphProps = Omit<CategoricalChartProps, 'data'> & {
-  data: StudyRecord[]
+export type StudyLogGraphProps = Omit<CategoricalChartProps, 'data'> & {
+  data: StudyLogGraph_StudyLogFragment[]
 }
 
-export const StudyRecordGraph = ({ ...props }: StudyRecordGraphProps) => {
+export const StudyLogGraph = ({ ...props }: StudyLogGraphProps) => {
   return (
     <LineChart
       height={400}

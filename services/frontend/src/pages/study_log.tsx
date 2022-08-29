@@ -10,12 +10,12 @@ import {
 } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import { DefaultLayout } from '../components/DefaultLayout'
-import type { StudyRecordGraphProps } from '../modules/study_record/components/StudyRecordGraph'
+import type { StudyLogGraphProps } from '../modules/studyLog/components/StudyLogGraph'
 
-const StudyLogGraph = dynamic<StudyRecordGraphProps>(
+const StudyLogGraph = dynamic<StudyLogGraphProps>(
   () =>
-    import('../modules/study_record/components/StudyRecordGraph').then(
-      (mod) => mod.StudyRecordGraph,
+    import('../modules/studyLog/components/StudyLogGraph').then(
+      (mod) => mod.StudyLogGraph,
     ),
   { loading: () => <div>loading...</div>, ssr: false },
 )
@@ -75,31 +75,55 @@ const Page = () => {
               <StudyLogGraph
                 data={[
                   {
-                    amount: 20,
-                    contents: ['Pythonの勉強'],
-                    week: new Date('2022-04-26'),
+                    createdAt: { iso: new Date('2022-04-26').toISOString() },
+                    studyContent: 'Pythonの勉強',
+                    studyTime: 20,
                   },
                   {
-                    amount: 18,
-                    contents: ['Reactの勉強', 'Next.js'],
-                    week: new Date('2022-05-03'),
-                  },
-                  { amount: 60, contents: [], week: new Date('2022-05-10') },
-                  { amount: 65, contents: [], week: new Date('2022-05-17') },
-                  { amount: 15, contents: [], week: new Date('2022-05-24') },
-                  {
-                    amount: 20,
-                    contents: ['Pythonの勉強'],
-                    week: new Date('2022-04-26'),
+                    createdAt: { iso: new Date('2022-05-03').toISOString() },
+                    studyContent: 'Reactの勉強、Next.js',
+                    studyTime: 18,
                   },
                   {
-                    amount: 18,
-                    contents: ['Reactの勉強', 'Next.js'],
-                    week: new Date('2022-05-03'),
+                    createdAt: { iso: new Date('2022-05-10').toISOString() },
+                    studyContent: '',
+                    studyTime: 60,
                   },
-                  { amount: 60, contents: [], week: new Date('2022-05-10') },
-                  { amount: 65, contents: [], week: new Date('2022-05-17') },
-                  { amount: 15, contents: [], week: new Date('2022-05-24') },
+                  {
+                    createdAt: { iso: new Date('2022-05-17').toISOString() },
+                    studyContent: '',
+                    studyTime: 65,
+                  },
+                  {
+                    createdAt: { iso: new Date('2022-05-24').toISOString() },
+                    studyContent: '',
+                    studyTime: 15,
+                  },
+                  {
+                    createdAt: { iso: new Date('2022-04-26').toISOString() },
+                    studyContent: 'Pythonの勉強',
+                    studyTime: 20,
+                  },
+                  {
+                    createdAt: { iso: new Date('2022-05-03').toISOString() },
+                    studyContent: 'Reactの勉強、Next.js',
+                    studyTime: 18,
+                  },
+                  {
+                    createdAt: { iso: new Date('2022-05-10').toISOString() },
+                    studyContent: '',
+                    studyTime: 60,
+                  },
+                  {
+                    createdAt: { iso: new Date('2022-05-17').toISOString() },
+                    studyContent: '',
+                    studyTime: 65,
+                  },
+                  {
+                    createdAt: { iso: new Date('2022-05-24').toISOString() },
+                    studyContent: '',
+                    studyTime: 15,
+                  },
                 ]}
               />
             </Box>

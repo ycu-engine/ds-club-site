@@ -1,14 +1,33 @@
-import { DefaultLayout } from '../components/DefaultLayout'
+import { DefaultLayout } from '../../../components/DefaultLayout'
 import { Box, Flex, Heading, Text, Container } from '@chakra-ui/react'
 import Image from 'next/image'
-import Rank from '../assets/images/eva.png'
-import DS from '../assets/images/DS_degree.png'
-import Engi from '../assets/images/Engineering_degree.png'
-import Sta from '../assets/images/Statistics_degree.png'
-import Learn from '../assets/images/learning_time.png'
-import { COLORS } from '../theme'
+import Rank from '../../../assets/images/eva.png'
+import DS from '../../../assets/images/DS_degree.png'
+import Engi from '../../../assets/images/Engineering_degree.png'
+import Sta from '../../../assets/images/Statistics_degree.png'
+import Learn from '../../../assets/images/learning_time.png'
+import { COLORS } from '../../../theme'
+import { useMyPageQuery } from '../../../generates/graphql'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '../../../clients/firebase'
 
-const Page = () => {
+export const MyPage = () => {
+  const [user] = useAuthState(auth)
+  const { data, loading, error } = useMyPageQuery({
+    skip: !user,
+    variables: { userId: user?.uid ?? '' },
+  })
+  if (loading) {
+    return 'loading'
+  }
+  if (error) {
+    console.error(error)
+    return 'error'
+  }
+  if (!data) {
+    return 'loading'
+  }
+
   return (
     <DefaultLayout>
       {/* 外側 */}
@@ -27,7 +46,9 @@ const Page = () => {
             <Flex justify="center">
               <Heading color={COLORS.pink}>段位:</Heading>
 
-              <Heading color="#0D0D0D">エヴァンジェリスト</Heading>
+              <Heading color={COLORS.black}>
+                {data.getUser?.currentRank}
+              </Heading>
             </Flex>
 
             <Image src={Rank} />
@@ -42,7 +63,9 @@ const Page = () => {
               minW="24"
             >
               名前：
-              <Text as="span">諸田健太朗</Text>
+              <Text as="span" color={COLORS.black}>
+                {data.getUser?.name}
+              </Text>
             </Text>
 
             <Text
@@ -51,7 +74,9 @@ const Page = () => {
               minW="24"
             >
               会員：
-              <Text as="span">代表</Text>
+              <Text as="span" color={COLORS.black}>
+                {data.getUser?.roles}
+              </Text>
             </Text>
           </Box>
         </Flex>
@@ -105,5 +130,3 @@ const Page = () => {
     </DefaultLayout>
   )
 }
-
-export default Page

@@ -1,29 +1,25 @@
 {
-	"name": "DS倶楽部サイト",
-	"dockerComposeFile": "docker-compose.yml",
-	"service": "app",
-	"workspaceFolder": "/workspace",
-	"customizations": {
-		"vscode": {
-			"settings": {},
-			"extensions": [
-				"dbaeumer.vscode-eslint",
-				"ms-vsliveshare.vsliveshare",
-				"eamodio.gitlens",
-				"esbenp.prettier-vscode",
-				"ms-azuretools.vscode-docker",
-				"toba.vsfire",
-				"GitHub.copilot",
-				"GraphQL.vscode-graphql",
-				"redhat.vscode-yaml"
-			]
-		}
-	},
-	"forwardPorts": [
-		9099,
-		8080,
-		9199,
-		9299
-	],
-	"remoteUser": "node"
+  "name": "DS倶楽部サイト",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "ms-vsliveshare.vsliveshare",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker",
+        "toba.vsfire",
+        "GitHub.copilot",
+        "GraphQL.vscode-graphql",
+        "redhat.vscode-yaml"
+      ]
+    }
+  },
+  "forwardPorts": [9099, 8080, 9199, 9299],
+  "remoteUser": "node",
+  "postCreateCommand": "./.devcontainer/postCreateCommand.sh"
 }
