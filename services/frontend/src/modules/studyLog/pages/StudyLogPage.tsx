@@ -24,14 +24,14 @@ export const StudyLogPage = () => {
     variables: { userId: '1' },
   })
   if (loading) {
-    return 'loading'
+    return <div>loading</div>
   }
   if (error) {
     console.error(error)
-    return 'エラーが発生しました'
+    return <div>エラーが発生しました</div>
   }
   if (!data) {
-    return 'データが見つかりませんでした'
+    return <div>データが見つかりませんでした</div>
   }
 
   return (
