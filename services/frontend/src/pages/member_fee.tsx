@@ -16,7 +16,7 @@ const Page = () => {
           <Heading textAlign="center">支払い状況</Heading>
         </Box>
 
-        <Flex direction="column" flex={1} padding={10} justify-content: flex-end;>
+        <Flex direction="column" flex={1} padding={10}>
           <Box background="#fff" borderRadius="3xl" flex={1} margin={5} p={5}>
             <Text color="pink.500" fontSize="3xl" textAlign="center">
               名前：
