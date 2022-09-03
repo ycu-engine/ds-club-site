@@ -17,7 +17,7 @@ body:
     attributes:
       label: 参考にした資料など
       description: 解決するために参考にしたサイトなどがあれば貼る
-  - type: bestAnswer
+  - type: textarea
     id: bestAnswer
     attributes:
       label: 解決方法
