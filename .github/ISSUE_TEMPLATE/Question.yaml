@@ -17,3 +17,9 @@ body:
     attributes:
       label: 参考にした資料など
       description: 解決するために参考にしたサイトなどがあれば貼る
+  - type: best-answer
+    id: bestAnswer
+    attributes:
+      label: 解決方法
+      description: 後からこの issue をみた人がすぐに解決方法を確認できるように、issue が解決したときにこの場所にその方法を書く
+      
