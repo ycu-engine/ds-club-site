@@ -4,28 +4,19 @@ import {
   Flex,
   Spacer,
   Heading,
-  Button,
   IconButton,
-  Drawer,
-  DrawerBody,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
   useDisclosure,
-  VStack,
-  Container,
 } from '@chakra-ui/react'
 
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
+import { HamburgerIcon } from '@chakra-ui/icons'
 
 import Logo from '../assets/images/icon.png'
 
 import Image from 'next/image'
+import { Sidebar } from './Sidebar'
 
 export const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const button_texts = ['個人ページ', '週目標', '教材', 'テスト', '資料']
 
   return (
     <Box backgroundColor="#E5E5E5" h="70px" w="100%">
@@ -74,50 +65,7 @@ export const Header = () => {
 
       {/* サイドバーの画面 */}
 
-      <Drawer isOpen={isOpen} onClose={onClose} placement="left">
-        <DrawerOverlay />
-
-        <DrawerContent>
-          {/* サイドバーの要素はここから変更してください */}
-
-          <Container>
-            <DrawerHeader borderBottomWidth="1px">
-              <Flex alignItems="center" justifyContent="space-between">
-                <Text>各種リンク</Text>
-
-                <IconButton
-                  aria-label="close-drawer"
-                  colorScheme="orange"
-                  icon={<CloseIcon />}
-                  onClick={onClose}
-                  size="sm"
-                />
-              </Flex>
-            </DrawerHeader>
-
-            <DrawerBody>
-              <VStack p={5} spacing={10}>
-                {/* ボタンをmapで追加 */}
-
-                {button_texts.map((button_text) => {
-                  return (
-                    <Button
-                      _hover={{ bg: 'blackAlpha.600' }}
-                      bg="black"
-                      borderRadius="20"
-                      color="white"
-                      key={button_text}
-                      w="40"
-                    >
-                      {button_text}
-                    </Button>
-                  )
-                })}
-              </VStack>
-            </DrawerBody>
-          </Container>
-        </DrawerContent>
-      </Drawer>
+      <Sidebar isOpen={isOpen} onClose={onClose} />
     </Box>
   )
 }
