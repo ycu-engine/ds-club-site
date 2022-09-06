@@ -1,9 +1,16 @@
 import { DefaultLayout } from '../components/DefaultLayout'
+import { Flex } from '@chakra-ui/react'
+import { News } from '../modules/news/News'
+import { DScheduler } from '../modules/scheduler/Scheduler'
 
 const Page = () => {
   return (
     <DefaultLayout>
-      <p>データサイエンスクラブ</p>
+      <Flex direction={['column', 'row']}>
+        <News />
+
+        <DScheduler />
+      </Flex>
     </DefaultLayout>
   )
 }
