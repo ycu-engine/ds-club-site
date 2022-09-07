@@ -1,16 +1,23 @@
-import { useRef, useState } from 'react'
-import '@toast-ui/calendar/dist/toastui-calendar.min.css'
-import { Button, Text, Container } from '@chakra-ui/react'
+import { useRef, useState, forwardRef } from 'react'
+import { Button, Text, Container, Box, Flex } from '@chakra-ui/react'
 
 import dynamic from 'next/dynamic'
 const Calendar = dynamic(() => import('@toast-ui/react-calendar'), {
   ssr: false,
 })
+import '@toast-ui/calendar/dist/toastui-calendar.min.css'
+const CalendarWithForwardedRef = forwardRef(function forwardRefTUICalendar(
+  props,
+  ref,
+) {
+  return <Calendar {...props} forwardedRef={ref} />
+})
 
 import appointments from './appointments'
+import type ToastUIReactCalendar from '@toast-ui/react-calendar'
 
 export const Scheduler = () => {
-  const calendarRef = useRef()
+  const calendarRef = useRef<ToastUIReactCalendar>()
 
   const now = new Date()
   const [year, month] = [now.getFullYear(), now.getMonth()]
@@ -44,24 +51,54 @@ export const Scheduler = () => {
   }
 
   return (
-    <Container>
-      <Text>{date}</Text>
+    <Container textAlign="center">
+      <Flex alignItems="center" justify="space-between" px={5}>
+        <Box bg="gray.200" borderRadius={10} color="orange.400" m={1}>
+          <Button
+            _hover={{ color: 'orange.700' }}
+            bg="transparent"
+            onClick={handleClickPrevButton}
+          >
+            {'<'}
+          </Button>
 
-      <Button onClick={handleClickPrevButton}>{'<'}</Button>
+          <Button
+            _hover={{ color: 'orange.700' }}
+            bg="transparent"
+            onClick={handleClickTodayButton}
+          >
+            today
+          </Button>
 
-      <Button onClick={handleClickTodayButton}>today</Button>
+          <Button
+            _hover={{ color: 'orange.700' }}
+            bg="transparent"
+            onClick={handleClickNextButton}
+          >
+            {'>'}
+          </Button>
+        </Box>
 
-      <Button onClick={handleClickNextButton}>{'>'}</Button>
+        <Text
+          bg="orange.400"
+          borderRadius={10}
+          color="white"
+          fontWeight="bold"
+          p={1}
+        >
+          {date}
+        </Text>
+      </Flex>
 
-      <Calendar
+      <CalendarWithForwardedRef
         events={appointments}
+        forwardRef={calendarRef}
         height="60vh"
         isReadOnly
         month={{
           dayNames: ['日', '月', '火', '水', '木', '金', '土'],
           visibleWeeksCount: 4,
         }}
-        ref={calendarRef}
         useDetailPopup
         view="month"
       />
