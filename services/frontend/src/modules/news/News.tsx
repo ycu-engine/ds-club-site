@@ -20,7 +20,7 @@ export const News = () => {
     return null
   }
   return (
-    <Container py="5" w={['initial', '50vw']}>
+    <Container py="5">
       <Tabs
         border="1px solid black"
         borderRadius="20"
