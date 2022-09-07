@@ -19,6 +19,7 @@ export const News = () => {
   if (!data) {
     return null
   }
+
   return (
     <Container py="5">
       <Tabs
@@ -33,8 +34,6 @@ export const News = () => {
 
         <Box border="1px solid black" borderRadius="20" m={['2,', '5']}>
           <TabPanels h="50vh" overflow="scroll" p="5">
-            {/* TabPanelにお知らせを追加する */}
-
             {data.getNews.map((news) => {
               console.info(news)
               return (

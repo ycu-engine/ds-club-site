@@ -7,26 +7,8 @@ const Calendar = dynamic(() => import('@toast-ui/react-calendar'), {
   ssr: false,
 })
 
-interface EventType {
-  title: string
-  location: string
-  start: Date
-  end: Date
-}
-const initialEvents = [
-  {
-    end: new Date(2022, 9 - 1, 28, 14, 0),
-    location: 'hoge',
-    start: new Date(2022, 9 - 1, 28, 13, 0),
-    title: 'Lunch',
-  },
-  {
-    end: '2022-09-22T15:30:00',
-    location: 'カフェ',
-    start: '2022-09-21T15:00:00',
-    title: 'Coffee Break',
-  },
-]
+import appointments from './appointments'
+
 export const Scheduler = () => {
   const calendarRef = useRef()
 
@@ -72,7 +54,7 @@ export const Scheduler = () => {
       <Button onClick={handleClickNextButton}>{'>'}</Button>
 
       <Calendar
-        events={initialEvents}
+        events={appointments}
         height="60vh"
         isReadOnly
         month={{
