@@ -1,55 +1,52 @@
-import { useRef, useState, forwardRef } from 'react'
+import { useRef, useState } from 'react'
 import { Button, Text, Container, Box, Flex } from '@chakra-ui/react'
+import Calendar from '@toast-ui/react-calendar'
 
-import dynamic from 'next/dynamic'
-const Calendar = dynamic(() => import('@toast-ui/react-calendar'), {
-  ssr: false,
-})
 import '@toast-ui/calendar/dist/toastui-calendar.min.css'
-const CalendarWithForwardedRef = forwardRef(function forwardRefTUICalendar(
-  props,
-  ref,
-) {
-  return <Calendar {...props} forwardedRef={ref} />
-})
 
 import appointments from './appointments'
-import type ToastUIReactCalendar from '@toast-ui/react-calendar'
 
 export const Scheduler = () => {
-  const calendarRef = useRef<ToastUIReactCalendar>()
+  const calendarRef = useRef<Calendar>(null)
 
-  const now = new Date()
-  const [year, month] = [now.getFullYear(), now.getMonth()]
-  const [date, setDate] = useState(`${year}年${month + 1}月`)
+  const [date, setDate] = useState(new Date())
 
   const updateCalenderDate = () => {
-    const calendarInstance = calendarRef.current.getInstance()
+    const calendarInstance = calendarRef.current?.getInstance()
 
-    const displayDate = calendarInstance.getDate()
-    setDate(`${displayDate.getFullYear()}年${displayDate.getMonth() + 1}月`)
+    const displayDate = calendarInstance?.getDate().toDate()
+    if (displayDate) {
+      setDate(displayDate)
+    }
   }
 
   const handleClickPrevButton = () => {
-    const calendarInstance = calendarRef.current.getInstance()
+    const calendarInstance = calendarRef.current?.getInstance()
 
-    calendarInstance.prev()
-    updateCalenderDate()
+    if (calendarInstance) {
+      calendarInstance.prev()
+      updateCalenderDate()
+    }
   }
   const handleClickNextButton = () => {
-    const calendarInstance = calendarRef.current.getInstance()
+    const calendarInstance = calendarRef.current?.getInstance()
 
-    calendarInstance.next()
-    updateCalenderDate()
+    if (calendarInstance) {
+      calendarInstance.next()
+      updateCalenderDate()
+    }
   }
 
   const handleClickTodayButton = () => {
-    const calendarInstance = calendarRef.current.getInstance()
+    const calendarInstance = calendarRef.current?.getInstance()
 
-    calendarInstance.today()
-    updateCalenderDate()
+    if (calendarInstance) {
+      calendarInstance.today()
+      updateCalenderDate()
+    }
   }
 
+  const formatedDate = `${date.getFullYear()}年${date.getMonth() + 1}月`
   return (
     <Container textAlign="center">
       <Flex alignItems="center" justify="space-between" px={5}>
@@ -86,19 +83,19 @@ export const Scheduler = () => {
           fontWeight="bold"
           p={1}
         >
-          {date}
+          {formatedDate}
         </Text>
       </Flex>
 
-      <CalendarWithForwardedRef
+      <Calendar
         events={appointments}
-        forwardRef={calendarRef}
         height="60vh"
         isReadOnly
         month={{
           dayNames: ['日', '月', '火', '水', '木', '金', '土'],
           visibleWeeksCount: 4,
         }}
+        ref={calendarRef}
         useDetailPopup
         view="month"
       />

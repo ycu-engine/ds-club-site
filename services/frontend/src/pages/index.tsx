@@ -1,7 +1,14 @@
 import { Flex } from '@chakra-ui/react'
 import { DefaultLayout } from '../components/DefaultLayout'
 import { News } from '../modules/news/News'
-import { Scheduler } from '../modules/scheduler/Scheduler'
+import dynamic from 'next/dynamic'
+
+const Scheduler = dynamic(
+  () => import('../modules/scheduler/Scheduler').then((mod) => mod.Scheduler),
+  {
+    ssr: false,
+  },
+)
 
 const HomePage = () => {
   return (

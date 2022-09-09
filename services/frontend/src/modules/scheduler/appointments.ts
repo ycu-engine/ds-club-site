@@ -42,6 +42,7 @@ const makeAppointment: makeAppointmentType = (date, dayTemplate) => {
       endHour,
       endMinite,
     ),
+    isReadOnly: true,
     location: dayTemplate.location,
     start: new Date(
       date.getFullYear(),
@@ -77,6 +78,7 @@ while (loopDate <= loopEndDate) {
 // 特別なイベントの設定
 const BBQEvent: EventObject = {
   end: new Date(2022, 9 - 1, 10, 15, 0),
+  isReadOnly: true,
   location: '海の公園',
   start: new Date(2022, 9 - 1, 10, 10, 0),
   title: 'BBQ',
