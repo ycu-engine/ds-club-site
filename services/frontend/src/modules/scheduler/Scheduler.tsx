@@ -6,7 +6,8 @@ import '@toast-ui/calendar/dist/toastui-calendar.min.css'
 
 import appointments from './appointments'
 
-export const Scheduler = () => {
+export interface SchedulerProps {}
+export const Scheduler = (_props: SchedulerProps) => {
   const calendarRef = useRef<Calendar>(null)
 
   const [date, setDate] = useState(new Date())

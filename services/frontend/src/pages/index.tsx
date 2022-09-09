@@ -2,8 +2,9 @@ import { Flex } from '@chakra-ui/react'
 import { DefaultLayout } from '../components/DefaultLayout'
 import { News } from '../modules/news/News'
 import dynamic from 'next/dynamic'
+import type { SchedulerProps } from '../modules/scheduler/Scheduler'
 
-const Scheduler = dynamic(
+const Scheduler = dynamic<SchedulerProps>(
   () => import('../modules/scheduler/Scheduler').then((mod) => mod.Scheduler),
   {
     ssr: false,
