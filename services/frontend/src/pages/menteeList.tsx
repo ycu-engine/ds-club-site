@@ -33,7 +33,7 @@ const MenteeList = () => {
     mentorName: 'メンター1号',
   }
   return (
-    <DefaultLayout authenticated={false}>
+    <DefaultLayout>
       <Container
         bg="white"
         borderRadius={15}
