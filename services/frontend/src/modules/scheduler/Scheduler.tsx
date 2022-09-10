@@ -1,11 +1,22 @@
 import { useRef, useState } from 'react'
 import { Button, Text, Container, Box, Flex } from '@chakra-ui/react'
 import Calendar from '@toast-ui/react-calendar'
-
 import '@toast-ui/calendar/dist/toastui-calendar.min.css'
-
 import appointments from './appointments'
 
+interface DateSelectButtonProps {
+  onClick: () => void
+  children?: React.ReactNode
+}
+const DateSelectButton = ({ onClick, children }: DateSelectButtonProps) => {
+  return (
+    <Button _hover={{ color: 'orange.700' }} bg="transparent" onClick={onClick}>
+      {children}
+    </Button>
+  )
+}
+
+// Dynamic importsのためにpropsの型定義を用意しておく
 export interface SchedulerProps {}
 export const Scheduler = (_props: SchedulerProps) => {
   const calendarRef = useRef<Calendar>(null)
@@ -52,29 +63,17 @@ export const Scheduler = (_props: SchedulerProps) => {
     <Container textAlign="center">
       <Flex alignItems="center" justify="space-between" px={5}>
         <Box bg="gray.200" borderRadius={10} color="orange.400" m={1}>
-          <Button
-            _hover={{ color: 'orange.700' }}
-            bg="transparent"
-            onClick={handleClickPrevButton}
-          >
+          <DateSelectButton onClick={handleClickPrevButton}>
             {'<'}
-          </Button>
+          </DateSelectButton>
 
-          <Button
-            _hover={{ color: 'orange.700' }}
-            bg="transparent"
-            onClick={handleClickTodayButton}
-          >
+          <DateSelectButton onClick={handleClickTodayButton}>
             today
-          </Button>
+          </DateSelectButton>
 
-          <Button
-            _hover={{ color: 'orange.700' }}
-            bg="transparent"
-            onClick={handleClickNextButton}
-          >
+          <DateSelectButton onClick={handleClickNextButton}>
             {'>'}
-          </Button>
+          </DateSelectButton>
         </Box>
 
         <Text
