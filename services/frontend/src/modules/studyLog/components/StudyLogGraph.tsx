@@ -24,7 +24,7 @@ const TooltipContent: ContentType<ValueType, NameType> = ({
         py="1"
       >
         <Text className="tooltipLabel">
-          {new Date(item.studiedAt.iso).toLocaleDateString()}
+          {new Date(item.studiedAt).toLocaleDateString()}
         </Text>
 
         <Text className="tooltipDesc">{`${item.studyTime}分`}</Text>

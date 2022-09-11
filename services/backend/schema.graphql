@@ -1,3 +1,4 @@
+scalar Date
 interface User {
   id: ID!
   name: String!
@@ -76,7 +77,7 @@ type StudyLog {
   """
   学習日
   """
-  studiedAt: DateTime!
+  studiedAt: Date!
 }
 
 type Query {
@@ -96,7 +97,7 @@ input SubmitTrialApplicationInput {
 input CreateStudyLogInput {
   studyTime: Int!
   studyContent: String!
-  studiedAt: Int!
+  studiedAt: Date!
 }
 
 type Mutation {

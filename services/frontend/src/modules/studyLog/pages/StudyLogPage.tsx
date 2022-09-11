@@ -4,14 +4,18 @@ import {
   Center,
   Grid,
   GridItem,
-  Input,
   Select,
   Text,
 } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import { DefaultLayout } from '../../../components/DefaultLayout'
-import { useStudyLogPageQuery } from '../../../generates/graphql'
+import {
+  useStudyLogPageQuery,
+  useStudyLogPage_CreateStudyLogMutation,
+} from '../../../generates/graphql'
 
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { InputBox } from '../../../components/InputForm/InputBox'
 import type { StudyLogGraphProps } from '../components/StudyLogGraph'
 
 const StudyLogGraph = dynamic<StudyLogGraphProps>(
@@ -19,10 +23,34 @@ const StudyLogGraph = dynamic<StudyLogGraphProps>(
   { loading: () => <div>loading...</div>, ssr: false },
 )
 
+type CreateStudyLogForm = {
+  studiedAt: Date
+  studyContent: string
+  studyTime: number
+}
+
 export const StudyLogPage = () => {
+  const { register, handleSubmit } = useForm<CreateStudyLogForm>()
+
+  const [mutateCreateStudyLog] = useStudyLogPage_CreateStudyLogMutation()
+
   const { data, loading, error } = useStudyLogPageQuery({
     variables: { userId: '1' },
   })
+
+  const onSubmit: SubmitHandler<CreateStudyLogForm> = async (forms) => {
+    console.debug(forms)
+    await mutateCreateStudyLog({
+      variables: {
+        input: {
+          studiedAt: forms.studiedAt.toISOString().slice(0, 10),
+          studyContent: forms.studyContent,
+          studyTime: forms.studyTime,
+        },
+      },
+    })
+  }
+
   if (loading) {
     return <div>loading</div>
   }
@@ -53,6 +81,7 @@ export const StudyLogPage = () => {
             <Text fontSize={32}>学習時間の記録</Text>
 
             <Box
+              as="form"
               borderRadius="20px"
               borderWidth="2px"
               mt="12px"
@@ -107,27 +136,39 @@ export const StudyLogPage = () => {
 
         <GridItem colSpan={1} rowSpan={3} w="100%">
           <Box
+            as="form"
             bg="white"
             borderRadius="20px"
             borderWidth="2px"
             m="12px"
+            onSubmit={handleSubmit(onSubmit)}
             overflow="hidden"
             p="12px"
           >
-            <Text mt="12px">勉強内容</Text>
+            <InputBox title="勉強内容" {...register('studyContent')} />
 
-            <Input mt="12px" placeholder="勉強内容" rounded="full" />
+            <InputBox
+              title="勉強時間(分)"
+              type="number"
+              {...register('studyTime', {
+                required: '必須項目です',
+                valueAsNumber: true,
+              })}
+            />
 
-            <Text mt="12px">勉強時間</Text>
-
-            <Input mt="12px" placeholder="勉強時間" rounded="full" />
-
-            <Text mt="12px">記入日</Text>
-
-            <Input mt="12px" placeholder="記入日" rounded="full" />
+            <InputBox
+              title="学習日"
+              type="date"
+              {...register('studiedAt', {
+                required: '必須項目です',
+                valueAsDate: true,
+              })}
+            />
 
             <Center h="100%">
-              <Button mt="12px">追加</Button>
+              <Button mt="12px" type="submit">
+                追加
+              </Button>
             </Center>
           </Box>
         </GridItem>

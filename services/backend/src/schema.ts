@@ -1,5 +1,6 @@
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { loadSchema } from '@graphql-tools/load'
+import { DateResolver } from 'graphql-scalars'
 import { join } from 'path'
 import type { Resolvers } from './generates/graphql'
 import { isoResolver } from './resolvers/DateTime.iso'
@@ -16,6 +17,7 @@ import { userResolver } from './resolvers/StudyLog.user'
 import { __resolveTypeResolve } from './resolvers/User.__resolveType'
 
 const resolvers: Resolvers = {
+  Date: DateResolver,
   DateTime: {
     iso: isoResolver,
   },
