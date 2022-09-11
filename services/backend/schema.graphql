@@ -41,6 +41,8 @@ type RegularUser implements User {
   役割
   """
   roles: [UserRole!]!
+  menter: RegularUser
+  mentees: [RegularUser!]
 }
 """
 お知らせ
