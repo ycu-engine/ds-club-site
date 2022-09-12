@@ -10,6 +10,12 @@ enum UserRole {
   MENTER
 }
 
+enum DegreeKind {
+  STATISTICS
+  DATASCIENCE
+  ENGINEER
+}
+
 """
 支払い状況
 """
@@ -31,7 +37,11 @@ type RegularUser implements User {
   """
   段位
   """
-  currentRank: RankKind!
+  currentRank: UserRank!
+  """
+  称号一覧
+  """
+  degrees(rank: RankKind, kind: DegreeKind, isCompleted: Boolean): [UserDegree]!
   """
   支払い状況
   """
@@ -48,6 +58,35 @@ type News {
   id: ID!
   title: String!
   body: String!
+}
+
+"""
+"""
+type UserRank {
+  id: ID!
+  userId: ID!
+  rankKind: RankKind!
+  completedAt: DateTime
+}
+type UserDegree {
+  id: ID!
+  userId: ID!
+  degreeId: ID!
+  degree: Degree!
+  completedAt: String
+}
+type Degree {
+  id: ID!
+  rankKind: RankKind!
+  kind: DegreeKind!
+  """
+  ひとつ下の称号
+  """
+  previousDegree: Degree
+  """
+  ひとつ上の称号
+  """
+  nextDegree: Degree
 }
 
 type DateTime {
