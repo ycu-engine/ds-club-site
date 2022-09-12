@@ -11,21 +11,22 @@ export interface Context {
 export const createContext: ContextFunction<ExpressContext, Context> = async ({
   req,
 }) => {
-  const authorization = req.get('authorization')
+  const authorization = req.headers.authorization
   if (!authorization) {
-    console.log('test1---', req.rawHeaders)
     return { user: null }
   }
   const [type, token] = authorization.split(' ')
   if (type?.toLowerCase() !== 'bearer' || !token) {
-    console.log('test2')
     return { user: null }
   }
   const decodedToken = await verifyToken(token)
   if (!decodedToken) {
-    console.log('test3')
     return { user: null }
   }
-  const user = await getUser(decodedToken.uid)
-  return { user }
+  try {
+    const user = await getUser(decodedToken.uid)
+    return { user }
+  } catch {
+    return { user: null }
+  }
 }
