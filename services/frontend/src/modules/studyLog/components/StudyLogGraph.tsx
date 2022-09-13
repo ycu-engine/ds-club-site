@@ -54,7 +54,7 @@ export const StudyLogGraph = ({ ...props }: StudyLogGraphProps) => {
       <CartesianGrid stroke="#ccc" />
 
       <XAxis
-        dataKey="studiedAt.iso"
+        dataKey="studiedAt"
         tickFormatter={(date: string) => new Date(date).toLocaleDateString()}
       />
 
