@@ -24,7 +24,7 @@ const TooltipContent: ContentType<ValueType, NameType> = ({
         py="1"
       >
         <Text className="tooltipLabel">
-          {new Date(item.studiedAt.iso).toLocaleDateString()}
+          {new Date(item.studiedAt).toLocaleDateString()}
         </Text>
 
         <Text className="tooltipDesc">{`${item.studyTime}分`}</Text>
@@ -54,7 +54,7 @@ export const StudyLogGraph = ({ ...props }: StudyLogGraphProps) => {
       <CartesianGrid stroke="#ccc" />
 
       <XAxis
-        dataKey="studiedAt.iso"
+        dataKey="studiedAt"
         tickFormatter={(date: string) => new Date(date).toLocaleDateString()}
       />
 

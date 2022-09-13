@@ -8,6 +8,8 @@ generates:
       - typescript
       - typescript-resolvers
     config:
+      scalars:
+        Date: string
       useTypeImports: true
       contextType: ../context#Context
       mappers:

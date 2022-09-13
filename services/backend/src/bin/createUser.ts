@@ -2,17 +2,11 @@ import { PaymentStatus, RankKind, UserRole } from '../generates/graphql'
 import { createUserWithId } from '../modules/user'
 
 const main = async () => {
-  await createUserWithId('eee', {
+  await createUserWithId('0zgYDDHDssbzDQTM4tvNKHvx7IQv', {
     currentRank: RankKind.Evangelist,
-    name: '諸田健太朗',
+    name: '岡田拓也',
     paymentStatus: PaymentStatus.Paid,
     roles: [UserRole.Admin, UserRole.Menter],
-  })
-  await createUserWithId('xNy9EoZRBvUUJpJZBDDqNoXF9zHD', {
-    currentRank: RankKind.Beginner,
-    name: '森健',
-    paymentStatus: PaymentStatus.NotPaid,
-    roles: [UserRole.Staff],
   })
 }
 

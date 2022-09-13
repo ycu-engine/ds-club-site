@@ -4,3 +4,10 @@ query StudyLogPage($userId: ID!) {
     # id
   }
 }
+
+mutation StudyLogPage_createStudyLog($input: CreateStudyLogInput!) {
+  createStudyLog(input: $input) {
+    id
+    ...StudyLogGraph_StudyLog
+  }
+}

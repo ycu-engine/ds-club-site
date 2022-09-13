@@ -13,6 +13,7 @@
     "apollo-server": "^3.10.0",
     "firebase-admin": "^11.0.0",
     "graphql": "^16.5.0",
+    "graphql-scalars": "^1.18.0",
     "zod": "^3.17.10"
   },
   "devDependencies": {

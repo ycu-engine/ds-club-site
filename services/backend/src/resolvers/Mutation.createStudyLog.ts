@@ -7,6 +7,9 @@ export const createStudyLogResolver: NonNullable<
   if (!user) {
     throw new Error('ログインされていません')
   }
-  const log = await createStudyLog(user.id, input)
+  const log = await createStudyLog(user.id, {
+    ...input,
+    studiedAt: new Date(input.studiedAt).getTime(),
+  })
   return log
 }
