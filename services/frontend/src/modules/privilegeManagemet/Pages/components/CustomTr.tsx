@@ -17,13 +17,11 @@ import {
   VStack,
 } from '@chakra-ui/react'
 
-type Privilege = ['Admin' | 'Staff' | 'Menter']
-
 type CustomTrProps = {
   name: string
   privilege: string[]
-  add: VoidFunction
-  del: VoidFunction
+  add: (privilege: string) => void
+  del: (privilege: string) => void
 }
 
 export const CustomTr = ({ name, privilege, add, del }: CustomTrProps) => {
@@ -45,7 +43,7 @@ export const CustomTr = ({ name, privilege, add, del }: CustomTrProps) => {
 
                   <TagCloseButton
                     onClick={() => {
-                      del((privilege = pri))
+                      del(pri)
                     }}
                   />
                 </Tag>
@@ -77,7 +75,7 @@ export const CustomTr = ({ name, privilege, add, del }: CustomTrProps) => {
               <VStack>
                 <Button
                   onClick={() => {
-                    add((privilege = 'ADMIN'))
+                    add('ADMIN')
                     onClose()
                   }}
                 >
