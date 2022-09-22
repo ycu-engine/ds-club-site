@@ -5,6 +5,7 @@ import { join } from 'path'
 import type { Resolvers } from './generates/graphql'
 import { isoResolver } from './resolvers/DateTime.iso'
 import { createStudyLogResolver } from './resolvers/Mutation.createStudyLog'
+import { createUserResolver } from './resolvers/Mutation.createUser'
 import { submitTrialApplicationResolver } from './resolvers/Mutation.submitTrialApplication'
 import { updateUserPaymentStatusResolver } from './resolvers/Mutation.updateUserPaymentStatus'
 import { updateUserRankResolver } from './resolvers/Mutation.updateUserRank'
@@ -23,6 +24,7 @@ const resolvers: Resolvers = {
   },
   Mutation: {
     createStudyLog: createStudyLogResolver,
+    createUser: createUserResolver,
     submitTrialApplication: submitTrialApplicationResolver,
     updateUserPaymentStatus: updateUserPaymentStatusResolver,
     updateUserRank: updateUserRankResolver,
