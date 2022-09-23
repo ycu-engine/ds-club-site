@@ -83,6 +83,7 @@ type StudyLog {
 }
 
 type Query {
+  getMenter(id: ID!): User
   getUser(id: ID!): User
   getRegularUsers: [RegularUser!]!
   getNews: [News!]!

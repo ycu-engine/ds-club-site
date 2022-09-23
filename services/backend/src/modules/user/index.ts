@@ -21,6 +21,19 @@ export const getUser = async (id: string): Promise<RegularUser | null> => {
   return { ...user, id: snapshot.id }
 }
 
+export const getMenter = async (id: string): Promise<RegularUser | null> => {
+  const snapshot = await userCollection.doc(id).get()
+  const user = snapshot.data()
+  if (!user) {
+    return null
+  }
+  if (!user.menterId) {
+    throw new Error('Menter not found')
+  }
+  const menter = await getUser(user.menterId)
+  return menter
+}
+
 export const listUsers = async (): Promise<RegularUser[]> => {
   const snapshot = await userCollection.get()
   const data = snapshot.docs.map((doc) => {

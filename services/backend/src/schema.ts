@@ -9,6 +9,7 @@ import { createUserResolver } from './resolvers/Mutation.createUser'
 import { submitTrialApplicationResolver } from './resolvers/Mutation.submitTrialApplication'
 import { updateUserPaymentStatusResolver } from './resolvers/Mutation.updateUserPaymentStatus'
 import { updateUserRankResolver } from './resolvers/Mutation.updateUserRank'
+import { getMenterResolver } from './resolvers/Query.getMenter'
 import { getNewsResolver } from './resolvers/Query.getNews.resolvers'
 import { getRegularUsersResolver } from './resolvers/Query.getRegularUsers'
 import { getStudyLogResolver } from './resolvers/Query.getStudyLog'
@@ -31,6 +32,7 @@ const resolvers: Resolvers = {
     updateUserRank: updateUserRankResolver,
   },
   Query: {
+    getMenter: getMenterResolver,
     getNews: getNewsResolver,
     getRegularUsers: getRegularUsersResolver,
     getStudyLog: getStudyLogResolver,
