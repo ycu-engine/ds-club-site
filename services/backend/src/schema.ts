@@ -13,6 +13,7 @@ import { getNewsResolver } from './resolvers/Query.getNews.resolvers'
 import { getRegularUsersResolver } from './resolvers/Query.getRegularUsers'
 import { getStudyLogResolver } from './resolvers/Query.getStudyLog'
 import { getUserResolver } from './resolvers/Query.getUser'
+import { listUsersResolver } from './resolvers/Query.listUsers'
 import { okResolver } from './resolvers/Query.ok'
 import { userResolver } from './resolvers/StudyLog.user'
 import { __resolveTypeResolve } from './resolvers/User.__resolveType'
@@ -34,6 +35,7 @@ const resolvers: Resolvers = {
     getRegularUsers: getRegularUsersResolver,
     getStudyLog: getStudyLogResolver,
     getUser: getUserResolver,
+    listUsers: listUsersResolver,
     ok: okResolver,
   },
   StudyLog: {

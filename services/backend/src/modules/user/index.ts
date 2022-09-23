@@ -31,8 +31,7 @@ export const createUser = async (obj: {
   currentRank: RankKind
   paymentStatus: PaymentStatus
   roles: UserRole[]
-  menter: RegularUser
-  mentee: RegularUser[]
+  menterId?: string | null
 }): Promise<RegularUser> => {
   const ref = await userCollection.add({
     ...obj,
