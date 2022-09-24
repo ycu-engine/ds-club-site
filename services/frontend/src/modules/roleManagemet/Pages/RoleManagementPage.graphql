@@ -1,0 +1,14 @@
+query RoleMangementPage {
+  getRegularUsers {
+    id
+    name
+    roles
+  }
+}
+
+mutation RoleMangementPage_UpdateUserRoles($userId: ID!, $roles: [UserRole!]!) {
+  updateUserRoles(userId: $userId, roles: $roles) {
+    id
+    roles
+  }
+}

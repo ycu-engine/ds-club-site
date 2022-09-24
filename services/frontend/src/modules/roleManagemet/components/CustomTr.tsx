@@ -16,16 +16,27 @@ import {
   useDisclosure,
   VStack,
 } from '@chakra-ui/react'
-
+import { UserRole } from '../../../generates/graphql'
 type CustomTrProps = {
   name: string
-  privilege: string[]
-  add: (privilege: string) => void
-  del: (privilege: string) => void
+  roles: UserRole[]
+  userId: string
+  updateRoles(userId: string, roles: UserRole[]): () => void
 }
 
-export const CustomTr = ({ name, privilege, add, del }: CustomTrProps) => {
+export const CustomTr = ({
+  name,
+  roles,
+  userId,
+  updateRoles,
+}: CustomTrProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  const handleDeleteRole = (index: number) => {
+    const new_roles = roles.concat()
+    new_roles.splice(index, 1)
+    updateRoles(userId, new_roles)
+  }
 
   return (
     <Tr>
@@ -36,14 +47,14 @@ export const CustomTr = ({ name, privilege, add, del }: CustomTrProps) => {
       <Td bgColor="white" borderColor="black" borderWidth="2px">
         <Flex>
           <Box>
-            {privilege.map((pri) => {
+            {roles.map((role, index) => {
               return (
-                <Tag key={pri} mx="2">
-                  <TagLabel>{pri}</TagLabel>
+                <Tag key={role} mx="2">
+                  <TagLabel>{role}</TagLabel>
 
                   <TagCloseButton
                     onClick={() => {
-                      del(pri)
+                      handleDeleteRole(index)
                     }}
                   />
                 </Tag>
@@ -75,7 +86,7 @@ export const CustomTr = ({ name, privilege, add, del }: CustomTrProps) => {
               <VStack>
                 <Button
                   onClick={() => {
-                    add('ADMIN')
+                    // add('ADMIN')
                     onClose()
                   }}
                 >

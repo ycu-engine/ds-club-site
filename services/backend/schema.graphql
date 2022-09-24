@@ -106,6 +106,7 @@ type Mutation {
     paymentStatus: PaymentStatus!
   ): RegularUser!
   updateUserRank(userId: ID!, rank: RankKind!): RegularUser!
+  updateUserRoles(userId: ID!, roles: [UserRole!]!): RegularUser!
   submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
   createStudyLog(input: CreateStudyLogInput!): StudyLog!
 }

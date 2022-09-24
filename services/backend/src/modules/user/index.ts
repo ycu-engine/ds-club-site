@@ -1,12 +1,12 @@
-import { firestore } from '../../clients/firebase'
 import { FieldValue } from 'firebase-admin/firestore'
-import { userModelConverter } from './models'
+import { firestore } from '../../clients/firebase'
 import type {
   PaymentStatus,
   RankKind,
   RegularUser,
   UserRole,
 } from '../../generates/graphql'
+import { userModelConverter } from './models'
 
 const userCollection = firestore
   .collection('users')
@@ -68,7 +68,12 @@ export const createUserWithId = async (
 
 export const updateUser = async (
   id: string,
-  obj: { name?: string; currentRank?: RankKind; paymentStatus?: PaymentStatus },
+  obj: {
+    name?: string
+    currentRank?: RankKind
+    paymentStatus?: PaymentStatus
+    roles?: UserRole[]
+  },
 ): Promise<RegularUser> => {
   const ref = userCollection.doc(id)
   await ref.update({ ...obj, updatedAt: FieldValue.serverTimestamp() })
