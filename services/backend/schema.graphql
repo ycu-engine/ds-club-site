@@ -100,6 +100,12 @@ input CreateStudyLogInput {
   studiedAt: Date!
 }
 
+input UpdateUserInput {
+  name: String
+  currentRank: RankKind
+  paymentStatus: PaymentStatus
+  roles: [UserRole]
+}
 type Mutation {
   updateUserPaymentStatus(
     userId: ID!
@@ -108,4 +114,5 @@ type Mutation {
   updateUserRank(userId: ID!, rank: RankKind!): RegularUser!
   submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
   createStudyLog(input: CreateStudyLogInput!): StudyLog!
+  updateUser(userId: ID!, input: UpdateUserInput!): RegularUser!
 }
