@@ -2,7 +2,6 @@ scalar Date
 interface User {
   id: ID!
   name: String!
-  menterId: String
 }
 
 enum UserRole {

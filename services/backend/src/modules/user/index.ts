@@ -36,10 +36,6 @@ export const getMenter = async (id: string): Promise<RegularUser | null> => {
 
 export const listUsers = async (): Promise<RegularUser[]> => {
   const snapshot = await userCollection.get()
-  const data = snapshot.docs.map((doc) => {
-    return { ...doc.data(), id: doc.id }
-  })
-  console.info(data)
   return snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 }
 
