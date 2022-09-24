@@ -40,8 +40,10 @@ type RegularUser implements User {
   """
   役割
   """
+  email: String!
   roles: [UserRole!]!
   menterId: String
+  menter: RegularUser
 }
 """
 お知らせ
@@ -82,12 +84,12 @@ type StudyLog {
 }
 
 type Query {
-  getMenter(id: ID!): User
-  getUser(id: ID!): User
+  getMenter(id: ID!): RegularUser
+  getUser(id: ID!): RegularUser
   getRegularUsers: [RegularUser!]!
   getNews: [News!]!
   getStudyLog(userId: ID!): [StudyLog!]!
-  listUsers: [User]!
+  listUsers: [RegularUser]!
   ok: Boolean!
 }
 
@@ -106,10 +108,6 @@ input CreateStudyLogInput {
 input CreateUserInput {
   name: String!
   email: String!
-  currentRank: RankKind!
-  paymentStatus: PaymentStatus!
-  roles: [UserRole!]!
-  menterId: String
 }
 
 type Mutation {
@@ -120,5 +118,5 @@ type Mutation {
   updateUserRank(userId: ID!, rank: RankKind!): RegularUser!
   submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
   createStudyLog(input: CreateStudyLogInput!): StudyLog!
-  createUser(input: CreateUserInput!): User!
+  createUser(input: CreateUserInput!): RegularUser!
 }

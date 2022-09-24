@@ -6,6 +6,7 @@ import { PaymentStatus, RankKind, UserRole } from '../../generates/graphql'
 export const UserModelSchema = z.object({
   createdAt: timestamp,
   currentRank: z.nativeEnum(RankKind),
+  email: z.string().email(),
   menterId: z.string().optional().nullable(),
   name: z.string(),
   paymentStatus: z.nativeEnum(PaymentStatus),

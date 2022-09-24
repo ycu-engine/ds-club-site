@@ -1,12 +1,8 @@
 import { firestore } from '../../clients/firebase'
 import { FieldValue } from 'firebase-admin/firestore'
 import { userModelConverter } from './models'
-import type {
-  PaymentStatus,
-  RankKind,
-  RegularUser,
-  UserRole,
-} from '../../generates/graphql'
+import type { RegularUser } from '../../generates/graphql'
+import { PaymentStatus, RankKind, UserRole } from '../../generates/graphql'
 
 const userCollection = firestore
   .collection('users')
@@ -39,15 +35,19 @@ export const listUsers = async (): Promise<RegularUser[]> => {
   return snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 }
 
+const defaultRequiredFields = {
+  currentRank: RankKind.Beginner,
+  paymentStatus: PaymentStatus.NotPaid,
+  roles: [UserRole.Staff],
+}
+
 export const createUser = async (obj: {
   name: string
-  currentRank: RankKind
-  paymentStatus: PaymentStatus
-  roles: UserRole[]
-  menterId?: string | null
+  email: string
 }): Promise<RegularUser> => {
   const ref = await userCollection.add({
     ...obj,
+    ...defaultRequiredFields,
     createdAt: FieldValue.serverTimestamp(),
     updatedAt: FieldValue.serverTimestamp(),
   })
@@ -62,14 +62,13 @@ export const createUserWithId = async (
   id: string,
   obj: {
     name: string
-    currentRank: RankKind
-    paymentStatus: PaymentStatus
-    roles: UserRole[]
+    email: string
   },
 ): Promise<RegularUser> => {
   const ref = userCollection.doc(id)
   await ref.set({
     ...obj,
+    ...defaultRequiredFields,
     createdAt: FieldValue.serverTimestamp(),
     updatedAt: FieldValue.serverTimestamp(),
   })
