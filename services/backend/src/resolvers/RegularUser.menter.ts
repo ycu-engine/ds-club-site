@@ -1,4 +1,4 @@
-import { getMenter } from '../modules/user'
+import { getUser } from '../modules/user'
 import type { RegularUserResolvers } from '../generates/graphql'
 
 export const menterResolver: NonNullable<
@@ -7,5 +7,5 @@ export const menterResolver: NonNullable<
   if (!regularUser.menterId) {
     return null
   }
-  return getMenter(regularUser.menterId)
+  return getUser(regularUser.menterId)
 }

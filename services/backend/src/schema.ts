@@ -17,6 +17,9 @@ import { getUserResolver } from './resolvers/Query.getUser'
 import { okResolver } from './resolvers/Query.ok'
 import { userResolver } from './resolvers/StudyLog.user'
 import { __resolveTypeResolve } from './resolvers/User.__resolveType'
+import { addMenterResolver } from './resolvers/Mutation.addMenter'
+import { removeMenterResolver } from './resolvers/Mutation.removeMenter'
+import { replaceMenterResolver } from './resolvers/Mutation.replaceMenter'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
@@ -24,8 +27,11 @@ const resolvers: Resolvers = {
     iso: isoResolver,
   },
   Mutation: {
+    addMenter: addMenterResolver,
     createStudyLog: createStudyLogResolver,
     createUser: createUserResolver,
+    removeMenter: removeMenterResolver,
+    replaceMenter: replaceMenterResolver,
     submitTrialApplication: submitTrialApplicationResolver,
     updateUserPaymentStatus: updateUserPaymentStatusResolver,
     updateUserRank: updateUserRankResolver,
