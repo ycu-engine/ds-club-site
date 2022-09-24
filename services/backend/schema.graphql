@@ -85,11 +85,10 @@ type StudyLog {
 
 type Query {
   getMenter(id: ID!): RegularUser
-  getUser(id: ID!): RegularUser
+  getUser(id: ID!): RegularUser!
   getRegularUsers: [RegularUser!]!
   getNews: [News!]!
   getStudyLog(userId: ID!): [StudyLog!]!
-  listUsers: [RegularUser]!
   ok: Boolean!
 }
 
