@@ -1,14 +1,16 @@
 import { firestore } from '../../clients/firebase'
+import type { CollectionReference, Query } from 'firebase-admin/firestore'
 import { FieldValue } from 'firebase-admin/firestore'
+import type { UserModel } from './models'
 import { userModelConverter } from './models'
-import type { RegularUser } from '../../generates/graphql'
 import { PaymentStatus, RankKind, UserRole } from '../../generates/graphql'
+import type { UserModelMapper } from './types'
 
 const userCollection = firestore
   .collection('users')
   .withConverter(userModelConverter)
 
-export const getUser = async (id: string): Promise<RegularUser | null> => {
+export const getUser = async (id: string): Promise<UserModelMapper | null> => {
   const snapshot = await userCollection.doc(id).get()
   const user = snapshot.data()
   if (!user) {
@@ -17,21 +19,25 @@ export const getUser = async (id: string): Promise<RegularUser | null> => {
   return { ...user, id: snapshot.id }
 }
 
-export const listUsers = async (): Promise<RegularUser[]> => {
-  const snapshot = await userCollection.get()
+export const listUsers = async (
+  query: (collection: CollectionReference<UserModel>) => Query<UserModel> = (
+    collection,
+  ) => collection,
+): Promise<UserModelMapper[]> => {
+  const snapshot = await query(userCollection).get()
   return snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 }
 
 const defaultRequiredFields = {
   currentRank: RankKind.Beginner,
   paymentStatus: PaymentStatus.NotPaid,
-  roles: [UserRole.Staff],
+  roles: [UserRole.Trial],
 }
 
 export const createUser = async (obj: {
   name: string
   email: string
-}): Promise<RegularUser> => {
+}): Promise<UserModelMapper> => {
   const ref = await userCollection.add({
     ...defaultRequiredFields,
     ...obj,
@@ -51,7 +57,7 @@ export const createUserWithId = async (
     name: string
     email: string
   },
-): Promise<RegularUser> => {
+): Promise<UserModelMapper> => {
   const ref = userCollection.doc(id)
   await ref.set({
     ...defaultRequiredFields,
@@ -75,7 +81,7 @@ export const updateUser = async (
     roles?: UserRole[]
     menterId?: string | null
   },
-): Promise<RegularUser> => {
+): Promise<UserModelMapper> => {
   const ref = userCollection.doc(id)
   if (obj.menterId) {
     if (ref.id === obj.menterId) {
@@ -90,7 +96,7 @@ export const updateUser = async (
   return user
 }
 
-export const deleteUser = async (id: string): Promise<RegularUser> => {
+export const deleteUser = async (id: string): Promise<UserModelMapper> => {
   const user = await getUser(id)
   if (!user) {
     throw new Error('RegularUser not found')

@@ -13,5 +13,6 @@ generates:
       useTypeImports: true
       contextType: ../context#Context
       mappers:
+        RegularUser: ../modules/users/types#UserModelMapper
         StudyLog: ../modules/studyLog/types#StudyLogModelMapper
         DateTime: Date

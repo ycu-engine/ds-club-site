@@ -19,6 +19,7 @@ import { userResolver } from './resolvers/StudyLog.user'
 import { __resolveTypeResolve } from './resolvers/User.__resolveType'
 import { addMenterResolver } from './resolvers/Mutation.addMenter'
 import { removeMenterResolver } from './resolvers/Mutation.removeMenter'
+import { menteeResolver } from './resolvers/RegularUser.mentee'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
@@ -42,6 +43,7 @@ const resolvers: Resolvers = {
     ok: okResolver,
   },
   RegularUser: {
+    mentee: menteeResolver,
     menter: menterResolver,
   },
   StudyLog: {

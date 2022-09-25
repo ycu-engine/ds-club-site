@@ -31,6 +31,7 @@ enum RankKind {
 type RegularUser implements User {
   id: ID!
   name: String!
+  email: String!
   """
   段位
   """
@@ -42,10 +43,19 @@ type RegularUser implements User {
   """
   役割
   """
-  email: String!
   roles: [UserRole!]!
+  """
+  メンターのID
+  """
   menterId: String
+  """
+  メンター
+  """
   menter: RegularUser
+  """
+  メンティーのリスト
+  """
+  mentee: [RegularUser!]!
 }
 """
 お知らせ
@@ -86,7 +96,6 @@ type StudyLog {
 }
 
 type Query {
-  getMenter(id: ID!): RegularUser
   getUser(id: ID!): RegularUser!
   getRegularUsers: [RegularUser!]!
   getNews: [News!]!
