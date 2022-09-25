@@ -1,4 +1,4 @@
-query getMentee($userId: ID!) {
+query MenteeListPage($userId: ID!) {
   getUser(id: $userId) {
     ...MenteeList
   }

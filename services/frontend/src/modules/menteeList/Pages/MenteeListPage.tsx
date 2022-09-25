@@ -2,7 +2,7 @@ import { Container, ContainerProps, Spinner } from '@chakra-ui/react'
 import type { ReactNode } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../../../clients/firebase'
-import { useGetMenteeQuery } from '../../../generates/graphql'
+import { useMenteeListPageQuery } from '../../../generates/graphql'
 import { MenteeList } from '../conpoments/MenteeList'
 
 type MenteeListWrapperProps =
@@ -30,7 +30,7 @@ const MenteeListWrapper = ({ children, ...props }: MenteeListWrapperProps) => {
 
 export const MenteeListPage = () => {
   const [user, _loading] = useAuthState(auth)
-  const { data, loading } = useGetMenteeQuery({
+  const { data, loading } = useMenteeListPageQuery({
     variables: {
       userId: user?.uid || '',
     },
