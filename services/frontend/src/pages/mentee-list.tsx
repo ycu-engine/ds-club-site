@@ -1,10 +1,10 @@
 import { DefaultLayout } from '../components/DefaultLayout'
-import { MenteeList } from '../modules/menteeList/MenteeList'
+import { MenteeListPage } from '../modules/menteeList/Pages/MenteeListPage'
 
 const Page = () => {
   return (
     <DefaultLayout>
-      <MenteeList />
+      <MenteeListPage />
     </DefaultLayout>
   )
 }
