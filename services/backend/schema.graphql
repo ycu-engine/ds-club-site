@@ -9,6 +9,8 @@ enum UserRole {
   STAFF
   TREASURER
   MENTER
+  MEMBER
+  TRIAL
 }
 
 """
@@ -118,7 +120,6 @@ type Mutation {
   submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
   addMenter(userId: ID!, menterId: ID!): RegularUser!
   removeMenter(userId: ID!): RegularUser!
-  replaceMenter(userId: ID!, menterId: ID!): RegularUser!
   createStudyLog(input: CreateStudyLogInput!): StudyLog!
   createUser(input: CreateUserInput!): RegularUser!
 }

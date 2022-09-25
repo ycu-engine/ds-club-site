@@ -3,10 +3,10 @@ import { createUser } from '../modules/user'
 
 export const createUserResolver: NonNullable<
   MutationResolvers['createUser']
-> = async (_root, { input }) => {
-  // if (!user) {
-  //   throw new Error('ログインされていません')
-  // }
+> = async (_root, { input }, { user }) => {
+  if (!user) {
+    throw new Error('ログインされていません')
+  }
   const log = await createUser({
     ...input,
   })

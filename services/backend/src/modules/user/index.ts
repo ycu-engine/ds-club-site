@@ -33,8 +33,8 @@ export const createUser = async (obj: {
   email: string
 }): Promise<RegularUser> => {
   const ref = await userCollection.add({
-    ...obj,
     ...defaultRequiredFields,
+    ...obj,
     createdAt: FieldValue.serverTimestamp(),
     updatedAt: FieldValue.serverTimestamp(),
   })
@@ -54,8 +54,8 @@ export const createUserWithId = async (
 ): Promise<RegularUser> => {
   const ref = userCollection.doc(id)
   await ref.set({
-    ...obj,
     ...defaultRequiredFields,
+    ...obj,
     createdAt: FieldValue.serverTimestamp(),
     updatedAt: FieldValue.serverTimestamp(),
   })
@@ -77,6 +77,11 @@ export const updateUser = async (
   },
 ): Promise<RegularUser> => {
   const ref = userCollection.doc(id)
+  if (obj.menterId) {
+    if (ref.id === obj.menterId) {
+      throw new Error('User cannot be their own menter')
+    }
+  }
   await ref.update({ ...obj, updatedAt: FieldValue.serverTimestamp() })
   const user = await getUser(ref.id)
   if (!user) {
@@ -92,51 +97,4 @@ export const deleteUser = async (id: string): Promise<RegularUser> => {
   }
   await userCollection.doc(id).delete()
   return user
-}
-
-export const addMenter = async (
-  userId: string,
-  menterId: string,
-): Promise<RegularUser> => {
-  if (userId === menterId) {
-    throw new Error('User cannot be their own menter')
-  }
-  const user = await getUser(userId)
-  if (!user) {
-    throw new Error('User not found')
-  }
-  if (user.menterId) {
-    throw new Error('User already has a menter')
-  }
-  const menter = await getUser(menterId)
-  if (!menter) {
-    throw new Error('Menter not found')
-  }
-  return await updateUser(userId, { menterId: menterId })
-}
-
-export const removeMenter = async (userId: string): Promise<RegularUser> => {
-  const user = await getUser(userId)
-  if (!user) {
-    throw new Error('User not found')
-  }
-  return await updateUser(userId, { menterId: null })
-}
-
-export const replaceMenter = async (
-  userId: string,
-  menterId: string,
-): Promise<RegularUser> => {
-  if (userId === menterId) {
-    throw new Error('User cannot be their own menter')
-  }
-  const user = await getUser(userId)
-  if (!user) {
-    throw new Error('User not found')
-  }
-  const menter = await getUser(menterId)
-  if (!menter) {
-    throw new Error('Menter not found')
-  }
-  return await updateUser(userId, { menterId: menterId })
 }
