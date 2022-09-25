@@ -1,9 +1,9 @@
 import { createUserWithId } from '../modules/user'
 
 const main = async () => {
-  await createUserWithId('0zgYDDHDssbzDQTM4tvNKHvx7IQv', {
+  await createUserWithId('Vl25tBuup7Af38GD2Qx4cOj8g1MB', {
     email: 'hoge@fuga.com',
-    name: '岡田拓也',
+    name: '認証用ユーザー',
   })
 }
 
