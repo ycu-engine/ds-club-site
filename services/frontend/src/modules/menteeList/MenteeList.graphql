@@ -1,0 +1,9 @@
+query getMentee($userId: ID!) {
+  getUser(id: $userId) {
+    name
+    mentee {
+      id
+      name
+    }
+  }
+}
