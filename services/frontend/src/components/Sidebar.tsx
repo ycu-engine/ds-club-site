@@ -23,8 +23,8 @@ type SidebarProps = {
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const [user, _loading] = useAuthState(auth)
   const button_contents = [
-    { link: `users/${user?.uid}/mypage`, text: '個人ページ' },
-    { link: `users/${user?.uid}/weekly`, text: '週目標' },
+    { link: user ? `/users/${user.uid}/mypage` : '/login', text: '個人ページ' },
+    { link: user ? `/users/${user.uid}/weekly` : '/login', text: '週目標' },
     { link: '/materials', text: '教材' },
     { link: '/test', text: 'テスト' },
     { link: '/documents', text: '資料' },
