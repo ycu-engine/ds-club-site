@@ -1,5 +1,5 @@
 query News {
-  getNews {
+  getNewsList {
     id
     title
     body

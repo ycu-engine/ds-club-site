@@ -58,7 +58,7 @@ export const News = () => {
     )
   }
 
-  if (!data || data.getNews.length === 0) {
+  if (!data || data.getNewsList.length === 0) {
     return (
       <NewsWrapper>
         <Heading fontSize="lg" p="5">
@@ -70,7 +70,7 @@ export const News = () => {
   return (
     <NewsWrapper>
       <TabPanels h="50vh" overflow="scroll" p="5">
-        {data?.getNews.map((news) => {
+        {data?.getNewsList.map((news) => {
           console.info(news)
           return (
             <TabPanel key={news.title}>
@@ -85,7 +85,7 @@ export const News = () => {
       </TabPanels>
 
       <TabList justifyContent="center">
-        {data.getNews.map((news) => {
+        {data.getNewsList.map((news) => {
           return (
             <Tab
               _focus={{ outline: 'none' }}

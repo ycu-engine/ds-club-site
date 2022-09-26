@@ -98,7 +98,7 @@ type StudyLog {
 type Query {
   getUser(id: ID!): RegularUser!
   getRegularUsers: [RegularUser!]!
-  getNews: [News!]!
+  getNewsList: [News!]!
   getStudyLog(userId: ID!): [StudyLog!]!
   ok: Boolean!
 }
