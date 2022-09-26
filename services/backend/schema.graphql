@@ -66,6 +66,17 @@ type News {
   body: String!
 }
 
+"""
+日々の活動やイベントの情報
+"""
+type Event {
+  id: ID!
+  start: Date!
+  end: Date!
+  location: String!
+  title: String!
+}
+
 type DateTime {
   iso: String!
 }
@@ -100,6 +111,7 @@ type Query {
   getRegularUsers: [RegularUser!]!
   getNews: [News!]!
   getStudyLog(userId: ID!): [StudyLog!]!
+  getEvents: [Event!]!
   ok: Boolean!
 }
 
@@ -120,6 +132,20 @@ input CreateUserInput {
   email: String!
 }
 
+input createEventInput {
+  start: Date!
+  end: Date!
+  location: String!
+  title: String!
+}
+input createRepeatEventInput {
+  start: Date!
+  end: Date!
+  location: String!
+  title: String!
+  repeatFrom: Date!
+  repeatUntil: Date!
+}
 type Mutation {
   updateUserPaymentStatus(
     userId: ID!
@@ -131,4 +157,6 @@ type Mutation {
   removeMenter(userId: ID!): RegularUser!
   createStudyLog(input: CreateStudyLogInput!): StudyLog!
   createUser(input: CreateUserInput!): RegularUser!
+  createRepeatEvent(input: createRepeatEventInput!): [Event!]!
+  createEvent(input: createEventInput!): Event!
 }
