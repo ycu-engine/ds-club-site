@@ -61,7 +61,9 @@ export const News = () => {
   if (!data || data.getNews.length === 0) {
     return (
       <NewsWrapper>
-        <Text>お知らせはありません</Text>
+        <Heading fontSize="lg" p="5">
+          現在お知らせはありません
+        </Heading>
       </NewsWrapper>
     )
   }
