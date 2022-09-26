@@ -20,6 +20,8 @@ import { __resolveTypeResolve } from './resolvers/User.__resolveType'
 import { addMenterResolver } from './resolvers/Mutation.addMenter'
 import { removeMenterResolver } from './resolvers/Mutation.removeMenter'
 import { menteeResolver } from './resolvers/RegularUser.mentee'
+import { getEventsResolver } from './resolvers/Query.getEvents'
+import { createEventResolver } from './resolvers/Mutation.createEvent'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
@@ -28,6 +30,7 @@ const resolvers: Resolvers = {
   },
   Mutation: {
     addMenter: addMenterResolver,
+    createEvent: createEventResolver,
     createStudyLog: createStudyLogResolver,
     createUser: createUserResolver,
     removeMenter: removeMenterResolver,
@@ -36,6 +39,7 @@ const resolvers: Resolvers = {
     updateUserRank: updateUserRankResolver,
   },
   Query: {
+    getEvents: getEventsResolver,
     getNews: getNewsResolver,
     getRegularUsers: getRegularUsersResolver,
     getStudyLog: getStudyLogResolver,
