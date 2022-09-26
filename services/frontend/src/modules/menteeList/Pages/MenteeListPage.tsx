@@ -5,11 +5,9 @@ import { auth } from '../../../clients/firebase'
 import { useMenteeListPageQuery } from '../../../generates/graphql'
 import { MenteeList } from '../conpoments/MenteeList'
 
-type MenteeListWrapperProps =
-  | {
+type MenteeListWrapperProps = {
       children: ReactNode
-    }
-  | ContainerProps
+    } & ContainerProps
 const MenteeListWrapper = ({ children, ...props }: MenteeListWrapperProps) => {
   return (
     <Container
