@@ -6,8 +6,8 @@ import { useMenteeListPageQuery } from '../../../generates/graphql'
 import { MenteeList } from '../conpoments/MenteeList'
 
 type MenteeListWrapperProps = {
-      children: ReactNode
-    } & ContainerProps
+  children: ReactNode
+} & ContainerProps
 const MenteeListWrapper = ({ children, ...props }: MenteeListWrapperProps) => {
   return (
     <Container
