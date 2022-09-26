@@ -131,4 +131,5 @@ type Mutation {
   removeMenter(userId: ID!): RegularUser!
   createStudyLog(input: CreateStudyLogInput!): StudyLog!
   createUser(input: CreateUserInput!): RegularUser!
+  createNews(title: String!, body: String!): News!
 }

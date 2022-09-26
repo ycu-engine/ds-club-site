@@ -20,6 +20,7 @@ import { __resolveTypeResolve } from './resolvers/User.__resolveType'
 import { addMenterResolver } from './resolvers/Mutation.addMenter'
 import { removeMenterResolver } from './resolvers/Mutation.removeMenter'
 import { menteeResolver } from './resolvers/RegularUser.mentee'
+import { createNewsResolver } from './resolvers/Mutation.createNews'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
@@ -28,6 +29,7 @@ const resolvers: Resolvers = {
   },
   Mutation: {
     addMenter: addMenterResolver,
+    createNews: createNewsResolver,
     createStudyLog: createStudyLogResolver,
     createUser: createUserResolver,
     removeMenter: removeMenterResolver,
