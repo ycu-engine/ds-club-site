@@ -1,8 +1,12 @@
-import { Container, ContainerProps, Spinner, useToast } from '@chakra-ui/react'
+import {
+  Container,
+  ContainerProps,
+  Spinner,
+  useToast,
+  Text,
+} from '@chakra-ui/react'
 import { filter } from 'graphql-anywhere'
 import type { ReactNode } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../../../clients/firebase'
 import {
   MenteeListFragment,
   MenteeListFragmentDoc,
@@ -28,16 +32,19 @@ const MenteeListWrapper = ({ children, ...props }: MenteeListWrapperProps) => {
   )
 }
 
-export const MenteeListPage = () => {
-  const [user, authLoading] = useAuthState(auth)
-  const { data, loading: dataLoading } = useMenteeListPageQuery({
+type MenteeListPageProps = {
+  userId: string
+}
+export const MenteeListPage = ({ userId }: MenteeListPageProps) => {
+  const { data, loading } = useMenteeListPageQuery({
+    skip: !userId,
     variables: {
-      userId: user?.uid || '',
+      userId: userId,
     },
   })
   const toast = useToast()
 
-  if (authLoading || dataLoading) {
+  if (loading) {
     return (
       <MenteeListWrapper
         alignItems="center"
@@ -57,7 +64,13 @@ export const MenteeListPage = () => {
       status: 'error',
       title: 'Error',
     })
-    return <MenteeListWrapper>データがありません</MenteeListWrapper>
+    return (
+      <MenteeListWrapper p={5} textAlign="center">
+        <Text fontWeight="bold" size="lg">
+          データがありません
+        </Text>
+      </MenteeListWrapper>
+    )
   }
 
   return (

@@ -6,27 +6,36 @@ import {
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
-  Button,
   Flex,
   IconButton,
   Text,
 } from '@chakra-ui/react'
 
 import { CloseIcon } from '@chakra-ui/icons'
+import { SidebarButton } from './Button/SidebarButton'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '../clients/firebase'
 
 type SidebarProps = {
   isOpen: boolean
   onClose: () => void
 }
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
-  const button_texts = ['個人ページ', '週目標', '教材', 'テスト', '資料']
+  const [user, _loading] = useAuthState(auth)
+  const button_contents = [
+    { link: user ? `/users/${user.uid}/mypage` : '/login', text: '個人ページ' },
+    { link: user ? `/users/${user.uid}/weekly` : '/login', text: '週目標' },
+    { link: '/materials', text: '教材' },
+    { link: '/test', text: 'テスト' },
+    { link: '/documents', text: '資料' },
+  ]
 
   return (
     <Drawer isOpen={isOpen} onClose={onClose} placement="left">
       <DrawerOverlay />
 
       <DrawerContent>
-        <Container>
+        <Container bgColor="orange.400" h="100vh">
           <DrawerHeader borderBottomWidth="1px">
             <Flex alignItems="center" justifyContent="space-between">
               <Text>各種リンク</Text>
@@ -45,18 +54,14 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             <VStack p={5} spacing={10}>
               {/* ボタンをmapで追加 */}
 
-              {button_texts.map((button_text) => {
+              {button_contents.map((button_content) => {
                 return (
-                  <Button
-                    _hover={{ bg: 'blackAlpha.600' }}
-                    bg="black"
-                    borderRadius="20"
-                    color="white"
-                    key={button_text}
-                    w="40"
+                  <SidebarButton
+                    key={button_content.link}
+                    link={button_content.link}
                   >
-                    {button_text}
-                  </Button>
+                    {button_content.text}
+                  </SidebarButton>
                 )
               })}
             </VStack>
