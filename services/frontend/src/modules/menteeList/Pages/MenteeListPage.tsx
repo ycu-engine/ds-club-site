@@ -55,7 +55,6 @@ export const MenteeListPage = ({ userId }: MenteeListPageProps) => {
       </MenteeListWrapper>
     )
   }
-
   if (!data) {
     toast({
       description: 'データの取得に失敗しました。もう一度お試しください。',

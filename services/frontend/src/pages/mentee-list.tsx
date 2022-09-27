@@ -9,7 +9,6 @@ const Page = () => {
   if (!user) {
     return null
   }
-  console.info(user)
   return (
     <DefaultLayout>
       {/* 将来的はクエリからuserのIdを取得したい */}
