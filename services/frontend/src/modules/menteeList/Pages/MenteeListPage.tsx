@@ -16,9 +16,6 @@ const MenteeListWrapper = ({ children, ...props }: MenteeListWrapperProps) => {
       boxShadow="md"
       h="50vh"
       mt="10vh"
-      overflow="scroll"
-      p={5}
-      textAlign="center"
       {...props}
     >
       {children}
@@ -36,8 +33,12 @@ export const MenteeListPage = () => {
 
   if (loading) {
     return (
-      <MenteeListWrapper position="relative">
-        <Spinner position="absolute" size="lg" top="40%" />
+      <MenteeListWrapper
+        alignItems="center"
+        display="flex"
+        justifyContent="center"
+      >
+        <Spinner size="lg" />
       </MenteeListWrapper>
     )
   }
@@ -47,7 +48,7 @@ export const MenteeListPage = () => {
   }
 
   return (
-    <MenteeListWrapper>
+    <MenteeListWrapper overflow="scroll" p={5} textAlign="center">
       <MenteeList {...data.getUser} />
     </MenteeListWrapper>
   )
