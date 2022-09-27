@@ -46,15 +46,13 @@ const hoverEffeceButton = css`
   &:hover {
     transform: translate(${baseSize / 15}rem, ${baseSize / 15}rem);
     color: white;
-  }
-
-  &:hover:before {
-    background-color: black;
-  }
-
-  &:hover:after {
-    background-color: white;
-    transform: translate(-${baseSize / 15}rem, -${baseSize / 15}rem);
+    &:before {
+      background-color: black;
+    }
+    &:after {
+      background-color: white;
+      transform: translate(-${baseSize / 15}rem, -${baseSize / 15}rem);
+    }
   }
 `
 type SidebarButtonProps = {
