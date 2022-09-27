@@ -1,4 +1,4 @@
-import { Container, ContainerProps, Spinner } from '@chakra-ui/react'
+import { Container, ContainerProps, Spinner, useToast } from '@chakra-ui/react'
 import { filter } from 'graphql-anywhere'
 import type { ReactNode } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
@@ -29,14 +29,15 @@ const MenteeListWrapper = ({ children, ...props }: MenteeListWrapperProps) => {
 }
 
 export const MenteeListPage = () => {
-  const [user, _loading] = useAuthState(auth)
-  const { data, loading } = useMenteeListPageQuery({
+  const [user, authLoading] = useAuthState(auth)
+  const { data, loading: dataLoading } = useMenteeListPageQuery({
     variables: {
       userId: user?.uid || '',
     },
   })
+  const toast = useToast()
 
-  if (loading) {
+  if (authLoading || dataLoading) {
     return (
       <MenteeListWrapper
         alignItems="center"
@@ -49,8 +50,14 @@ export const MenteeListPage = () => {
   }
 
   if (!data) {
-    alert('データが取得できませんでした')
-    return null
+    toast({
+      description: 'データの取得に失敗しました。もう一度お試しください。',
+      duration: 9000,
+      isClosable: true,
+      status: 'error',
+      title: 'Error',
+    })
+    return <MenteeListWrapper>データがありません</MenteeListWrapper>
   }
 
   return (
