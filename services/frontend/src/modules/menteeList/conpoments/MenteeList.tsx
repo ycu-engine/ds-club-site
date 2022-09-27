@@ -4,28 +4,16 @@ import React from 'react'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
 import type { MenteeListFragment } from '../../../generates/graphql'
 
-export const MenteeList = ({ name, mentee }: MenteeListFragment) => {
-  if (mentee.length === 0) {
-    return (
-      <VStack spacing={10}>
-        <Heading fontSize={{ base: 'lg', md: '2xl' }}>
-          {name} さんのメンティー一覧
-        </Heading>
+type MenteeListProps = {
+  result: MenteeListFragment
+}
+export const MenteeList = ({ result }: MenteeListProps) => {
+  const name = result.name
+  const mentee = result.mentee
 
-        <Heading fontSize={{ base: 'md', md: 'xl' }}>
-          メンティーがいません
-        </Heading>
-      </VStack>
-    )
-  }
-
-  return (
-    <VStack spacing={10}>
-      <Heading fontSize={{ base: 'lg', md: '2xl' }}>
-        {name} さんのメンティー一覧
-      </Heading>
-
-      {mentee.map((_mentee) => {
+  const Inner =
+    mentee.length !== 0 ? (
+      mentee.map((_mentee) => {
         return (
           <Box fontSize={{ base: 'md', md: 'xl' }} key={_mentee.name}>
             {_mentee.name}
@@ -38,7 +26,20 @@ export const MenteeList = ({ name, mentee }: MenteeListFragment) => {
             </Link>
           </Box>
         )
-      })}
+      })
+    ) : (
+      <Heading fontSize={{ base: 'md', md: 'xl' }}>
+        メンティーがいません
+      </Heading>
+    )
+
+  return (
+    <VStack spacing={10}>
+      <Heading fontSize={{ base: 'lg', md: '2xl' }}>
+        {name} さんのメンティー一覧
+      </Heading>
+
+      {Inner}
     </VStack>
   )
 }
