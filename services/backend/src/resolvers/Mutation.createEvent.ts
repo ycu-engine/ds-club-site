@@ -6,6 +6,14 @@ export const createEventResolver: MutationResolvers['createEvent'] = async (
   { input },
 ) => {
   // 後で認証処理を記述する
-  const event = await createEvent(input)
+  // startとendの順序が正しいかどうかを確認する
+  if (new Date(input.start.iso) > new Date(input.end.iso)) {
+    throw new Error('Start date must be before end date')
+  }
+  const event = await createEvent({
+    ...input,
+    end: new Date(input.end.iso).getTime(),
+    start: new Date(input.start.iso).getTime(),
+  })
   return event
 }

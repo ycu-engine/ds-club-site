@@ -1,18 +1,20 @@
 import { firestore } from '../../clients/firebase'
+import { FieldValue, Timestamp } from 'firebase-admin/firestore'
 import { eventModelConverter } from './models'
-import type { Event } from '../../generates/graphql'
-import { FieldValue } from 'firebase-admin/firestore'
+import type { EventModelMapper } from './types'
 
 const eventCollection = firestore
   .collection('event')
   .withConverter(eventModelConverter)
 
-export const listEvent = async (): Promise<Event[]> => {
+export const listEvent = async (): Promise<EventModelMapper[]> => {
   const snapshot = await eventCollection.get()
   return snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 }
 
-export const getEvent = async (id: string): Promise<Event | null> => {
+export const getEvent = async (
+  id: string,
+): Promise<EventModelMapper | null> => {
   const snapshot = await eventCollection.doc(id).get()
   const event = snapshot.data()
   if (!event) {
@@ -23,16 +25,15 @@ export const getEvent = async (id: string): Promise<Event | null> => {
 
 export const createEvent = async (obj: {
   title: string
-  start: string
-  end: string
+  start: number
+  end: number
   location: string
-}): Promise<Event> => {
-  if (new Date(obj.start) > new Date(obj.end)) {
-    throw new Error('start must be before end')
-  }
+}): Promise<EventModelMapper> => {
   const ref = await eventCollection.add({
     ...obj,
     createdAt: FieldValue.serverTimestamp(),
+    end: Timestamp.fromMillis(obj.end),
+    start: Timestamp.fromMillis(obj.start),
     updatedAt: FieldValue.serverTimestamp(),
   })
   const event = await getEvent(ref.id)

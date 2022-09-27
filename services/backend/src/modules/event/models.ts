@@ -4,9 +4,9 @@ import { timestamp } from '../../clients/firebase/timestamp'
 
 export const EventModelSchema = z.object({
   createdAt: timestamp,
-  end: z.string(),
+  end: timestamp,
   location: z.string(),
-  start: z.string(),
+  start: timestamp,
   title: z.string(),
   updatedAt: timestamp,
 })

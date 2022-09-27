@@ -71,8 +71,8 @@ type News {
 """
 type Event {
   id: ID!
-  start: Date!
-  end: Date!
+  start: DateTime!
+  end: DateTime!
   location: String!
   title: String!
 }
@@ -133,18 +133,18 @@ input CreateUserInput {
 }
 
 input createEventInput {
-  start: Date!
-  end: Date!
+  start: DateTime!
+  end: DateTime!
   location: String!
   title: String!
 }
 input createRepeatEventInput {
-  start: Date!
-  end: Date!
+  start: DateTime!
+  end: DateTime!
   location: String!
   title: String!
-  repeatFrom: Date!
-  repeatUntil: Date!
+  repeatFrom: DateTime!
+  repeatUntil: DateTime!
 }
 type Mutation {
   updateUserPaymentStatus(
