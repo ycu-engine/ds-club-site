@@ -13,14 +13,14 @@ export const MenteeList = ({ result }: MenteeListProps) => {
 
   const Inner =
     mentee.length !== 0 ? (
-      mentee.map((_mentee) => {
+      mentee.map((user) => {
         return (
-          <Box fontSize={{ base: 'md', md: 'xl' }} key={_mentee.name}>
-            {_mentee.name}
+          <Box fontSize={{ base: 'md', md: 'xl' }} key={user.id}>
+            {user.name}
 
             {' : '}
 
-            <Link color="teal.500" href={`users/${_mentee.id}`}>
+            <Link color="teal.500" href={`users/${user.id}`}>
               個人ページ
               <ExternalLinkIcon mx="2px" />
             </Link>
