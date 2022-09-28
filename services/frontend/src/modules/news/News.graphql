@@ -1,7 +1,0 @@
-query News {
-  getNews {
-    id
-    title
-    body
-  }
-}

@@ -10,7 +10,7 @@ import { submitTrialApplicationResolver } from './resolvers/Mutation.submitTrial
 import { updateUserPaymentStatusResolver } from './resolvers/Mutation.updateUserPaymentStatus'
 import { updateUserRankResolver } from './resolvers/Mutation.updateUserRank'
 import { menterResolver } from './resolvers/RegularUser.menter'
-import { getNewsResolver } from './resolvers/Query.getNews.resolvers'
+import { getNewsListResolver } from './resolvers/Query.getNewsList'
 import { getRegularUsersResolver } from './resolvers/Query.getRegularUsers'
 import { getStudyLogResolver } from './resolvers/Query.getStudyLog'
 import { getUserResolver } from './resolvers/Query.getUser'
@@ -20,6 +20,7 @@ import { __resolveTypeResolve } from './resolvers/User.__resolveType'
 import { addMenterResolver } from './resolvers/Mutation.addMenter'
 import { removeMenterResolver } from './resolvers/Mutation.removeMenter'
 import { menteeResolver } from './resolvers/RegularUser.mentee'
+import { createNewsResolver } from './resolvers/Mutation.createNews'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
@@ -28,6 +29,7 @@ const resolvers: Resolvers = {
   },
   Mutation: {
     addMenter: addMenterResolver,
+    createNews: createNewsResolver,
     createStudyLog: createStudyLogResolver,
     createUser: createUserResolver,
     removeMenter: removeMenterResolver,
@@ -36,7 +38,7 @@ const resolvers: Resolvers = {
     updateUserRank: updateUserRankResolver,
   },
   Query: {
-    getNews: getNewsResolver,
+    getNewsList: getNewsListResolver,
     getRegularUsers: getRegularUsersResolver,
     getStudyLog: getStudyLogResolver,
     getUser: getUserResolver,
