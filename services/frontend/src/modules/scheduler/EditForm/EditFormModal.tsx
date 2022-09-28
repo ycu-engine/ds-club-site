@@ -15,7 +15,7 @@ type EditFormModalProps = {
 
 export const EditFormModal = ({ isOpen, onClose }: EditFormModalProps) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
 
       <ModalContent h="80%" overflow="scroll">

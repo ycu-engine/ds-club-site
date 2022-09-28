@@ -24,6 +24,7 @@ export const EditForm = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     reset,
     resetField,
     formState: { errors, isSubmitting, isSubmitSuccessful },
@@ -32,7 +33,6 @@ export const EditForm = () => {
   const toast = useToast()
 
   useEffect(() => {
-    console.info('監視')
     if (isSubmitSuccessful) {
       toast({
         duration: 2000,
@@ -113,6 +113,12 @@ export const EditForm = () => {
           type="datetime-local"
           {...register('start', {
             required: 'この項目は必須です',
+            validate: (value) => {
+              return (
+                new Date(value) > new Date() ||
+                '開始日時は現在時刻より後の日時を指定してください'
+              )
+            },
           })}
         />
 
@@ -132,6 +138,13 @@ export const EditForm = () => {
           type="datetime-local"
           {...register('end', {
             required: 'この項目は必須です',
+            validate: (value) => {
+              const { start } = getValues()
+              return (
+                new Date(value) > new Date(start) ||
+                '終了日時は開始日時よりも後に設定してください'
+              )
+            },
           })}
         />
 
