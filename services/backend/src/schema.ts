@@ -1,9 +1,8 @@
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { loadSchema } from '@graphql-tools/load'
-import { DateResolver } from 'graphql-scalars'
+import { DateResolver, DateTimeResolver } from 'graphql-scalars'
 import { join } from 'path'
 import type { Resolvers } from './generates/graphql'
-import { isoResolver } from './resolvers/DateTime.iso'
 import { createStudyLogResolver } from './resolvers/Mutation.createStudyLog'
 import { createUserResolver } from './resolvers/Mutation.createUser'
 import { submitTrialApplicationResolver } from './resolvers/Mutation.submitTrialApplication'
@@ -25,9 +24,7 @@ import { createEventResolver } from './resolvers/Mutation.createEvent'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
-  DateTime: {
-    iso: isoResolver,
-  },
+  DateTime: DateTimeResolver,
   Mutation: {
     addMenter: addMenterResolver,
     createEvent: createEventResolver,

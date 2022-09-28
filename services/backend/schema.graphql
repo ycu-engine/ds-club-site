@@ -1,4 +1,5 @@
 scalar Date
+scalar DateTime
 interface User {
   id: ID!
   name: String!
@@ -75,10 +76,6 @@ type Event {
   end: DateTime!
   location: String!
   title: String!
-}
-
-type DateTime {
-  iso: String!
 }
 
 type StudyLog {

@@ -1,19 +1,22 @@
 import type { MutationResolvers } from '../generates/graphql'
 import { createEvent } from '../modules/event'
 
-export const createEventResolver: MutationResolvers['createEvent'] = async (
-  _,
-  { input },
-) => {
+export const createEventResolver: NonNullable<
+  MutationResolvers['createEvent']
+> = async (_, { input }) => {
+  console.info(input)
+  console.info('start:', typeof input.start)
+  console.info('Date(start):', new Date(input.start))
   // 後で認証処理を記述する
   // startとendの順序が正しいかどうかを確認する
-  if (new Date(input.start.iso) > new Date(input.end.iso)) {
+  if (new Date(input.start) > new Date(input.end)) {
     throw new Error('Start date must be before end date')
   }
+
   const event = await createEvent({
     ...input,
-    end: new Date(input.end.iso).getTime(),
-    start: new Date(input.start.iso).getTime(),
+    end: new Date(input.end).getTime(),
+    start: new Date(input.start).getTime(),
   })
   return event
 }
