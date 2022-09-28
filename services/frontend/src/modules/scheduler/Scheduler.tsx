@@ -13,7 +13,7 @@ import '@toast-ui/calendar/dist/toastui-calendar.min.css'
 import appointments from './appointments'
 import { EditFormModal } from './EditForm/EditFormModal'
 import { EditIcon } from '@chakra-ui/icons'
-import { UserRole } from '../../generates/graphql'
+import { SchedulerFragment, UserRole } from '../../generates/graphql'
 
 interface DateSelectButtonProps {
   onClick: () => void
@@ -50,8 +50,11 @@ const EditButton = ({ onClick, roles, ...props }: EditButtonProps) => {
 }
 
 // Dynamic importsのためにpropsの型定義を用意しておく
-export interface SchedulerProps {}
-export const Scheduler = (_props: SchedulerProps) => {
+export type SchedulerProps = {
+  result: SchedulerFragment
+}
+export const Scheduler = ({ result }: SchedulerProps) => {
+  const { roles } = result.getUser
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const calendarRef = useRef<Calendar>(null)
@@ -124,9 +127,7 @@ export const Scheduler = (_props: SchedulerProps) => {
             {formatedDate}
           </Text>
 
-          {/* とりあえずADMINで */}
-
-          <EditButton onClick={onOpen} roles={[UserRole.Admin]} />
+          <EditButton onClick={onOpen} roles={roles} />
         </Flex>
       </Flex>
 

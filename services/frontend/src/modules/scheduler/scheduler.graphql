@@ -1,5 +1,5 @@
-fragment scheduler on Query {
-  getUser(id: $id) {
+fragment Scheduler on Query {
+  getUser(id: $userId) {
     roles
   }
 }
