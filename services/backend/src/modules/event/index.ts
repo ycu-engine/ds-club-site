@@ -1,5 +1,7 @@
 import { firestore } from '../../clients/firebase'
+import type { CollectionReference, Query } from 'firebase-admin/firestore'
 import { FieldValue, Timestamp } from 'firebase-admin/firestore'
+import type { EventModel } from './models'
 import { eventModelConverter } from './models'
 import type { EventModelMapper } from './types'
 
@@ -7,8 +9,12 @@ const eventCollection = firestore
   .collection('event')
   .withConverter(eventModelConverter)
 
-export const listEvent = async (): Promise<EventModelMapper[]> => {
-  const snapshot = await eventCollection.get()
+export const listEvent = async (
+  query: (collection: CollectionReference<EventModel>) => Query<EventModel> = (
+    collection,
+  ) => collection,
+): Promise<EventModelMapper[]> => {
+  const snapshot = await query(eventCollection).get()
   return snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
 }
 

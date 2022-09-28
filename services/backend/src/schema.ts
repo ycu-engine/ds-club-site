@@ -23,6 +23,7 @@ import { getEventsResolver } from './resolvers/Query.getEvents'
 import { createEventResolver } from './resolvers/Mutation.createEvent'
 import { createWeeklyRepeatEventResolver } from './resolvers/Mutation.createWeeklyRepeatEvent'
 import { deleteEventResolver } from './resolvers/Mutation.deleteEvent'
+import { deleteEventsResolver } from './resolvers/Mutation.deleteEvents'
 const resolvers: Resolvers = {
   Date: DateResolver,
   DateTime: DateTimeResolver,
@@ -33,6 +34,7 @@ const resolvers: Resolvers = {
     createUser: createUserResolver,
     createWeeklyRepeatEvent: createWeeklyRepeatEventResolver,
     deleteEvent: deleteEventResolver,
+    deleteEvents: deleteEventsResolver,
     removeMenter: removeMenterResolver,
     submitTrialApplication: submitTrialApplicationResolver,
     updateUserPaymentStatus: updateUserPaymentStatusResolver,

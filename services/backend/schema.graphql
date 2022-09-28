@@ -156,4 +156,5 @@ type Mutation {
   createWeeklyRepeatEvent(input: createWeeklyRepeatEventInput!): [Event!]!
   createEvent(input: createEventInput!): Event!
   deleteEvent(id: ID!): Event!
+  deleteEvents(title: String!): [Event!]!
 }
