@@ -43,13 +43,15 @@ export const createEvent = async (obj: {
   return event
 }
 
-export const createWeeklyRepeatEvent = async (obj: {
-  title: string
-  start: number
-  end: number
-  location: string
-  repeatUntil: number
-}): Promise<EventModelMapper[]> => {
+export const createWeeklyRepeatEvent = async (
+  obj: {
+    title: string
+    start: number
+    end: number
+    location: string
+  },
+  repeatUntil: number,
+): Promise<EventModelMapper[]> => {
   const events = []
   const [startHour, startMinute] = [
     new Date(obj.start).getHours(),
@@ -61,7 +63,7 @@ export const createWeeklyRepeatEvent = async (obj: {
   ]
   for (
     let date = new Date(obj.start);
-    date <= new Date(obj.repeatUntil);
+    date <= new Date(repeatUntil);
     date.setDate(date.getDate() + 7)
   ) {
     const start = new Date(date)
