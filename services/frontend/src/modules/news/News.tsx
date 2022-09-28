@@ -19,7 +19,7 @@ type NewsProps = {
 } & BoxProps
 const NewsWrapper = ({ children, ...props }: NewsProps) => {
   return (
-    <Container py="5">
+    <Container py="5" w="40vw">
       <Tabs
         border="1px solid black"
         borderRadius="20"
@@ -49,11 +49,10 @@ export const News = () => {
     variables: {},
   })
 
-  console.info(data)
   if (loading) {
     return (
-      <NewsWrapper alignItems="center" display="flex">
-        <Spinner display="flex" mx="auto" />
+      <NewsWrapper alignItems="center" display="flex" justifyContent="center">
+        <Spinner size="lg" />
       </NewsWrapper>
     )
   }
