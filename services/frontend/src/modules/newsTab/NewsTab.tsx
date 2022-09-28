@@ -74,7 +74,6 @@ export const NewsTab = ({ newsList, loading }: NewsTabProps) => {
     <NewsTabWrapper>
       <TabPanels h="50vh" overflow="scroll" p="5">
         {newsList.map((news) => {
-          console.info(news)
           return (
             <TabPanel key={news.title}>
               <Box>
