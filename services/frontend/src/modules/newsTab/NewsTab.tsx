@@ -12,12 +12,12 @@ import {
   BoxProps,
 } from '@chakra-ui/react'
 import type { ReactNode } from 'react'
-import { useNewsQuery } from '../../generates/graphql'
+import type { NewsTabFragment } from '../../generates/graphql'
 
-type NewsProps = {
+type NewsTabWrapperProps = {
   children?: ReactNode
 } & BoxProps
-const NewsWrapper = ({ children, ...props }: NewsProps) => {
+const NewsTabWrapper = ({ children, ...props }: NewsTabWrapperProps) => {
   return (
     <Container py="5" w="40vw">
       <Tabs
@@ -44,32 +44,36 @@ const NewsWrapper = ({ children, ...props }: NewsProps) => {
   )
 }
 
-export const News = () => {
-  const { data, loading } = useNewsQuery({
-    variables: {},
-  })
-
+type NewsTabProps = {
+  newsList?: NewsTabFragment[]
+  loading: boolean
+}
+export const NewsTab = ({ newsList, loading }: NewsTabProps) => {
   if (loading) {
     return (
-      <NewsWrapper alignItems="center" display="flex" justifyContent="center">
+      <NewsTabWrapper
+        alignItems="center"
+        display="flex"
+        justifyContent="center"
+      >
         <Spinner size="lg" />
-      </NewsWrapper>
+      </NewsTabWrapper>
     )
   }
 
-  if (!data || data.getNewsList.length === 0) {
+  if (!newsList || newsList.length === 0) {
     return (
-      <NewsWrapper>
+      <NewsTabWrapper>
         <Heading fontSize="lg" p="5">
           現在お知らせはありません
         </Heading>
-      </NewsWrapper>
+      </NewsTabWrapper>
     )
   }
   return (
-    <NewsWrapper>
+    <NewsTabWrapper>
       <TabPanels h="50vh" overflow="scroll" p="5">
-        {data?.getNewsList.map((news) => {
+        {newsList.map((news) => {
           console.info(news)
           return (
             <TabPanel key={news.title}>
@@ -84,7 +88,7 @@ export const News = () => {
       </TabPanels>
 
       <TabList justifyContent="center">
-        {data.getNewsList.map((news) => {
+        {newsList.map((news) => {
           return (
             <Tab
               _focus={{ outline: 'none' }}
@@ -96,8 +100,8 @@ export const News = () => {
           )
         })}
       </TabList>
-    </NewsWrapper>
+    </NewsTabWrapper>
   )
 }
 
-export default News
+export default NewsTab
