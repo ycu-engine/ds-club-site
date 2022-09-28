@@ -135,12 +135,11 @@ input createEventInput {
   location: String!
   title: String!
 }
-input createRepeatEventInput {
+input createWeeklyRepeatEventInput {
   start: DateTime!
   end: DateTime!
   location: String!
   title: String!
-  repeatFrom: DateTime!
   repeatUntil: DateTime!
 }
 type Mutation {
@@ -154,6 +153,6 @@ type Mutation {
   removeMenter(userId: ID!): RegularUser!
   createStudyLog(input: CreateStudyLogInput!): StudyLog!
   createUser(input: CreateUserInput!): RegularUser!
-  createRepeatEvent(input: createRepeatEventInput!): [Event!]!
+  createWeeklyRepeatEvent(input: createWeeklyRepeatEventInput!): [Event!]!
   createEvent(input: createEventInput!): Event!
 }

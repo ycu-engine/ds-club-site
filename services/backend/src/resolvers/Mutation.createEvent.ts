@@ -4,9 +4,6 @@ import { createEvent } from '../modules/event'
 export const createEventResolver: NonNullable<
   MutationResolvers['createEvent']
 > = async (_, { input }) => {
-  console.info(input)
-  console.info('start:', typeof input.start)
-  console.info('Date(start):', new Date(input.start))
   // 後で認証処理を記述する
   // startとendの順序が正しいかどうかを確認する
   if (new Date(input.start) > new Date(input.end)) {
