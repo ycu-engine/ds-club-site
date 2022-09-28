@@ -32,6 +32,9 @@ const Scheduler = dynamic<SchedulerProps>(
 
 const HomePage = () => {
   const { data, loading } = useHomeQuery()
+  if (!data) {
+    return null
+  }
   const newsList = data?.getNewsList
 
   return (
