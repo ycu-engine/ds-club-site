@@ -43,15 +43,13 @@ export const createEvent = async (obj: {
   return event
 }
 
-export const createWeeklyRepeatEvent = async (
-  obj: {
-    title: string
-    start: number
-    end: number
-    location: string
-  },
-  repeatUntil: number,
-): Promise<EventModelMapper[]> => {
+export const createWeeklyRepeatEvent = async (obj: {
+  title: string
+  start: number
+  end: number
+  location: string
+  repeatUntil: number
+}): Promise<EventModelMapper[]> => {
   const events = []
   const [startHour, startMinute] = [
     new Date(obj.start).getHours(),
@@ -63,7 +61,7 @@ export const createWeeklyRepeatEvent = async (
   ]
   for (
     let date = new Date(obj.start);
-    date <= new Date(repeatUntil);
+    date <= new Date(obj.repeatUntil);
     date.setDate(date.getDate() + 7)
   ) {
     const start = new Date(date)
@@ -73,12 +71,22 @@ export const createWeeklyRepeatEvent = async (
     end.setHours(endHour)
     end.setMinutes(endMinute)
     const event = await createEvent({
-      ...obj,
       end: end.getTime(),
+      location: obj.location,
       start: start.getTime(),
+      title: obj.title,
     })
 
     events.push(event)
   }
   return events
+}
+
+export const deleteEvent = async (id: string): Promise<EventModelMapper> => {
+  const event = await getEvent(id)
+  if (!event) {
+    throw new Error('Event not found')
+  }
+  await eventCollection.doc(id).delete()
+  return event
 }

@@ -155,4 +155,5 @@ type Mutation {
   createUser(input: CreateUserInput!): RegularUser!
   createWeeklyRepeatEvent(input: createWeeklyRepeatEventInput!): [Event!]!
   createEvent(input: createEventInput!): Event!
+  deleteEvent(id: ID!): Event!
 }

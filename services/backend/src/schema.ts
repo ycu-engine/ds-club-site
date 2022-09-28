@@ -22,6 +22,7 @@ import { menteeResolver } from './resolvers/RegularUser.mentee'
 import { getEventsResolver } from './resolvers/Query.getEvents'
 import { createEventResolver } from './resolvers/Mutation.createEvent'
 import { createWeeklyRepeatEventResolver } from './resolvers/Mutation.createWeeklyRepeatEvent'
+import { deleteEventResolver } from './resolvers/Mutation.deleteEvent'
 const resolvers: Resolvers = {
   Date: DateResolver,
   DateTime: DateTimeResolver,
@@ -31,6 +32,7 @@ const resolvers: Resolvers = {
     createStudyLog: createStudyLogResolver,
     createUser: createUserResolver,
     createWeeklyRepeatEvent: createWeeklyRepeatEventResolver,
+    deleteEvent: deleteEventResolver,
     removeMenter: removeMenterResolver,
     submitTrialApplication: submitTrialApplicationResolver,
     updateUserPaymentStatus: updateUserPaymentStatusResolver,
