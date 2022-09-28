@@ -113,11 +113,18 @@ export const EditForm = () => {
           type="datetime-local"
           {...register('start', {
             required: 'この項目は必須です',
-            validate: (value) => {
-              return (
-                new Date(value) > new Date() ||
-                '開始日時は現在時刻より後の日時を指定してください'
-              )
+            validate: {
+              isAfter: (value) => {
+                return (
+                  new Date(value) > new Date() ||
+                  '開始日時は現在時刻より後の日時を指定してください'
+                )
+              },
+              tooFuture: (value) => {
+                return (
+                  new Date(2200, 1, 1) > new Date(value) || '未来すぎませんか？'
+                )
+              },
             },
           })}
         />
@@ -167,7 +174,27 @@ export const EditForm = () => {
             id="repeatUntil"
             placeholder="繰り返しの終了日時"
             type="datetime-local"
-            {...register('repeatUntil')}
+            {...register('repeatUntil', {
+              validate: {
+                afterEnd: (value) => {
+                  if (!value) return false
+                  const { end } = getValues()
+                  return (
+                    new Date(value) > new Date(end) ||
+                    '繰り返しの終了日時は終了日時よりも後に設定してください'
+                  )
+                },
+                repeatRange: (value) => {
+                  if (!value) return false
+                  const { start } = getValues()
+                  return (
+                    new Date(value).getTime() - new Date(start).getTime() <=
+                      1000 * 60 * 60 * 24 * 90 ||
+                    '繰り返しの終了日時は開始日時から90日以内に設定してください'
+                  )
+                },
+              },
+            })}
           />
 
           <FormErrorMessage>
