@@ -1,0 +1,5 @@
+query MenteeListPage($userId: ID!) {
+  getUser(id: $userId) {
+    ...MenteeList
+  }
+}

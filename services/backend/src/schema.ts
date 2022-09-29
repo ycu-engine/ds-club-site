@@ -9,7 +9,7 @@ import { submitTrialApplicationResolver } from './resolvers/Mutation.submitTrial
 import { updateUserPaymentStatusResolver } from './resolvers/Mutation.updateUserPaymentStatus'
 import { updateUserRankResolver } from './resolvers/Mutation.updateUserRank'
 import { menterResolver } from './resolvers/RegularUser.menter'
-import { getNewsResolver } from './resolvers/Query.getNews.resolvers'
+import { getNewsListResolver } from './resolvers/Query.getNewsList'
 import { getRegularUsersResolver } from './resolvers/Query.getRegularUsers'
 import { getStudyLogResolver } from './resolvers/Query.getStudyLog'
 import { getUserResolver } from './resolvers/Query.getUser'
@@ -24,12 +24,16 @@ import { createEventResolver } from './resolvers/Mutation.createEvent'
 import { createWeeklyRepeatEventResolver } from './resolvers/Mutation.createWeeklyRepeatEvent'
 import { deleteEventResolver } from './resolvers/Mutation.deleteEvent'
 import { deleteEventsResolver } from './resolvers/Mutation.deleteEvents'
+import { createNewsResolver } from './resolvers/Mutation.createNews'
+
+
 const resolvers: Resolvers = {
   Date: DateResolver,
   DateTime: DateTimeResolver,
   Mutation: {
     addMenter: addMenterResolver,
     createEvent: createEventResolver,
+    createNews: createNewsResolver,
     createStudyLog: createStudyLogResolver,
     createUser: createUserResolver,
     createWeeklyRepeatEvent: createWeeklyRepeatEventResolver,
@@ -43,6 +47,7 @@ const resolvers: Resolvers = {
   Query: {
     getEvents: getEventsResolver,
     getNews: getNewsResolver,
+    getNewsList: getNewsListResolver,
     getRegularUsers: getRegularUsersResolver,
     getStudyLog: getStudyLogResolver,
     getUser: getUserResolver,
