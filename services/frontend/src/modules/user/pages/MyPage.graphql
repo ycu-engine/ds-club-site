@@ -1,10 +1,31 @@
+fragment MyPageUserDegree on UserDegree {
+  id
+  degree {
+    id
+    rankKind
+  }
+  completedAt
+}
+
 query MyPage($userId: ID!) {
   getUser(id: $userId) {
     id
     name
     ... on RegularUser {
-      currentRank
+      currentRank {
+        id
+        rankKind
+      }
       roles
+      statistics: degrees(kind: STATISTICS) {
+        ...MyPageUserDegree
+      }
+      engineer: degrees(kind: ENGINEER) {
+        ...MyPageUserDegree
+      }
+      datascience: degrees(kind: DATASCIENCE) {
+        ...MyPageUserDegree
+      }
     }
   }
 }
