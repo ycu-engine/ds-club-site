@@ -7,7 +7,7 @@ const Page = () => {
   const [user, _loading] = useAuthState(auth)
 
   if (!user) {
-    return null
+    return <DefaultLayout />
   }
   return (
     <DefaultLayout>
