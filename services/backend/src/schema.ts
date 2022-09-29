@@ -26,7 +26,6 @@ import { deleteEventResolver } from './resolvers/Mutation.deleteEvent'
 import { deleteEventsResolver } from './resolvers/Mutation.deleteEvents'
 import { createNewsResolver } from './resolvers/Mutation.createNews'
 
-
 const resolvers: Resolvers = {
   Date: DateResolver,
   DateTime: DateTimeResolver,
@@ -46,7 +45,6 @@ const resolvers: Resolvers = {
   },
   Query: {
     getEvents: getEventsResolver,
-    getNews: getNewsResolver,
     getNewsList: getNewsListResolver,
     getRegularUsers: getRegularUsersResolver,
     getStudyLog: getStudyLogResolver,
