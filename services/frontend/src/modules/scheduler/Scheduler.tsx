@@ -6,6 +6,7 @@ import {
   Flex,
   useDisclosure,
   Tooltip,
+  Spinner,
   IconProps,
 } from '@chakra-ui/react'
 import Calendar from '@toast-ui/react-calendar'
@@ -36,7 +37,6 @@ const EditButton = ({ onClick, roles, ...props }: EditButtonProps) => {
     return null
   }
   return (
-    // ADMIN, STAFF以外なら編集ボタンを表示しないようにしたい
     <Tooltip label="編集画面を開く">
       <EditIcon
         _hover={{ color: 'gray.600', cursor: 'pointer' }}
@@ -52,8 +52,9 @@ const EditButton = ({ onClick, roles, ...props }: EditButtonProps) => {
 // Dynamic importsのためにpropsの型定義を用意しておく
 export type SchedulerProps = {
   result: SchedulerFragment
+  isLoading: boolean
 }
-export const Scheduler = ({ result }: SchedulerProps) => {
+export const Scheduler = ({ result, isLoading }: SchedulerProps) => {
   const { roles } = result.getUser
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -131,18 +132,24 @@ export const Scheduler = ({ result }: SchedulerProps) => {
         </Flex>
       </Flex>
 
-      <Calendar
-        events={appointments}
-        height="60vh"
-        isReadOnly
-        month={{
-          dayNames: ['日', '月', '火', '水', '木', '金', '土'],
-          visibleWeeksCount: 4,
-        }}
-        ref={calendarRef}
-        useDetailPopup
-        view="month"
-      />
+      {isLoading ? (
+        <Flex alignItems="center" h="60vh" justifyContent="center">
+          <Spinner size="lg" />
+        </Flex>
+      ) : (
+        <Calendar
+          events={appointments}
+          height="60vh"
+          isReadOnly
+          month={{
+            dayNames: ['日', '月', '火', '水', '木', '金', '土'],
+            visibleWeeksCount: 4,
+          }}
+          ref={calendarRef}
+          useDetailPopup
+          view="month"
+        />
+      )}
 
       <EditFormModal isOpen={isOpen} onClose={onClose} />
     </Container>

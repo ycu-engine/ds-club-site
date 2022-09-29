@@ -35,18 +35,18 @@ const Scheduler = dynamic<SchedulerProps>(
 )
 
 const HomePage = () => {
-  const [user, _loading] = useAuthState(auth)
-  const { data, loading } = useHomeQuery({
+  const [user, authLoading] = useAuthState(auth)
+  const { data, loading: queryLoading } = useHomeQuery({
     skip: !user,
     variables: {
       userId: user?.uid || '',
     },
   })
   if (!user) {
-    return null
+    return <DefaultLayout />
   }
   if (!data) {
-    return null
+    return <DefaultLayout />
   }
   const newsList = data?.getNewsList
 
@@ -54,11 +54,12 @@ const HomePage = () => {
     <DefaultLayout>
       <Flex direction={['column', 'row']} justifyContent="space-between" p={5}>
         <NewsTab
-          loading={loading}
+          isLoading={authLoading || queryLoading}
           newsList={filter<NewsTabFragment[]>(NewsTabFragmentDoc, newsList)}
         />
 
         <Scheduler
+          isLoading={authLoading || queryLoading}
           result={filter<SchedulerFragment>(SchedulerFragmentDoc, data)}
         />
       </Flex>

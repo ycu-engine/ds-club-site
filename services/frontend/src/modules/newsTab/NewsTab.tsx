@@ -46,9 +46,9 @@ const NewsTabWrapper = ({ children, ...props }: NewsTabWrapperProps) => {
 
 type NewsTabProps = {
   newsList?: NewsTabFragment[]
-  loading: boolean
+  isLoading: boolean
 }
-export const NewsTab = ({ newsList, loading }: NewsTabProps) => {
+export const NewsTab = ({ newsList, isLoading: loading }: NewsTabProps) => {
   if (loading) {
     return (
       <NewsTabWrapper
