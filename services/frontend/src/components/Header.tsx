@@ -7,17 +7,18 @@ import {
   IconButton,
   useDisclosure,
 } from '@chakra-ui/react'
-
 import { HamburgerIcon } from '@chakra-ui/icons'
-
 import Logo from '../assets/images/icon.png'
-
 import Image from 'next/image'
 import { Sidebar } from './Sidebar'
+import { useRouter } from 'next/router'
 
 export const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
+  const router = useRouter()
+  const handleClickLogo = async () => {
+    await router.push('/')
+  }
   return (
     <Box backgroundColor="#E5E5E5" h="70px" w="100%">
       <Flex alignItems="center" gap="2" overflow="scroll">
@@ -36,7 +37,12 @@ export const Header = () => {
           />
         </Box>
 
-        <Heading mt="1" size="lg">
+        <Heading
+          _hover={{ cursor: 'pointer' }}
+          mt="1"
+          onClick={handleClickLogo}
+          size="lg"
+        >
           {' '}
           DataScienceClub
         </Heading>
