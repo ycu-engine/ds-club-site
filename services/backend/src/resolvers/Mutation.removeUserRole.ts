@@ -1,7 +1,7 @@
 import type { MutationResolvers } from '../generates/graphql'
 import { getUser, updateUser } from '../modules/user'
 
-export const removeUserRolesResolver: NonNullable<
+export const removeUserRoleResolver: NonNullable<
   MutationResolvers['removeUserRole']
 > = async (_root, { role, userId }) => {
   const user = await getUser(userId)

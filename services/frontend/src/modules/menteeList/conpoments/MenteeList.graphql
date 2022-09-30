@@ -1,0 +1,7 @@
+fragment MenteeList on RegularUser {
+  name
+  mentee {
+    id
+    name
+  }
+}

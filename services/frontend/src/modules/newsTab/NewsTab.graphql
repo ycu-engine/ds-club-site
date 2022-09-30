@@ -1,0 +1,5 @@
+fragment NewsTab on News {
+  id
+  title
+  body
+}

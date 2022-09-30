@@ -9,6 +9,8 @@ enum UserRole {
   STAFF
   TREASURER
   MENTER
+  MEMBER
+  TRIAL
 }
 
 """
@@ -29,6 +31,7 @@ enum RankKind {
 type RegularUser implements User {
   id: ID!
   name: String!
+  email: String!
   """
   段位
   """
@@ -41,6 +44,18 @@ type RegularUser implements User {
   役割
   """
   roles: [UserRole!]!
+  """
+  メンターのID
+  """
+  menterId: String
+  """
+  メンター
+  """
+  menter: RegularUser
+  """
+  メンティーのリスト
+  """
+  mentee: [RegularUser!]!
 }
 """
 お知らせ
@@ -81,11 +96,11 @@ type StudyLog {
 }
 
 type Query {
-  ok: Boolean!
-  getUser(id: ID!): User
+  getUser(id: ID!): RegularUser!
   getRegularUsers: [RegularUser!]!
-  getNews: [News!]!
+  getNewsList: [News!]!
   getStudyLog(userId: ID!): [StudyLog!]!
+  ok: Boolean!
 }
 
 input SubmitTrialApplicationInput {
@@ -100,6 +115,11 @@ input CreateStudyLogInput {
   studiedAt: Date!
 }
 
+input CreateUserInput {
+  name: String!
+  email: String!
+}
+
 type Mutation {
   updateUserPaymentStatus(
     userId: ID!
@@ -109,5 +129,9 @@ type Mutation {
   removeUserRole(userId: ID!, role: UserRole!): RegularUser!
   addUserRole(userId: ID!, role: UserRole!): RegularUser!
   submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
+  addMenter(userId: ID!, menterId: ID!): RegularUser!
+  removeMenter(userId: ID!): RegularUser!
   createStudyLog(input: CreateStudyLogInput!): StudyLog!
+  createUser(input: CreateUserInput!): RegularUser!
+  createNews(title: String!, body: String!): News!
 }

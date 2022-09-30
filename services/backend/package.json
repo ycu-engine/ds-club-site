@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "dotenv -e .env.local concurrently \"ts-node-dev src/index.ts\" \"graphql-codegen --watch\"",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "create-user-with-id": "dotenv -e .env.local ts-node src/bin/createUserWithId.ts"
   },
   "dependencies": {
     "@graphql-tools/graphql-file-loader": "^7.4.0",
