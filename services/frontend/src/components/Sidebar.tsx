@@ -15,6 +15,7 @@ import { CloseIcon } from '@chakra-ui/icons'
 import { SidebarButton } from './Button/SidebarButton'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../clients/firebase'
+import { COLORS } from '../theme'
 
 type SidebarProps = {
   isOpen: boolean
@@ -35,7 +36,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       <DrawerOverlay />
 
       <DrawerContent>
-        <Container bgColor="orange.400" h="100vh">
+        <Container bgColor={COLORS.orange} h="100vh">
           <DrawerHeader borderBottomWidth="1px">
             <Flex alignItems="center" justifyContent="space-between">
               <Text>各種リンク</Text>
