@@ -1,4 +1,4 @@
-import { RoleManagementPage } from '../modules/roleManagemet/Pages/RoleManagementPage'
+import { RoleManagementPage } from '../modules/roleManagement/Pages/RoleManagementPage'
 
 const Page = () => {
   return <RoleManagementPage />

@@ -1,18 +1,32 @@
 import { Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react'
 import {
+  RoleTableTrFragment,
   useRoleMangementPageQuery,
-  useRoleMangementPage_UpdateUserRolesMutation,
+  useRoleMangementPage_AddUserRoleMutation,
+  useRoleMangementPage_RemoveUserRoleMutation,
 } from '../../../generates/graphql'
-import { CustomTr } from './CustomTr'
+import { RoleTableTr } from './RoleTableTr'
 
 export const RoleTable = () => {
-  const [mutateUpdateRoles] = useRoleMangementPage_UpdateUserRolesMutation({
-    optimisticResponse({ userId, roles }) {
+  const [addUserRole] = useRoleMangementPage_AddUserRoleMutation({
+    optimisticResponse({ userId, role }) {
       return {
         __typename: 'Mutation',
         updateUserRole: {
           id: { userId },
-          roles: { roles },
+          role: { role },
+        },
+      }
+    },
+  })
+
+  const [removeUserRole] = useRoleMangementPage_RemoveUserRoleMutation({
+    optimisticResponse({ userId, role }) {
+      return {
+        __typename: 'Mutation',
+        updateUserRole: {
+          id: { userId },
+          role: { role },
         },
       }
     },
@@ -59,14 +73,15 @@ export const RoleTable = () => {
         </Thead>
 
         <Tbody>
-          {data.getRegularUsers.map((entry) => {
+          {data.getRegularUsers.map((user: RoleTableTrFragment) => {
             return (
-              <CustomTr
-                key={entry.id}
-                name={entry.name}
-                roles={entry.roles}
-                updateRoles={mutateUpdateRoles}
-                userId={entry.id}
+              <RoleTableTr
+                addUserRole={addUserRole}
+                id={user.id}
+                key={user.id}
+                name={user.name}
+                removeUserRole={removeUserRole}
+                roles={user.roles}
               />
             )
           })}

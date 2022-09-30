@@ -1,0 +1,20 @@
+query RoleMangementPage {
+  getRegularUsers {
+    id
+    ...RoleTableTr
+  }
+}
+
+mutation RoleMangementPage_addUserRole($userId: ID!, $role: UserRole!) {
+  addUserRole(userId: $userId, role: $role) {
+    id
+    ...RoleTableTr
+  }
+}
+
+mutation RoleMangementPage_removeUserRole($userId: ID!, $role: UserRole!) {
+  addUserRole(userId: $userId, role: $role) {
+    id
+    ...RoleTableTr
+  }
+}

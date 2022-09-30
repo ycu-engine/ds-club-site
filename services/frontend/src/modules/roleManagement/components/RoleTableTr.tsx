@@ -14,30 +14,23 @@ import {
   Text,
   Tr,
   useDisclosure,
-  VStack,
 } from '@chakra-ui/react'
-import { UserRole } from '../../../generates/graphql'
-type CustomTrProps = {
-  name: string
-  roles: UserRole[]
-  userId: string
-  updateRoles(userId: string, roles: UserRole[]): () => void
+import type { RoleTableTrFragment, UserRole } from '../../../generates/graphql'
+import { AddButton } from './AddButton'
+
+type RoleTableTrProps = RoleTableTrFragment & {
+  removeUserRole(userId: string, role: UserRole): () => unknown
+  addUserRole(userId: string, role: UserRole): () => unknown
 }
 
-export const CustomTr = ({
+export const RoleTableTr = ({
+  id,
   name,
   roles,
-  userId,
-  updateRoles,
-}: CustomTrProps) => {
+  removeUserRole,
+  addUserRole,
+}: RoleTableTrProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-
-  const handleDeleteRole = (index: number) => {
-    const new_roles = roles.concat()
-    new_roles.splice(index, 1)
-    updateRoles(userId, new_roles)
-  }
-
   return (
     <Tr>
       <Td bgColor="white" borderColor="black" borderWidth="2px">
@@ -47,16 +40,12 @@ export const CustomTr = ({
       <Td bgColor="white" borderColor="black" borderWidth="2px">
         <Flex>
           <Box>
-            {roles.map((role, index) => {
+            {roles.map((role: string) => {
               return (
                 <Tag key={role} mx="2">
                   <TagLabel>{role}</TagLabel>
 
-                  <TagCloseButton
-                    onClick={() => {
-                      handleDeleteRole(index)
-                    }}
-                  />
+                  <TagCloseButton />
                 </Tag>
               )
             })}
@@ -83,22 +72,7 @@ export const CustomTr = ({
             <ModalBody>
               <Text pb="5">追加する権限を選択してください</Text>
 
-              <VStack>
-                <Button
-                  onClick={() => {
-                    // add('ADMIN')
-                    onClose()
-                  }}
-                >
-                  ADMIN
-                </Button>
-
-                <Button>STAFF</Button>
-
-                <Button>TREASURER</Button>
-
-                <Button>MENTER</Button>
-              </VStack>
+              <AddButton addUserRole={addUserRole} userId={id} />
             </ModalBody>
           </ModalContent>
         </Modal>

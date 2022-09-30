@@ -1,0 +1,5 @@
+fragment RoleTableTr on RegularUser {
+  id
+  name
+  roles
+}

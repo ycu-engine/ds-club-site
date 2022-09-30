@@ -4,11 +4,12 @@ import { DateResolver } from 'graphql-scalars'
 import { join } from 'path'
 import type { Resolvers } from './generates/graphql'
 import { isoResolver } from './resolvers/DateTime.iso'
+import { addUserRolesResolver } from './resolvers/Mutation.addUserRole'
 import { createStudyLogResolver } from './resolvers/Mutation.createStudyLog'
+import { removeUserRolesResolver } from './resolvers/Mutation.removeUserRole'
 import { submitTrialApplicationResolver } from './resolvers/Mutation.submitTrialApplication'
 import { updateUserPaymentStatusResolver } from './resolvers/Mutation.updateUserPaymentStatus'
 import { updateUserRankResolver } from './resolvers/Mutation.updateUserRank'
-import { updateUserRolesResolver } from './resolvers/Mutation.updateUserRole'
 import { getNewsResolver } from './resolvers/Query.getNews.resolvers'
 import { getRegularUsersResolver } from './resolvers/Query.getRegularUsers'
 import { getStudyLogResolver } from './resolvers/Query.getStudyLog'
@@ -23,11 +24,12 @@ const resolvers: Resolvers = {
     iso: isoResolver,
   },
   Mutation: {
+    addUserRole: addUserRolesResolver,
     createStudyLog: createStudyLogResolver,
+    removeUserRole: removeUserRolesResolver,
     submitTrialApplication: submitTrialApplicationResolver,
     updateUserPaymentStatus: updateUserPaymentStatusResolver,
     updateUserRank: updateUserRankResolver,
-    updateUserRoles: updateUserRolesResolver,
   },
   Query: {
     getNews: getNewsResolver,
