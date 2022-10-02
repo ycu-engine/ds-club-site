@@ -6,9 +6,13 @@ import { NewsTab } from '../modules/newsTab/NewsTab'
 import {
   NewsTabFragment,
   NewsTabFragmentDoc,
+  SchedulerFragment,
+  SchedulerFragmentDoc,
   useHomeQuery,
 } from '../generates/graphql'
 import { filter } from 'graphql-anywhere'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '../clients/firebase'
 
 // https://nextjs.org/docs/advanced-features/dynamic-import#example
 // react18なので、Suspenseを使うことが推奨されているがエラーが出るので、loadingを使う
@@ -31,21 +35,33 @@ const Scheduler = dynamic<SchedulerProps>(
 )
 
 const HomePage = () => {
-  const { data, loading } = useHomeQuery()
+  const [user, authLoading] = useAuthState(auth)
+  const { data, loading: queryLoading } = useHomeQuery({
+    skip: !user,
+    variables: {
+      userId: user?.uid || '',
+    },
+  })
+  if (!user) {
+    return <DefaultLayout />
+  }
   if (!data) {
-    return null
+    return <DefaultLayout />
   }
   const newsList = data?.getNewsList
 
   return (
-    <DefaultLayout authenticated={false}>
+    <DefaultLayout>
       <Flex direction={['column', 'row']} justifyContent="space-between" p={5}>
         <NewsTab
-          loading={loading}
+          isLoading={authLoading || queryLoading}
           newsList={filter<NewsTabFragment[]>(NewsTabFragmentDoc, newsList)}
         />
 
-        <Scheduler />
+        <Scheduler
+          isLoading={authLoading || queryLoading}
+          result={filter<SchedulerFragment>(SchedulerFragmentDoc, data)}
+        />
       </Flex>
     </DefaultLayout>
   )

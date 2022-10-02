@@ -1,0 +1,5 @@
+fragment Scheduler on Query {
+  getUser(id: $userId) {
+    roles
+  }
+}

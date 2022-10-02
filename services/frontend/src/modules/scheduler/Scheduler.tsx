@@ -1,8 +1,20 @@
 import { useRef, useState } from 'react'
-import { Button, Text, Container, Box, Flex } from '@chakra-ui/react'
+import {
+  Button,
+  Text,
+  Container,
+  Flex,
+  useDisclosure,
+  Tooltip,
+  Spinner,
+  IconProps,
+} from '@chakra-ui/react'
 import Calendar from '@toast-ui/react-calendar'
 import '@toast-ui/calendar/dist/toastui-calendar.min.css'
 import appointments from './appointments'
+import { EditFormModal } from './EditForm/EditFormModal'
+import { EditIcon } from '@chakra-ui/icons'
+import { SchedulerFragment, UserRole } from '../../generates/graphql'
 
 interface DateSelectButtonProps {
   onClick: () => void
@@ -16,9 +28,36 @@ const DateSelectButton = ({ onClick, children }: DateSelectButtonProps) => {
   )
 }
 
+type EditButtonProps = {
+  onClick: () => void
+  roles?: UserRole[]
+} & IconProps
+const EditButton = ({ onClick, roles, ...props }: EditButtonProps) => {
+  if (!roles?.includes(UserRole.Admin) && !roles?.includes(UserRole.Staff)) {
+    return null
+  }
+  return (
+    <Tooltip label="編集画面を開く">
+      <EditIcon
+        _hover={{ color: 'gray.600', cursor: 'pointer' }}
+        as="button"
+        boxSize="1.5rem"
+        onClick={onClick}
+        {...props}
+      />
+    </Tooltip>
+  )
+}
+
 // Dynamic importsのためにpropsの型定義を用意しておく
-export interface SchedulerProps {}
-export const Scheduler = (_props: SchedulerProps) => {
+export type SchedulerProps = {
+  result: SchedulerFragment
+  isLoading: boolean
+}
+export const Scheduler = ({ result, isLoading }: SchedulerProps) => {
+  const { roles } = result.getUser
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   const calendarRef = useRef<Calendar>(null)
 
   const [date, setDate] = useState(new Date())
@@ -59,10 +98,11 @@ export const Scheduler = (_props: SchedulerProps) => {
   }
 
   const formatedDate = `${date.getFullYear()}年${date.getMonth() + 1}月`
+
   return (
     <Container textAlign="center">
       <Flex alignItems="center" justify="space-between" px={5}>
-        <Box bg="gray.200" borderRadius={10} color="orange.400" m={1}>
+        <Flex bg="gray.200" borderRadius={10} color="orange.400" m={1}>
           <DateSelectButton onClick={handleClickPrevButton}>
             {'<'}
           </DateSelectButton>
@@ -74,31 +114,44 @@ export const Scheduler = (_props: SchedulerProps) => {
           <DateSelectButton onClick={handleClickNextButton}>
             {'>'}
           </DateSelectButton>
-        </Box>
+        </Flex>
 
-        <Text
-          bg="orange.400"
-          borderRadius={10}
-          color="white"
-          fontWeight="bold"
-          p={1}
-        >
-          {formatedDate}
-        </Text>
+        <Flex alignItems="center">
+          <Text
+            bg="orange.400"
+            borderRadius={10}
+            color="white"
+            fontWeight="bold"
+            mx={1}
+            p={1}
+          >
+            {formatedDate}
+          </Text>
+
+          <EditButton onClick={onOpen} roles={roles} />
+        </Flex>
       </Flex>
 
-      <Calendar
-        events={appointments}
-        height="60vh"
-        isReadOnly
-        month={{
-          dayNames: ['日', '月', '火', '水', '木', '金', '土'],
-          visibleWeeksCount: 4,
-        }}
-        ref={calendarRef}
-        useDetailPopup
-        view="month"
-      />
+      {isLoading ? (
+        <Flex alignItems="center" h="60vh" justifyContent="center">
+          <Spinner size="lg" />
+        </Flex>
+      ) : (
+        <Calendar
+          events={appointments}
+          height="60vh"
+          isReadOnly
+          month={{
+            dayNames: ['日', '月', '火', '水', '木', '金', '土'],
+            visibleWeeksCount: 4,
+          }}
+          ref={calendarRef}
+          useDetailPopup
+          view="month"
+        />
+      )}
+
+      <EditFormModal isOpen={isOpen} onClose={onClose} />
     </Container>
   )
 }

@@ -46,9 +46,9 @@ const NewsTabWrapper = ({ children, ...props }: NewsTabWrapperProps) => {
 
 type NewsTabProps = {
   newsList?: NewsTabFragment[]
-  loading: boolean
+  isLoading: boolean
 }
-export const NewsTab = ({ newsList, loading }: NewsTabProps) => {
+export const NewsTab = ({ newsList, isLoading: loading }: NewsTabProps) => {
   if (loading) {
     return (
       <NewsTabWrapper
@@ -74,7 +74,6 @@ export const NewsTab = ({ newsList, loading }: NewsTabProps) => {
     <NewsTabWrapper>
       <TabPanels h="50vh" overflow="scroll" p="5">
         {newsList.map((news) => {
-          console.info(news)
           return (
             <TabPanel key={news.title}>
               <Box>
