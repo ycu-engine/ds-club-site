@@ -11,10 +11,10 @@ import {
 } from '@chakra-ui/react'
 import Calendar from '@toast-ui/react-calendar'
 import '@toast-ui/calendar/dist/toastui-calendar.min.css'
-import appointments from './appointments'
 import { EditFormModal } from './EditForm/EditFormModal'
 import { EditIcon } from '@chakra-ui/icons'
 import { SchedulerFragment, UserRole } from '../../generates/graphql'
+import type { EventObject } from '@toast-ui/calendar/types/types/events.d.ts'
 
 interface DateSelectButtonProps {
   onClick: () => void
@@ -56,6 +56,14 @@ export type SchedulerProps = {
 }
 export const Scheduler = ({ result, isLoading }: SchedulerProps) => {
   const { roles } = result.getUser
+  const events = result.getEvents as SchedulerFragment['getEvents']
+  const fmtEvents: EventObject[] = events.map((event) => {
+    return {
+      ...event,
+      isReadOnly: true,
+    }
+  })
+
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const calendarRef = useRef<Calendar>(null)
@@ -138,7 +146,7 @@ export const Scheduler = ({ result, isLoading }: SchedulerProps) => {
         </Flex>
       ) : (
         <Calendar
-          events={appointments}
+          events={fmtEvents}
           height="60vh"
           isReadOnly
           month={{
