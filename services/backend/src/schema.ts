@@ -1,9 +1,8 @@
 import { GraphQLFileLoader } from '@graphql-tools/graphql-file-loader'
 import { loadSchema } from '@graphql-tools/load'
-import { DateResolver } from 'graphql-scalars'
+import { DateResolver, DateTimeResolver } from 'graphql-scalars'
 import { join } from 'path'
 import type { Resolvers } from './generates/graphql'
-import { isoResolver } from './resolvers/DateTime.iso'
 import { createStudyLogResolver } from './resolvers/Mutation.createStudyLog'
 import { createUserResolver } from './resolvers/Mutation.createUser'
 import { submitTrialApplicationResolver } from './resolvers/Mutation.submitTrialApplication'
@@ -20,24 +19,32 @@ import { __resolveTypeResolve } from './resolvers/User.__resolveType'
 import { addMenterResolver } from './resolvers/Mutation.addMenter'
 import { removeMenterResolver } from './resolvers/Mutation.removeMenter'
 import { menteeResolver } from './resolvers/RegularUser.mentee'
+import { getEventsResolver } from './resolvers/Query.getEvents'
+import { createEventResolver } from './resolvers/Mutation.createEvent'
+import { createWeeklyRepeatEventResolver } from './resolvers/Mutation.createWeeklyRepeatEvent'
+import { deleteEventResolver } from './resolvers/Mutation.deleteEvent'
+import { deleteEventsResolver } from './resolvers/Mutation.deleteEvents'
 import { createNewsResolver } from './resolvers/Mutation.createNews'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
-  DateTime: {
-    iso: isoResolver,
-  },
+  DateTime: DateTimeResolver,
   Mutation: {
     addMenter: addMenterResolver,
+    createEvent: createEventResolver,
     createNews: createNewsResolver,
     createStudyLog: createStudyLogResolver,
     createUser: createUserResolver,
+    createWeeklyRepeatEvent: createWeeklyRepeatEventResolver,
+    deleteEvent: deleteEventResolver,
+    deleteEvents: deleteEventsResolver,
     removeMenter: removeMenterResolver,
     submitTrialApplication: submitTrialApplicationResolver,
     updateUserPaymentStatus: updateUserPaymentStatusResolver,
     updateUserRank: updateUserRankResolver,
   },
   Query: {
+    getEvents: getEventsResolver,
     getNewsList: getNewsListResolver,
     getRegularUsers: getRegularUsersResolver,
     getStudyLog: getStudyLogResolver,

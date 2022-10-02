@@ -1,4 +1,5 @@
 scalar Date
+scalar DateTime
 interface User {
   id: ID!
   name: String!
@@ -66,8 +67,15 @@ type News {
   body: String!
 }
 
-type DateTime {
-  iso: String!
+"""
+日々の活動やイベントの情報
+"""
+type Event {
+  id: ID!
+  start: DateTime!
+  end: DateTime!
+  location: String!
+  title: String!
 }
 
 type StudyLog {
@@ -100,6 +108,7 @@ type Query {
   getRegularUsers: [RegularUser!]!
   getNewsList: [News!]!
   getStudyLog(userId: ID!): [StudyLog!]!
+  getEvents: [Event!]!
   ok: Boolean!
 }
 
@@ -120,6 +129,19 @@ input CreateUserInput {
   email: String!
 }
 
+input createEventInput {
+  start: DateTime!
+  end: DateTime!
+  location: String!
+  title: String!
+}
+input createWeeklyRepeatEventInput {
+  start: DateTime!
+  end: DateTime!
+  location: String!
+  title: String!
+  repeatUntil: DateTime!
+}
 type Mutation {
   updateUserPaymentStatus(
     userId: ID!
@@ -131,5 +153,9 @@ type Mutation {
   removeMenter(userId: ID!): RegularUser!
   createStudyLog(input: CreateStudyLogInput!): StudyLog!
   createUser(input: CreateUserInput!): RegularUser!
+  createWeeklyRepeatEvent(input: createWeeklyRepeatEventInput!): [Event!]!
+  createEvent(input: createEventInput!): Event!
+  deleteEvent(id: ID!): Event!
+  deleteEvents(title: String!): [Event!]!
   createNews(title: String!, body: String!): News!
 }

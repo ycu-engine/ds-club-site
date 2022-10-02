@@ -10,6 +10,7 @@ generates:
     config:
       scalars:
         Date: string
+        DateTime: string
       useTypeImports: true
       contextType: ../context#Context
       mappers:
