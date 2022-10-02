@@ -10,6 +10,11 @@ import {
 } from '@chakra-ui/react'
 import { ChangeEvent, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import {
+  SchedulerFragmentDoc,
+  useEditForm_CreateEventMutation,
+  useEditForm_CreateWeeklyRepeatEventInputMutation,
+} from '../../../generates/graphql'
 
 type EditFormValues = {
   title: string
@@ -19,6 +24,15 @@ type EditFormValues = {
   repeatUntil?: Date
 }
 export const EditForm = () => {
+  const [mutateCreateEvent] = useEditForm_CreateEventMutation({
+    refetchQueries: [{ query: SchedulerFragmentDoc }],
+  })
+
+  const [mutateCreateWeeklyRepeatEvent] =
+    useEditForm_CreateWeeklyRepeatEventInputMutation({
+      refetchQueries: [{ query: SchedulerFragmentDoc }],
+    })
+
   const [isCheckedRepeat, setIsCheckedRepeat] = useState<boolean>(false)
 
   const {
@@ -32,6 +46,39 @@ export const EditForm = () => {
 
   const toast = useToast()
 
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.checked) {
+      resetField('repeatUntil')
+    }
+    setIsCheckedRepeat(e.target.checked)
+  }
+
+  const onSubmit: SubmitHandler<EditFormValues> = async (data) => {
+    const { start, end, repeatUntil } = data
+    const validData = {
+      ...data,
+      end: new Date(end).toISOString(),
+      repeatUntil: repeatUntil
+        ? new Date(repeatUntil).toISOString()
+        : undefined,
+      start: new Date(start).toISOString(),
+    }
+    if (isCheckedRepeat) {
+      await mutateCreateWeeklyRepeatEvent({
+        variables: {
+          input: validData,
+        },
+      })
+    } else {
+      mutateCreateEvent({
+        variables: {
+          input: validData,
+        },
+      })
+    }
+    reset()
+  }
+
   useEffect(() => {
     if (isSubmitSuccessful) {
       toast({
@@ -42,27 +89,6 @@ export const EditForm = () => {
       })
     }
   }, [isSubmitSuccessful, toast])
-
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      resetField('repeatUntil')
-    }
-    setIsCheckedRepeat(e.target.checked)
-  }
-
-  const onSubmit: SubmitHandler<EditFormValues> = (data) => {
-    const { start, end, repeatUntil } = data
-    const validData = {
-      ...data,
-      end: new Date(end).toISOString(),
-      repeatUntil: repeatUntil
-        ? new Date(repeatUntil).toISOString()
-        : undefined,
-      start: new Date(start).toISOString(),
-    }
-    console.info(validData)
-    reset()
-  }
 
   return (
     <VStack as="form" onSubmit={handleSubmit(onSubmit)} spacing={3} w="100%">

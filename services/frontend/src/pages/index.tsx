@@ -43,11 +43,9 @@ const HomePage = () => {
     },
   })
   if (!user) {
-    console.info('user is not logged in')
     return <DefaultLayout />
   }
   if (!data) {
-    console.info('data is not loaded')
     return <DefaultLayout />
   }
   const newsList = data?.getNewsList
