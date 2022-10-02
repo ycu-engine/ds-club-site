@@ -201,6 +201,7 @@ export const EditForm = () => {
             placeholder="繰り返しの終了日時"
             type="datetime-local"
             {...register('repeatUntil', {
+              required: isCheckedRepeat ? 'この項目は必須です' : false,
               validate: {
                 afterEnd: (value) => {
                   if (!value) return false
