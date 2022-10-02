@@ -70,7 +70,7 @@ export const EditForm = () => {
         },
       })
     } else {
-      mutateCreateEvent({
+      await mutateCreateEvent({
         variables: {
           input: validData,
         },

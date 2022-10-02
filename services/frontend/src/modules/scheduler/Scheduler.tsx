@@ -56,7 +56,7 @@ export type SchedulerProps = {
 }
 export const Scheduler = ({ result, isLoading }: SchedulerProps) => {
   const { roles } = result.getUser
-  const events = result.getEvents as SchedulerFragment['getEvents']
+  const events = result.getEvents
   const fmtEvents: EventObject[] = events.map((event) => {
     return {
       ...event,
