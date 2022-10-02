@@ -7,9 +7,18 @@ import {
   Th,
   Thead,
   Tr,
+  useDisclosure,
 } from '@chakra-ui/react'
+import { useState } from 'react'
+import { CanselDialog } from './ConfirmDialog/CancelDialog'
 
-const sampleUsers = [
+type UserType = {
+  id: string
+  name: string
+  trialEndDate: string
+  trialStartDate: string
+}
+const sampleUsers: UserType[] = [
   {
     id: '1',
     name: '山田太郎',
@@ -23,10 +32,14 @@ const sampleUsers = [
     trialStartDate: '2021-12-01',
   },
 ]
-const CanselButton = () => {
-  return <Button colorScheme="orange">キャンセル</Button>
-}
 export const TrialManagementTable = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [targetUser, setTargetUser] = useState<UserType | null>(null)
+  const handleClickCanselButton = (user: UserType) => {
+    setTargetUser(user)
+    onOpen()
+  }
+
   return (
     <TableContainer border="1px solid black" rounded="10">
       <Table variant="simple">
@@ -52,12 +65,21 @@ export const TrialManagementTable = () => {
               <Td>{user.trialEndDate}</Td>
 
               <Td>
-                <CanselButton />
+                <Button
+                  colorScheme="orange"
+                  onClick={() => {
+                    handleClickCanselButton(user)
+                  }}
+                >
+                  キャンセル
+                </Button>
               </Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
+
+      <CanselDialog isOpen={isOpen} onClose={onClose} user={targetUser} />
     </TableContainer>
   )
 }
