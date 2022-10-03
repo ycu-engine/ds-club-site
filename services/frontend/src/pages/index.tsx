@@ -38,6 +38,7 @@ const Scheduler = dynamic<SchedulerProps>(
 )
 
 export const RefetchQueryContext = createContext(HomeDocument)
+console.info(HomeDocument)
 const HomePage = () => {
   const [user, authLoading] = useAuthState(auth)
   const { data, loading: queryLoading } = useHomeQuery({

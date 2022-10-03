@@ -9,7 +9,9 @@ import {
   useToast,
 } from '@chakra-ui/react'
 import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { auth } from '../../../clients/firebase'
 import {
   useEditForm_CreateEventMutation,
   useEditForm_CreateWeeklyRepeatEventInputMutation,
@@ -24,6 +26,7 @@ type EditFormValues = {
   repeatUntil?: Date
 }
 export const EditForm = () => {
+  const [user, _loading] = useAuthState(auth)
   const refetchQuery = useContext(RefetchQueryContext)
   const [mutateCreateEvent] = useEditForm_CreateEventMutation({
     refetchQueries: [{ query: refetchQuery }],
@@ -31,7 +34,9 @@ export const EditForm = () => {
 
   const [mutateCreateWeeklyRepeatEvent] =
     useEditForm_CreateWeeklyRepeatEventInputMutation({
-      refetchQueries: [{ query: refetchQuery }],
+      refetchQueries: [
+        { query: refetchQuery, variables: { userId: user?.uid || '' } },
+      ],
     })
 
   const [isCheckedRepeat, setIsCheckedRepeat] = useState<boolean>(false)
@@ -194,13 +199,13 @@ export const EditForm = () => {
       {isCheckedRepeat ? (
         <FormControl isInvalid={errors.repeatUntil ? true : false}>
           <FormLabel fontWeight="semibold" htmlFor="repeatUntil">
-            繰り返しの終了日時
+            繰り返しの終了日(終了日は繰り返しに含まれません)
           </FormLabel>
 
           <Input
             id="repeatUntil"
-            placeholder="繰り返しの終了日時"
-            type="datetime-local"
+            placeholder="繰り返しの終了日(終了日は繰り返しに含まれません)"
+            type="date"
             {...register('repeatUntil', {
               required: isCheckedRepeat ? 'この項目は必須です' : false,
               validate: {
@@ -209,7 +214,7 @@ export const EditForm = () => {
                   const { end } = getValues()
                   return (
                     new Date(value) > new Date(end) ||
-                    '繰り返しの終了日時は終了日時よりも後に設定してください'
+                    '繰り返しの終了日は終了日時よりも後に設定してください'
                   )
                 },
                 repeatRange: (value) => {
