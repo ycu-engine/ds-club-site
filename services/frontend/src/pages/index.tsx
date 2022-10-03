@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import type { SchedulerProps } from '../modules/scheduler/Scheduler'
 import { NewsTab } from '../modules/newsTab/NewsTab'
 import {
+  HomeDocument,
   NewsTabFragment,
   NewsTabFragmentDoc,
   SchedulerFragment,
@@ -13,6 +14,8 @@ import {
 import { filter } from 'graphql-anywhere'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../clients/firebase'
+import { Loading } from '../components/Loading'
+import { createContext } from 'react'
 
 // https://nextjs.org/docs/advanced-features/dynamic-import#example
 // react18なので、Suspenseを使うことが推奨されているがエラーが出るので、loadingを使う
@@ -34,6 +37,7 @@ const Scheduler = dynamic<SchedulerProps>(
   },
 )
 
+export const RefetchQueryContext = createContext(HomeDocument)
 const HomePage = () => {
   const [user, authLoading] = useAuthState(auth)
   const { data, loading: queryLoading } = useHomeQuery({
@@ -42,6 +46,9 @@ const HomePage = () => {
       userId: user?.uid || '',
     },
   })
+  if (authLoading || queryLoading) {
+    return <Loading />
+  }
   if (!user) {
     return <DefaultLayout />
   }
@@ -58,10 +65,12 @@ const HomePage = () => {
           newsList={filter<NewsTabFragment[]>(NewsTabFragmentDoc, newsList)}
         />
 
-        <Scheduler
-          isLoading={authLoading || queryLoading}
-          result={filter<SchedulerFragment>(SchedulerFragmentDoc, data)}
-        />
+        <RefetchQueryContext.Provider value={HomeDocument}>
+          <Scheduler
+            isLoading={authLoading || queryLoading}
+            result={filter<SchedulerFragment>(SchedulerFragmentDoc, data)}
+          />
+        </RefetchQueryContext.Provider>
       </Flex>
     </DefaultLayout>
   )

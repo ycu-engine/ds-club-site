@@ -8,13 +8,13 @@ import {
   Checkbox,
   useToast,
 } from '@chakra-ui/react'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import {
-  SchedulerFragmentDoc,
   useEditForm_CreateEventMutation,
   useEditForm_CreateWeeklyRepeatEventInputMutation,
 } from '../../../generates/graphql'
+import { RefetchQueryContext } from '../../../pages'
 
 type EditFormValues = {
   title: string
@@ -24,13 +24,14 @@ type EditFormValues = {
   repeatUntil?: Date
 }
 export const EditForm = () => {
+  const refetchQuery = useContext(RefetchQueryContext)
   const [mutateCreateEvent] = useEditForm_CreateEventMutation({
-    refetchQueries: [{ query: SchedulerFragmentDoc }],
+    refetchQueries: [{ query: refetchQuery }],
   })
 
   const [mutateCreateWeeklyRepeatEvent] =
     useEditForm_CreateWeeklyRepeatEventInputMutation({
-      refetchQueries: [{ query: SchedulerFragmentDoc }],
+      refetchQueries: [{ query: refetchQuery }],
     })
 
   const [isCheckedRepeat, setIsCheckedRepeat] = useState<boolean>(false)
