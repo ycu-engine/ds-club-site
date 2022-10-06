@@ -38,7 +38,7 @@ const Page = () => {
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     console.debug(data)
     await signInWithEmailAndPassword(data.userName, data.password)
-    await router.push('/')
+    router.back()
   }
 
   return (
