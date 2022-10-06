@@ -1,8 +1,11 @@
 query StudyLogPage($userId: ID!) {
-  getStudyLog(userId: $userId) {
-    ...StudyLogGraph_StudyLog
-    # id
+  getUser(id: $userId) {
+    name
+    roles
   }
+  # getStudyLog(userId: $userId) {
+  #   ...StudyLogGraph_StudyLog
+  # }
 }
 
 mutation StudyLogPage_createStudyLog($input: CreateStudyLogInput!) {
