@@ -2,6 +2,7 @@ import NextLink from 'next/link'
 import { css } from '@emotion/react'
 import type { ReactNode } from 'react'
 import { Box } from '@chakra-ui/react'
+import { COLORS } from '../../theme'
 
 const baseSize = 10
 
@@ -32,25 +33,25 @@ const hoverEffeceButton = css`
   }
 
   &:before {
-    background-color: white;
+    background-color: ${COLORS.white};
     z-index: -1;
     box-shadow: 0.2rem 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
   }
 
   &:after {
-    background-color: black;
+    background-color: ${COLORS.black};
     transform: translate(${baseSize / 15}rem, ${baseSize / 15}rem);
     z-index: -2;
   }
 
   &:hover {
     transform: translate(${baseSize / 15}rem, ${baseSize / 15}rem);
-    color: white;
+    color: ${COLORS.white};
     &:before {
-      background-color: black;
+      background-color: ${COLORS.black};
     }
     &:after {
-      background-color: white;
+      background-color: ${COLORS.white};
       transform: translate(-${baseSize / 15}rem, -${baseSize / 15}rem);
     }
   }
@@ -62,7 +63,9 @@ type SidebarButtonProps = {
 export const SidebarButton = ({ children, link }: SidebarButtonProps) => {
   return (
     <NextLink href={link}>
-      <Box css={hoverEffeceButton}>{children}</Box>
+      <Box css={hoverEffeceButton} cursor="pointer">
+        {children}
+      </Box>
     </NextLink>
   )
 }
