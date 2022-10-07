@@ -3,7 +3,10 @@ import { listStudyLogs } from '../modules/studyLog'
 
 export const studyLogsResolver: NonNullable<
   RegularUserResolvers['studyLogs']
-> = async (regularUser, _) => {
+> = async (regularUser, _, { user }) => {
+  if (!user) {
+    throw new Error('ログインされていません')
+  }
   const studyLogs = await listStudyLogs(regularUser.id)
   return studyLogs
 }
