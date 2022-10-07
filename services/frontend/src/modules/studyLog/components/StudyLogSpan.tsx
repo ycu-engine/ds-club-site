@@ -1,15 +1,21 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Center, Spinner, Text } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../../../clients/firebase'
 import { InputBox } from '../../../components/InputForm/InputBox'
-import { useStudyLogPageQuery } from '../../../generates/graphql'
+import type { StudyLog_StudyLogGraphFragment } from '../../../generates/graphql'
+import { COLORS } from '../../../theme'
 import type { StudyLogGraphProps } from '../components/StudyLogGraph'
 
 const StudyLogGraph = dynamic<StudyLogGraphProps>(
   () => import('../components/StudyLogGraph').then((mod) => mod.StudyLogGraph),
-  { loading: () => <div>loading...</div>, ssr: false },
+  {
+    loading: () => (
+      <Center>
+        <Spinner size="lg" />
+      </Center>
+    ),
+    ssr: false,
+  },
 )
 
 type InputSpan = {
@@ -29,8 +35,10 @@ const getDate = (n: number) => {
   const now = y + '/' + m + '/' + d
   return now
 }
-
-export const StudyLogSpan = () => {
+type StudyLogSpanProps = {
+  data: StudyLog_StudyLogGraphFragment[]
+}
+export const StudyLogSpan = ({ data }: StudyLogSpanProps) => {
   const now = getDate(0)
   const six_days_ago = getDate(6)
   const [span, setSpan] = useState<InputSpan>({ end: now, start: six_days_ago })
@@ -41,30 +49,11 @@ export const StudyLogSpan = () => {
     setSpan(() => ({ ...span, end: event.target.value }))
   }
 
-  const [user] = useAuthState(auth)
-
-  const { data, loading, error } = useStudyLogPageQuery({
-    skip: !user,
-    variables: { userId: user?.uid ?? '' },
-  })
-
-  if (loading) {
-    return <div>loading</div>
-  }
-  if (error) {
-    console.error(error)
-    return <div>エラーが発生しました</div>
-  }
-  if (!data) {
-    return <div>データが見つかりませんでsした</div>
-  }
-
   return (
     <Box
-      bg="white"
+      bg={COLORS.white}
       borderRadius="20px"
       borderWidth="2px"
-      m="12px"
       overflow="hidden"
       p="12px"
     >
@@ -103,7 +92,7 @@ export const StudyLogSpan = () => {
         overflow="hidden"
         p="12px"
       >
-        <StudyLogGraph data={data.getStudyLog} />
+        <StudyLogGraph data={data} />
       </Box>
     </Box>
   )

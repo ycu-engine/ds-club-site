@@ -1,6 +1,12 @@
 import { Box, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
+import { filter } from 'graphql-anywhere'
 import { Loading } from '../../../components/Loading'
-import { UserRole, useStudyLogPageQuery } from '../../../generates/graphql'
+import {
+  StudyLog_StudyLogGraphFragment,
+  StudyLog_StudyLogGraphFragmentDoc,
+  UserRole,
+  useStudyLogPageQuery,
+} from '../../../generates/graphql'
 
 import { StudyLogInput } from '../components/StudyLogInput'
 import { StudyLogSpan } from '../components/StudyLogSpan'
@@ -30,15 +36,22 @@ export const StudyLogPage = ({ userId }: StudyLogPageProps) => {
     return <Heading>データが見つかりませんでした</Heading>
   }
   const user = data.getUser
+  const studyLogs = user.studyLogs
 
   return (
     <Grid
       gap={6}
+      p={6}
       templateColumns="repeat(2, 1fr)"
       templateRows="repeat(5, 1fr)"
     >
       <GridItem colSpan={1} rowSpan={5} w="100%">
-        <StudyLogSpan />
+        <StudyLogSpan
+          data={filter<StudyLog_StudyLogGraphFragment[]>(
+            StudyLog_StudyLogGraphFragmentDoc,
+            studyLogs,
+          )}
+        />
       </GridItem>
 
       <GridItem colSpan={1} rowSpan={2} w="100%">
@@ -46,7 +59,6 @@ export const StudyLogPage = ({ userId }: StudyLogPageProps) => {
           bg="white"
           borderRadius="20px"
           borderWidth="2px"
-          m="12px"
           overflow="hidden"
           p="12px"
         >
@@ -57,7 +69,7 @@ export const StudyLogPage = ({ userId }: StudyLogPageProps) => {
       </GridItem>
 
       <GridItem colSpan={1} rowSpan={3} w="100%">
-        <StudyLogInput />
+        <StudyLogInput userId={userId} />
       </GridItem>
     </Grid>
   )

@@ -2,15 +2,8 @@ query StudyLogPage($userId: ID!) {
   getUser(id: $userId) {
     name
     roles
-  }
-  # getStudyLog(userId: $userId) {
-  #   ...StudyLogGraph_StudyLog
-  # }
-}
-
-mutation StudyLogPage_createStudyLog($input: CreateStudyLogInput!) {
-  createStudyLog(input: $input) {
-    id
-    ...StudyLogGraph_StudyLog
+    studyLogs {
+      ...StudyLog_StudyLogGraph
+    }
   }
 }
