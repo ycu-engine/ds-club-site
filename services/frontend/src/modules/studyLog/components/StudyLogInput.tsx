@@ -14,6 +14,7 @@ import {
   StudyLogPageDocument,
   useStudyLog_StudyLogInputMutation,
 } from '../../../generates/graphql'
+import { COLORS } from '../../../theme'
 
 type CreateStudyLogForm = {
   studiedAt: Date
@@ -68,7 +69,7 @@ export const StudyLogInput = ({ userId }: StudyLogInputProps) => {
   return (
     <Box
       as="form"
-      bg="white"
+      bg={COLORS.white}
       borderRadius="20px"
       borderWidth="2px"
       onSubmit={handleSubmit(onSubmit)}

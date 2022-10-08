@@ -7,6 +7,7 @@ import {
   UserRole,
   useStudyLogPageQuery,
 } from '../../../generates/graphql'
+import { COLORS } from '../../../theme'
 
 import { StudyLogInput } from '../components/StudyLogInput'
 import { StudyLogSpan } from '../components/StudyLogSpan'
@@ -56,7 +57,7 @@ export const StudyLogPage = ({ userId }: StudyLogPageProps) => {
 
       <GridItem colSpan={1} rowSpan={2} w="100%">
         <Box
-          bg="white"
+          bg={COLORS.white}
           borderRadius="20px"
           borderWidth="2px"
           overflow="hidden"
