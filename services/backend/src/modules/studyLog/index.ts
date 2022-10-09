@@ -1,6 +1,8 @@
+import type { CollectionReference, Query } from 'firebase-admin/firestore'
 import { FieldValue, Timestamp } from 'firebase-admin/firestore'
 import { firestore } from '../../clients/firebase'
 
+import type { StudyLogModel } from './models'
 import { studyLogModelConverter } from './models'
 import type { StudyLogModelMapper } from './types'
 
@@ -32,8 +34,11 @@ export const getStudyLog = async ({
 
 export const listStudyLogs = async (
   userId: string,
+  query: (
+    collection: CollectionReference<StudyLogModel>,
+  ) => Query<StudyLogModel> = (collection) => collection,
 ): Promise<StudyLogModelMapper[]> => {
-  const snapshot = await getStudyLogCollection(userId).get()
+  const snapshot = await query(getStudyLogCollection(userId)).get()
   return snapshot.docs.map((doc) => ({
     ...doc.data(),
     id: doc.id,
