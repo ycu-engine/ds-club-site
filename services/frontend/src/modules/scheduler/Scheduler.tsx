@@ -15,6 +15,7 @@ import { EditFormModal } from './EditForm/EditFormModal'
 import { EditIcon } from '@chakra-ui/icons'
 import { SchedulerFragment, UserRole } from '../../generates/graphql'
 import type { EventObject } from '@toast-ui/calendar/types/types/events.d.ts'
+import { DocumentNode } from '@apollo/client'
 
 interface DateSelectButtonProps {
   onClick: () => void
@@ -51,10 +52,15 @@ const EditButton = ({ onClick, roles, ...props }: EditButtonProps) => {
 
 // Dynamic importsのためにpropsの型定義を用意しておく
 export type SchedulerProps = {
-  result: SchedulerFragment
+  schedulerData: SchedulerFragment
   isLoading: boolean
+  refetchQueryDoc: DocumentNode
 }
-export const Scheduler = ({ result, isLoading }: SchedulerProps) => {
+export const Scheduler = ({
+  schedulerData: result,
+  isLoading,
+  refetchQueryDoc,
+}: SchedulerProps) => {
   const { roles } = result.getUser
   const events = result.getEvents
   const fmtEvents: EventObject[] = events.map((event) => {
@@ -159,7 +165,11 @@ export const Scheduler = ({ result, isLoading }: SchedulerProps) => {
         />
       )}
 
-      <EditFormModal isOpen={isOpen} onClose={onClose} />
+      <EditFormModal
+        isOpen={isOpen}
+        onClose={onClose}
+        refetchQueryDoc={refetchQueryDoc}
+      />
     </Container>
   )
 }

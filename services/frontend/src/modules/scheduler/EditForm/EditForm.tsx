@@ -1,3 +1,4 @@
+import type { DocumentNode } from '@apollo/client'
 import {
   Button,
   VStack,
@@ -8,7 +9,7 @@ import {
   Checkbox,
   useToast,
 } from '@chakra-ui/react'
-import { ChangeEvent, useContext, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { auth } from '../../../clients/firebase'
@@ -16,7 +17,6 @@ import {
   useEditForm_CreateEventMutation,
   useEditForm_CreateWeeklyRepeatEventInputMutation,
 } from '../../../generates/graphql'
-import { RefetchQueryContext } from '../../../pages'
 
 type EditFormValues = {
   title: string
@@ -25,17 +25,21 @@ type EditFormValues = {
   end: Date
   repeatUntil?: Date
 }
-export const EditForm = () => {
+type EditFormProps = {
+  refetchQueryDoc: DocumentNode
+}
+export const EditForm = ({ refetchQueryDoc }: EditFormProps) => {
   const [user, _loading] = useAuthState(auth)
-  const refetchQuery = useContext(RefetchQueryContext)
   const [mutateCreateEvent] = useEditForm_CreateEventMutation({
-    refetchQueries: [{ query: refetchQuery }],
+    refetchQueries: [
+      { query: refetchQueryDoc, variables: { userId: user?.uid } },
+    ],
   })
 
   const [mutateCreateWeeklyRepeatEvent] =
     useEditForm_CreateWeeklyRepeatEventInputMutation({
       refetchQueries: [
-        { query: refetchQuery, variables: { userId: user?.uid || '' } },
+        { query: refetchQueryDoc, variables: { userId: user?.uid || '' } },
       ],
     })
 
@@ -47,7 +51,7 @@ export const EditForm = () => {
     getValues,
     reset,
     resetField,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
   } = useForm<EditFormValues>()
 
   const toast = useToast()
@@ -74,27 +78,40 @@ export const EditForm = () => {
         variables: {
           input: validData,
         },
+      }).catch((e) => {
+        toast({
+          description: e.message,
+          duration: 5000,
+          isClosable: true,
+          status: 'error',
+          title: 'エラー',
+        })
+        return
       })
     } else {
       await mutateCreateEvent({
         variables: {
           input: validData,
         },
+      }).catch((e) => {
+        toast({
+          description: e.message,
+          duration: 5000,
+          isClosable: true,
+          status: 'error',
+          title: 'エラー',
+        })
+        return
       })
     }
+    toast({
+      duration: 3000,
+      isClosable: true,
+      status: 'success',
+      title: 'イベントを作成しました',
+    })
     reset()
   }
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      toast({
-        duration: 2000,
-        isClosable: true,
-        status: 'success',
-        title: '予定を追加しました',
-      })
-    }
-  }, [isSubmitSuccessful, toast])
 
   return (
     <VStack as="form" onSubmit={handleSubmit(onSubmit)} spacing={3} w="100%">
