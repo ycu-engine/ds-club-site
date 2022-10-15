@@ -15,7 +15,7 @@ import { EditFormModal } from './EditForm/EditFormModal'
 import { EditIcon } from '@chakra-ui/icons'
 import { SchedulerFragment, UserRole } from '../../generates/graphql'
 import type { EventObject } from '@toast-ui/calendar/types/types/events.d.ts'
-import { DocumentNode } from '@apollo/client'
+import type { DocumentNode } from '@apollo/client'
 
 interface DateSelectButtonProps {
   onClick: () => void
