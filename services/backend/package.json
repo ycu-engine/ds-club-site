@@ -1,12 +1,14 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "dev": "dotenv -e .env.local concurrently \"ts-node-dev src/index.ts\" \"graphql-codegen --watch\"",
     "lint": "eslint src",
-    "create-user-with-id": "dotenv -e .env.local ts-node src/bin/createUserWithId.ts"
+    "create-user-with-id": "dotenv -e .env.local ts-node src/bin/createUserWithId.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "dependencies": {
     "@graphql-tools/graphql-file-loader": "^7.4.0",

@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "concurrently \"next dev\" \"graphql-codegen --watch\"",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "build": "next build"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
