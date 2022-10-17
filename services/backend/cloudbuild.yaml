@@ -1,7 +1,7 @@
 steps:
   - name: 'gcr.io/kaniko-project/executor:latest'
     args:
-      - --destination=$_ARTIFACT_REPOSITORY_NAME/$PROJECT_ID/$_REPORTING_SERVICE_NAME/$_CLOUD_RUN_SERVICE_NAME:latest
+      - --destination=$_ARTIFACT_REPOSITORY_NAME/$PROJECT_ID/$_REPOSITORY_NAME/$_CLOUD_RUN_SERVICE_NAME:latest
       - --cache=true
       - --cache-ttl=24h
       - --target=runner
@@ -23,7 +23,7 @@ steps:
   #     - '$_CLOUD_RUN_REGION'
 
 substitutions:
-  _REPORTING_SERVICE_NAME: 'ds-club-site'
+  _REPOSITORY_NAME: 'ds-club-site'
   _CLOUD_RUN_SERVICE_NAME: 'backend'
   _CLOUD_RUN_REGION: 'us-central1'
   _ARTIFACT_REPOSITORY_NAME: 'us-central1-docker.pkg.dev'
