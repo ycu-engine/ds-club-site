@@ -4,7 +4,7 @@ steps:
       - --destination=$_ARTIFACT_REPOSITORY_NAME/$PROJECT_ID/$_REPOSITORY_NAME/$_CLOUD_RUN_SERVICE_NAME:latest
       - --cache=true
       - --cache-ttl=24h
-      - --target=runner
+      # - --target=runner
       - --dockerfile=Dockerfile
       - --context=dir://.
       - --log-format=text
