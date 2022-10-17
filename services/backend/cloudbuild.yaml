@@ -24,5 +24,5 @@ steps:
 
 substitutions:
   _CLOUD_RUN_SERVICE_NAME: 'backend'
-  _CLOUD_RUN_REGION: 'us-west1'
-  _ARTIFACT_REPOSITORY_NAME: 'us-west1-docker.pkg.dev'
+  _CLOUD_RUN_REGION: 'us-central1'
+  _ARTIFACT_REPOSITORY_NAME: 'us-central1-docker.pkg.dev'
