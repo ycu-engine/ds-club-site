@@ -57,6 +57,10 @@ type RegularUser implements User {
   メンティーのリスト
   """
   mentee: [RegularUser!]!
+  """
+  学習記録
+  """
+  studyLogs: [StudyLog!]!
 }
 """
 お知らせ
@@ -119,6 +123,7 @@ input SubmitTrialApplicationInput {
 }
 
 input CreateStudyLogInput {
+  userId: ID!
   studyTime: Int!
   studyContent: String!
   studiedAt: Date!
