@@ -7,8 +7,8 @@ export const studyLogsResolver: NonNullable<
   if (!user) {
     throw new Error('ログインされていません')
   }
-  const studyLogs = await listStudyLogs(regularUser.id, (collection) =>
-    collection.orderBy('studiedAt', 'asc'),
-  )
+  const studyLogs = await listStudyLogs(regularUser.id)
+  // 学習日の昇順に並び替える
+  studyLogs.sort((a, b) => (a.studiedAt > b.studiedAt ? 1 : -1))
   return studyLogs
 }
