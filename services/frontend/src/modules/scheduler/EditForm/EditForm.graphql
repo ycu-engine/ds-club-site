@@ -1,0 +1,13 @@
+mutation EditForm_createEvent($input: createEventInput!) {
+  createEvent(input: $input) {
+    title
+  }
+}
+
+mutation EditForm_createWeeklyRepeatEventInput(
+  $input: createWeeklyRepeatEventInput!
+) {
+  createWeeklyRepeatEvent(input: $input) {
+    title
+  }
+}

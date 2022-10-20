@@ -1,3 +1,4 @@
+import type { DocumentNode } from '@apollo/client'
 import {
   Modal,
   ModalOverlay,
@@ -11,9 +12,14 @@ import { EditForm } from './EditForm'
 type EditFormModalProps = {
   isOpen: boolean
   onClose: () => void
+  refetchQueryDoc: DocumentNode
 }
 
-export const EditFormModal = ({ isOpen, onClose }: EditFormModalProps) => {
+export const EditFormModal = ({
+  isOpen,
+  onClose,
+  refetchQueryDoc,
+}: EditFormModalProps) => {
   return (
     <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -24,7 +30,7 @@ export const EditFormModal = ({ isOpen, onClose }: EditFormModalProps) => {
         <ModalCloseButton />
 
         <ModalBody>
-          <EditForm />
+          <EditForm refetchQueryDoc={refetchQueryDoc} />
         </ModalBody>
       </ModalContent>
     </Modal>

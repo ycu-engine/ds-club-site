@@ -1,3 +1,4 @@
+import type { DocumentNode } from '@apollo/client'
 import {
   Button,
   VStack,
@@ -8,8 +9,14 @@ import {
   Checkbox,
   useToast,
 } from '@chakra-ui/react'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { auth } from '../../../clients/firebase'
+import {
+  useEditForm_CreateEventMutation,
+  useEditForm_CreateWeeklyRepeatEventInputMutation,
+} from '../../../generates/graphql'
 
 type EditFormValues = {
   title: string
@@ -18,7 +25,24 @@ type EditFormValues = {
   end: Date
   repeatUntil?: Date
 }
-export const EditForm = () => {
+type EditFormProps = {
+  refetchQueryDoc: DocumentNode
+}
+export const EditForm = ({ refetchQueryDoc }: EditFormProps) => {
+  const [user, _loading] = useAuthState(auth)
+  const [mutateCreateEvent] = useEditForm_CreateEventMutation({
+    refetchQueries: [
+      { query: refetchQueryDoc, variables: { userId: user?.uid } },
+    ],
+  })
+
+  const [mutateCreateWeeklyRepeatEvent] =
+    useEditForm_CreateWeeklyRepeatEventInputMutation({
+      refetchQueries: [
+        { query: refetchQueryDoc, variables: { userId: user?.uid || '' } },
+      ],
+    })
+
   const [isCheckedRepeat, setIsCheckedRepeat] = useState<boolean>(false)
 
   const {
@@ -27,21 +51,10 @@ export const EditForm = () => {
     getValues,
     reset,
     resetField,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
   } = useForm<EditFormValues>()
 
   const toast = useToast()
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      toast({
-        duration: 2000,
-        isClosable: true,
-        status: 'success',
-        title: '予定を追加しました',
-      })
-    }
-  }, [isSubmitSuccessful, toast])
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
@@ -50,7 +63,7 @@ export const EditForm = () => {
     setIsCheckedRepeat(e.target.checked)
   }
 
-  const onSubmit: SubmitHandler<EditFormValues> = (data) => {
+  const onSubmit: SubmitHandler<EditFormValues> = async (data) => {
     const { start, end, repeatUntil } = data
     const validData = {
       ...data,
@@ -60,7 +73,43 @@ export const EditForm = () => {
         : undefined,
       start: new Date(start).toISOString(),
     }
-    console.info(validData)
+    if (isCheckedRepeat) {
+      await mutateCreateWeeklyRepeatEvent({
+        variables: {
+          input: validData,
+        },
+      }).catch((e) => {
+        toast({
+          description: e.message,
+          duration: 5000,
+          isClosable: true,
+          status: 'error',
+          title: 'エラー',
+        })
+        return
+      })
+    } else {
+      await mutateCreateEvent({
+        variables: {
+          input: validData,
+        },
+      }).catch((e) => {
+        toast({
+          description: e.message,
+          duration: 5000,
+          isClosable: true,
+          status: 'error',
+          title: 'エラー',
+        })
+        return
+      })
+    }
+    toast({
+      duration: 3000,
+      isClosable: true,
+      status: 'success',
+      title: 'イベントを作成しました',
+    })
     reset()
   }
 
@@ -167,21 +216,22 @@ export const EditForm = () => {
       {isCheckedRepeat ? (
         <FormControl isInvalid={errors.repeatUntil ? true : false}>
           <FormLabel fontWeight="semibold" htmlFor="repeatUntil">
-            繰り返しの終了日時
+            繰り返しの終了日(終了日は繰り返しに含まれません)
           </FormLabel>
 
           <Input
             id="repeatUntil"
-            placeholder="繰り返しの終了日時"
-            type="datetime-local"
+            placeholder="繰り返しの終了日(終了日は繰り返しに含まれません)"
+            type="date"
             {...register('repeatUntil', {
+              required: isCheckedRepeat ? 'この項目は必須です' : false,
               validate: {
                 afterEnd: (value) => {
                   if (!value) return false
                   const { end } = getValues()
                   return (
                     new Date(value) > new Date(end) ||
-                    '繰り返しの終了日時は終了日時よりも後に設定してください'
+                    '繰り返しの終了日は終了日時よりも後に設定してください'
                   )
                 },
                 repeatRange: (value) => {
