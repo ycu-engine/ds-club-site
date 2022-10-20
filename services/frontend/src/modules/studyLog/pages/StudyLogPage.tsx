@@ -1,36 +1,9 @@
-import { Box, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
-import { Loading } from '../../../components/Loading'
-import { UserRole, useStudyLogPageQuery } from '../../../generates/graphql'
+import { Box, Grid, GridItem, Text } from '@chakra-ui/react'
 
 import { StudyLogInput } from '../components/StudyLogInput'
 import { StudyLogSpan } from '../components/StudyLogSpan'
 
-const rolesToMemberStatus = (roles: UserRole[]): string => {
-  if (roles.includes(UserRole.Admin) || roles.includes(UserRole.Staff)) {
-    return '運営'
-  }
-  if (roles.includes(UserRole.Trial)) {
-    return '体験会員'
-  }
-  return '一般会員'
-}
-
-type StudyLogPageProps = {
-  userId: string
-}
-export const StudyLogPage = ({ userId }: StudyLogPageProps) => {
-  const { data, loading } = useStudyLogPageQuery({
-    variables: { userId: userId },
-  })
-
-  if (loading) {
-    return <Loading />
-  }
-  if (!data) {
-    return <Heading>データが見つかりませんでした</Heading>
-  }
-  const user = data.getUser
-
+export const StudyLogPage = () => {
   return (
     <Grid
       gap={6}
@@ -50,9 +23,9 @@ export const StudyLogPage = ({ userId }: StudyLogPageProps) => {
           overflow="hidden"
           p="12px"
         >
-          <Text fontSize={24}>名前：{user.name}</Text>
+          <Text fontSize={24}>名前：浦 優太</Text>
 
-          <Text fontSize={24}>会員：{rolesToMemberStatus(user.roles)}</Text>
+          <Text fontSize={24}>会員：一般会員</Text>
         </Box>
       </GridItem>
 
