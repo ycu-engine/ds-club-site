@@ -41,19 +41,21 @@ export const listStudyLogs = async (
   }))
 }
 
-export const createStudyLog = async (obj: {
-  userId: string
-  studyTime: number
-  studyContent: string
-  studiedAt: number
-}): Promise<StudyLogModelMapper> => {
-  const ref = await getStudyLogCollection(obj.userId).add({
+export const createStudyLog = async (
+  userId: string,
+  obj: {
+    studyTime: number
+    studyContent: string
+    studiedAt: number
+  },
+): Promise<StudyLogModelMapper> => {
+  const ref = await getStudyLogCollection(userId).add({
     ...obj,
     createdAt: FieldValue.serverTimestamp(),
     studiedAt: Timestamp.fromMillis(obj.studiedAt),
     updatedAt: FieldValue.serverTimestamp(),
   })
-  const studyLog = await getStudyLog({ id: ref.id, userId: obj.userId })
+  const studyLog = await getStudyLog({ id: ref.id, userId: userId })
   if (!studyLog) {
     throw new Error('StudyLog not created')
   }

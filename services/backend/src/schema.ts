@@ -25,7 +25,6 @@ import { createWeeklyRepeatEventResolver } from './resolvers/Mutation.createWeek
 import { deleteEventResolver } from './resolvers/Mutation.deleteEvent'
 import { deleteEventsResolver } from './resolvers/Mutation.deleteEvents'
 import { createNewsResolver } from './resolvers/Mutation.createNews'
-import { studyLogsResolver } from './resolvers/RegularUser.studyLogs'
 import { createTrialUserResolver } from './resolvers/Mutation.createTrialUser'
 import { getTrialUserResolver } from './resolvers/Query.getTrialUsers'
 import { TrialUserMenterResolver } from './resolvers/TrialUser.menter'
@@ -63,7 +62,6 @@ const resolvers: Resolvers = {
   RegularUser: {
     mentee: menteeResolver,
     menter: menterResolver,
-    studyLogs: studyLogsResolver,
   },
   StudyLog: {
     user: userResolver,
