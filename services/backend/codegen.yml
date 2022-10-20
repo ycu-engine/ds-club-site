@@ -15,6 +15,6 @@ generates:
       contextType: ../context#Context
       mappers:
         RegularUser: ../modules/users/types#UserModelMapper
-        TrailUser: ../modules/trialUser/types#TrialUserModelMapper
+        TrialUser: ../modules/trialUser/types#TrialUserModelMapper
         StudyLog: ../modules/studyLog/types#StudyLogModelMapper
         DateTime: Date
