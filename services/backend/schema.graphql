@@ -156,6 +156,11 @@ input CreateUserInput {
   email: String!
 }
 
+input createTrialUserInput {
+  name: String!
+  email: String!
+}
+
 input createEventInput {
   start: DateTime!
   end: DateTime!
@@ -204,6 +209,6 @@ type Mutation {
   体験入会ユーザー
   """
   submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
-  createTrialUser: TrialUser!
+  createTrialUser(input: createTrialUserInput!): TrialUser!
   enrollTrialUser(userId: ID!): RegularUser!
 }
