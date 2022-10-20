@@ -206,4 +206,5 @@ type Mutation {
   submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
   createTrialUser(input: createTrialUserInput!): TrialUser!
   enrollTrialUser(userId: ID!): RegularUser!
+  deleteTrialUser(userId: ID!): TrialUser!
 }

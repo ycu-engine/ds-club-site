@@ -30,6 +30,7 @@ import { getTrialUserResolver } from './resolvers/Query.getTrialUsers'
 import { TrialUserMenterResolver } from './resolvers/TrialUser.menter'
 import { TrialUserStudyLogsResolver } from './resolvers/TrialUser.studyLogs'
 import { enrollTrialUserResolver } from './resolvers/Mutation.enrollTrialUser'
+import { deleteTrialUserResolver } from './resolvers/Mutation.removeTrialUser'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
@@ -44,6 +45,7 @@ const resolvers: Resolvers = {
     createWeeklyRepeatEvent: createWeeklyRepeatEventResolver,
     deleteEvent: deleteEventResolver,
     deleteEvents: deleteEventsResolver,
+    deleteTrialUser: deleteTrialUserResolver,
     enrollTrialUser: enrollTrialUserResolver,
     removeMenter: removeMenterResolver,
     submitTrialApplication: submitTrialApplicationResolver,
