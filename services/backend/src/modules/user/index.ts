@@ -31,7 +31,7 @@ export const listUsers = async (
 const defaultRequiredFields = {
   currentRank: RankKind.Beginner,
   paymentStatus: PaymentStatus.NotPaid,
-  roles: [UserRole.Trial],
+  roles: [UserRole.Member],
 }
 
 export const createUser = async (obj: {

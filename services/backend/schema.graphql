@@ -11,7 +11,6 @@ enum UserRole {
   TREASURER
   MENTER
   MEMBER
-  TRIAL
 }
 
 """
@@ -57,11 +56,29 @@ type RegularUser implements User {
   メンティーのリスト
   """
   mentee: [RegularUser!]!
+}
+
+"""
+体験入会ユーザー
+"""
+type TrialUser implements User {
+  id: ID!
+  name: String!
+  email: String!
+  """
+  メンターのID
+  """
+  menterId: String
+  """
+  メンター
+  """
+  menter: RegularUser
   """
   学習記録
   """
   studyLogs: [StudyLog!]!
 }
+
 """
 お知らせ
 """
@@ -110,6 +127,7 @@ type StudyLog {
 type Query {
   getUser(id: ID!): RegularUser!
   getRegularUsers: [RegularUser!]!
+  getTrialUsers: [TrialUser!]!
   getNewsList: [News!]!
   getStudyLog(userId: ID!): [StudyLog!]!
   getEvents: [Event!]!
@@ -123,13 +141,17 @@ input SubmitTrialApplicationInput {
 }
 
 input CreateStudyLogInput {
-  userId: ID!
   studyTime: Int!
   studyContent: String!
   studiedAt: Date!
 }
 
 input CreateUserInput {
+  name: String!
+  email: String!
+}
+
+input createTrialUserInput {
   name: String!
   email: String!
 }
@@ -148,19 +170,41 @@ input createWeeklyRepeatEventInput {
   repeatUntil: DateTime!
 }
 type Mutation {
+  """
+  ユーザー
+  """
+  createUser(input: CreateUserInput!): RegularUser!
   updateUserPaymentStatus(
     userId: ID!
     paymentStatus: PaymentStatus!
   ): RegularUser!
   updateUserRank(userId: ID!, rank: RankKind!): RegularUser!
-  submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
   addMenter(userId: ID!, menterId: ID!): RegularUser!
   removeMenter(userId: ID!): RegularUser!
+
+  """
+  学習記録
+  """
   createStudyLog(input: CreateStudyLogInput!): StudyLog!
-  createUser(input: CreateUserInput!): RegularUser!
+
+  """
+  イベント
+  """
   createWeeklyRepeatEvent(input: createWeeklyRepeatEventInput!): [Event!]!
   createEvent(input: createEventInput!): Event!
   deleteEvent(id: ID!): Event!
   deleteEvents(title: String!): [Event!]!
+
+  """
+  お知らせ
+  """
   createNews(title: String!, body: String!): News!
+
+  """
+  体験入会ユーザー
+  """
+  submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
+  createTrialUser(input: createTrialUserInput!): TrialUser!
+  enrollTrialUser(userId: ID!): RegularUser!
+  deleteTrialUser(userId: ID!): TrialUser!
 }
