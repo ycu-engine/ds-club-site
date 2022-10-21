@@ -5,40 +5,45 @@ import {
   TabPanels,
   Tab,
   Heading,
-  Container,
   TabPanel,
   Text,
   Spinner,
-  BoxProps,
+  ContainerProps,
+  Container,
+  Circle,
 } from '@chakra-ui/react'
 import type { ReactNode } from 'react'
 import type { NewsTabFragment } from '../../generates/graphql'
+import NewsBgImage from '../../assets/images/topPage/info_bg.png'
 
 type NewsTabWrapperProps = {
   children?: ReactNode
-} & BoxProps
-const NewsTabWrapper = ({ children, ...props }: NewsTabWrapperProps) => {
+} & ContainerProps
+const NewsTabWrapper = ({
+  children,
+  ...containerProps
+}: NewsTabWrapperProps) => {
   return (
-    <Container py="5" w="40vw">
+    <Container
+      bg="blackAlpha.100"
+      bgImg={NewsBgImage.src}
+      bgPosition="center"
+      bgRepeat="no-repeat"
+      bgSize="contain"
+      h="50vh"
+      minW="40%"
+      {...containerProps}
+    >
       <Tabs
-        border="1px solid black"
-        borderRadius="20"
         colorScheme="green"
+        h="70%"
         isManual={false}
-        p="5"
+        mt="20%"
+        mx="auto"
         variant="soft-rounded"
+        w="70%"
       >
-        <Heading fontSize={['xl', '2xl', '3xl']}>お知らせ</Heading>
-
-        <Box
-          border="1px solid black"
-          borderRadius="20"
-          h="50vh"
-          m={['2,', '5']}
-          {...props}
-        >
-          {children}
-        </Box>
+        {children}
       </Tabs>
     </Container>
   )
@@ -47,15 +52,15 @@ const NewsTabWrapper = ({ children, ...props }: NewsTabWrapperProps) => {
 type NewsTabProps = {
   newsList?: NewsTabFragment[]
   isLoading: boolean
-}
-export const NewsTab = ({ newsList, isLoading: loading }: NewsTabProps) => {
+} & ContainerProps
+export const NewsTab = ({
+  newsList,
+  isLoading: loading,
+  ...containerProps
+}: NewsTabProps) => {
   if (loading) {
     return (
-      <NewsTabWrapper
-        alignItems="center"
-        display="flex"
-        justifyContent="center"
-      >
+      <NewsTabWrapper {...containerProps}>
         <Spinner size="lg" />
       </NewsTabWrapper>
     )
@@ -63,7 +68,7 @@ export const NewsTab = ({ newsList, isLoading: loading }: NewsTabProps) => {
 
   if (!newsList || newsList.length === 0) {
     return (
-      <NewsTabWrapper>
+      <NewsTabWrapper {...containerProps}>
         <Heading fontSize="lg" p="5">
           現在お知らせはありません
         </Heading>
@@ -71,8 +76,18 @@ export const NewsTab = ({ newsList, isLoading: loading }: NewsTabProps) => {
     )
   }
   return (
-    <NewsTabWrapper>
-      <TabPanels h="50vh" overflow="scroll" p="5">
+    <NewsTabWrapper {...containerProps}>
+      <TabPanels
+        borderColor="black"
+        borderRadius="3xl"
+        borderWidth="thick"
+        h="70%"
+        mb="5%"
+        overflow="scroll"
+        p="3"
+        pt="0"
+        w="50%"
+      >
         {newsList.map((news) => {
           return (
             <TabPanel key={news.title}>
@@ -91,11 +106,17 @@ export const NewsTab = ({ newsList, isLoading: loading }: NewsTabProps) => {
           return (
             <Tab
               _focus={{ outline: 'none' }}
-              _selected={{ bg: 'blackAlpha.200', color: 'red' }}
+              _hover={{ cursor: 'pointer' }}
+              _selected={{ bg: 'black' }}
+              as={Circle}
+              borderColor="black"
+              borderRadius="full"
+              borderWidth="thin"
               key={news.title}
-            >
-              ・
-            </Tab>
+              mx="1"
+              p="0"
+              size="20px"
+            />
           )
         })}
       </TabList>

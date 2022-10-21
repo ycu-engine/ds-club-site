@@ -1,4 +1,4 @@
-import { Container, Flex, Spinner } from '@chakra-ui/react'
+import { Center, Flex, Spinner } from '@chakra-ui/react'
 import { DefaultLayout } from '../components/DefaultLayout'
 import dynamic from 'next/dynamic'
 import type { SchedulerProps } from '../modules/scheduler/Scheduler'
@@ -15,6 +15,8 @@ import { filter } from 'graphql-anywhere'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../clients/firebase'
 import { Loading } from '../components/Loading'
+import TopLogo from '../assets/images/topPage/top_logo.png'
+import Image from 'next/image'
 
 // https://nextjs.org/docs/advanced-features/dynamic-import#example
 // react18なので、Suspenseを使うことが推奨されているがエラーが出るので、loadingを使う
@@ -22,14 +24,9 @@ const Scheduler = dynamic<SchedulerProps>(
   () => import('../modules/scheduler/Scheduler').then((mod) => mod.Scheduler),
   {
     loading: () => (
-      <Container
-        alignItems="center"
-        display="flex"
-        h="60vh"
-        justifyContent="center"
-      >
+      <Center h="60vh">
         <Spinner size="lg" />
-      </Container>
+      </Center>
     ),
 
     ssr: false,
@@ -45,6 +42,7 @@ const HomePage = () => {
     },
   })
   if (authLoading || queryLoading) {
+    console.info(authLoading, queryLoading)
     return <Loading />
   }
   if (!user) {
@@ -57,6 +55,8 @@ const HomePage = () => {
 
   return (
     <DefaultLayout>
+      <Image src={TopLogo} />
+
       <Flex direction={['column', 'row']} justifyContent="space-between" p={5}>
         <NewsTab
           isLoading={authLoading || queryLoading}
