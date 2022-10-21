@@ -1,81 +1,70 @@
-import {
-  Box,
-  Center,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  Spinner,
-  Text,
-} from '@chakra-ui/react'
-import { format } from 'date-fns'
+import { Box, Text } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
-import { useEffect, useMemo } from 'react'
-import { useForm } from 'react-hook-form'
-import type { StudyLog_StudyLogGraphFragment } from '../../../generates/graphql'
-import { COLORS } from '../../../theme'
+import { useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '../../../clients/firebase'
+import { InputBox } from '../../../components/InputForm/InputBox'
+import { useStudyLogPageQuery } from '../../../generates/graphql'
 import type { StudyLogGraphProps } from '../components/StudyLogGraph'
 
 const StudyLogGraph = dynamic<StudyLogGraphProps>(
   () => import('../components/StudyLogGraph').then((mod) => mod.StudyLogGraph),
-  {
-    loading: () => (
-      <Center>
-        <Spinner size="lg" />
-      </Center>
-    ),
-    ssr: false,
-  },
+  { loading: () => <div>loading...</div>, ssr: false },
 )
 
+type InputSpan = {
+  end: string
+  start: string
+}
+
 const getDate = (n: number) => {
-  const now = new Date()
+  const date = new Date()
   if (n) {
-    now.setDate(now.getDate() - n)
+    date.setDate(date.getDate() - n)
   }
 
-  // yyyy-MM-dd形式にしないとデフォルト値の設定がうまくいかない
-  const fmtDate = format(now, 'yyyy-MM-dd')
-  return fmtDate
+  const y = date.getFullYear().toString()
+  const m = date.getMonth().toString()
+  const d = date.getDate().toString()
+  const now = y + '/' + m + '/' + d
+  return now
 }
 
-type setSpanForm = {
-  start: string
-  end: string
-}
+export const StudyLogSpan = () => {
+  const now = getDate(0)
+  const six_days_ago = getDate(6)
+  const [span, setSpan] = useState<InputSpan>({ end: now, start: six_days_ago })
+  const handleStartInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSpan(() => ({ ...span, start: event.target.value }))
+  }
+  const handleEndInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSpan(() => ({ ...span, end: event.target.value }))
+  }
 
-type StudyLogSpanProps = {
-  data: StudyLog_StudyLogGraphFragment[]
-}
-export const StudyLogSpan = ({ data }: StudyLogSpanProps) => {
-  const {
-    register,
-    formState: { errors },
-    watch,
-  } = useForm<setSpanForm>({
-    defaultValues: {
-      end: getDate(0),
-      start: getDate(6),
-    },
+  const [user] = useAuthState(auth)
+
+  const { data, loading, error } = useStudyLogPageQuery({
+    skip: !user,
+    variables: { userId: user?.uid ?? '' },
   })
-  const start = watch('start')
-  const end = watch('end')
-  useEffect(() => {
-    console.info(start, end)
-  }, [start, end])
 
-  const filteredData: StudyLog_StudyLogGraphFragment[] = useMemo(() => {
-    return data.filter((log) => {
-      const studiedAt = new Date(log.studiedAt)
-      return studiedAt >= new Date(start) && studiedAt <= new Date(end)
-    })
-  }, [data, start, end])
+  if (loading) {
+    return <div>loading</div>
+  }
+  if (error) {
+    console.error(error)
+    return <div>エラーが発生しました</div>
+  }
+  if (!data) {
+    return <div>データが見つかりませんでsした</div>
+  }
 
   return (
     <Box
-      bg={COLORS.white}
+      bg="white"
       borderRadius="20px"
       borderWidth="2px"
+      m="12px"
       overflow="hidden"
       p="12px"
     >
@@ -89,41 +78,20 @@ export const StudyLogSpan = ({ data }: StudyLogSpanProps) => {
         overflow="hidden"
         p="12px"
       >
-        <FormControl isInvalid={errors.start ? true : false}>
-          <FormLabel fontWeight="semibold" htmlFor="start">
-            開始日
-          </FormLabel>
+        <InputBox
+          onChange={handleStartInput}
+          title="開始日"
+          type="date"
+          value={span.start}
+        />
 
-          <Input
-            id="start"
-            placeholder="開始日"
-            type="date"
-            value={start}
-            {...register('start', {})}
-          />
-
-          <FormErrorMessage>
-            {errors.start ? errors.start.message : null}
-          </FormErrorMessage>
-        </FormControl>
-
-        <FormControl isInvalid={errors.end ? true : false}>
-          <FormLabel fontWeight="semibold" htmlFor="end">
-            終了日
-          </FormLabel>
-
-          <Input
-            id="end"
-            placeholder="終了日"
-            type="date"
-            value={end}
-            {...register('end', {})}
-          />
-
-          <FormErrorMessage>
-            {errors.end ? errors.end.message : null}
-          </FormErrorMessage>
-        </FormControl>
+        <InputBox
+          onChange={handleEndInput}
+          placeholder={span.end}
+          title="終了日"
+          type="date"
+          value="2022/5/13"
+        />
 
         <Text>まで</Text>
       </Box>
@@ -135,11 +103,7 @@ export const StudyLogSpan = ({ data }: StudyLogSpanProps) => {
         overflow="hidden"
         p="12px"
       >
-        {filteredData.length ? (
-          <StudyLogGraph data={filteredData} />
-        ) : (
-          <Text>データがありません</Text>
-        )}
+        <StudyLogGraph data={data.getStudyLog} />
       </Box>
     </Box>
   )

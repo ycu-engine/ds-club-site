@@ -25,7 +25,12 @@ import { createWeeklyRepeatEventResolver } from './resolvers/Mutation.createWeek
 import { deleteEventResolver } from './resolvers/Mutation.deleteEvent'
 import { deleteEventsResolver } from './resolvers/Mutation.deleteEvents'
 import { createNewsResolver } from './resolvers/Mutation.createNews'
-import { studyLogsResolver } from './resolvers/RegularUser.studyLogs'
+import { createTrialUserResolver } from './resolvers/Mutation.createTrialUser'
+import { getTrialUserResolver } from './resolvers/Query.getTrialUsers'
+import { TrialUserMenterResolver } from './resolvers/TrialUser.menter'
+import { TrialUserStudyLogsResolver } from './resolvers/TrialUser.studyLogs'
+import { enrollTrialUserResolver } from './resolvers/Mutation.enrollTrialUser'
+import { deleteTrialUserResolver } from './resolvers/Mutation.deleteTrialUser'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
@@ -35,10 +40,13 @@ const resolvers: Resolvers = {
     createEvent: createEventResolver,
     createNews: createNewsResolver,
     createStudyLog: createStudyLogResolver,
+    createTrialUser: createTrialUserResolver,
     createUser: createUserResolver,
     createWeeklyRepeatEvent: createWeeklyRepeatEventResolver,
     deleteEvent: deleteEventResolver,
     deleteEvents: deleteEventsResolver,
+    deleteTrialUser: deleteTrialUserResolver,
+    enrollTrialUser: enrollTrialUserResolver,
     removeMenter: removeMenterResolver,
     submitTrialApplication: submitTrialApplicationResolver,
     updateUserPaymentStatus: updateUserPaymentStatusResolver,
@@ -49,16 +57,20 @@ const resolvers: Resolvers = {
     getNewsList: getNewsListResolver,
     getRegularUsers: getRegularUsersResolver,
     getStudyLog: getStudyLogResolver,
+    getTrialUsers: getTrialUserResolver,
     getUser: getUserResolver,
     ok: okResolver,
   },
   RegularUser: {
     mentee: menteeResolver,
     menter: menterResolver,
-    studyLogs: studyLogsResolver,
   },
   StudyLog: {
     user: userResolver,
+  },
+  TrialUser: {
+    menter: TrialUserMenterResolver,
+    studyLogs: TrialUserStudyLogsResolver,
   },
   User: {
     __resolveType: __resolveTypeResolve,

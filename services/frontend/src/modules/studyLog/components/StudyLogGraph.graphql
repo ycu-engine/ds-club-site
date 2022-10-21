@@ -1,0 +1,5 @@
+fragment StudyLogGraph_StudyLog on StudyLog {
+  studyTime
+  studyContent
+  studiedAt
+}
