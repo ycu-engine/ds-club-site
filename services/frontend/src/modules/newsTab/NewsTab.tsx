@@ -9,8 +9,8 @@ import {
   Text,
   Spinner,
   ContainerProps,
-  Container,
   Circle,
+  AspectRatio,
 } from '@chakra-ui/react'
 import type { ReactNode } from 'react'
 import type { NewsTabFragment } from '../../generates/graphql'
@@ -24,28 +24,32 @@ const NewsTabWrapper = ({
   ...containerProps
 }: NewsTabWrapperProps) => {
   return (
-    <Container
-      bg="blackAlpha.100"
+    <AspectRatio
       bgImg={NewsBgImage.src}
       bgPosition="center"
       bgRepeat="no-repeat"
       bgSize="contain"
-      h="50vh"
-      minW="40%"
+      height="100%"
+      justifyContent="center"
+      minW="50%"
+      overflow="hidden"
+      ratio={NewsBgImage.width / NewsBgImage.height}
       {...containerProps}
     >
       <Tabs
         colorScheme="green"
+        display="flex"
+        flexDir="column"
         h="70%"
         isManual={false}
-        mt="20%"
+        maxW="70%"
         mx="auto"
+        pt="10%"
         variant="soft-rounded"
-        w="70%"
       >
         {children}
       </Tabs>
-    </Container>
+    </AspectRatio>
   )
 }
 
@@ -80,28 +84,27 @@ export const NewsTab = ({
       <TabPanels
         borderColor="black"
         borderRadius="3xl"
-        borderWidth="thick"
-        h="70%"
-        mb="5%"
+        borderWidth={['thin', 'medium']}
+        h="65%"
         overflow="scroll"
-        p="3"
-        pt="0"
         w="50%"
       >
         {newsList.map((news) => {
           return (
             <TabPanel key={news.title}>
               <Box>
-                <Heading fontSize={['xl', '2xl', '3xl']}>{news.title}</Heading>
+                <Heading fontSize={['lg', 'xl']}>{news.title}</Heading>
 
-                <Text>{news.body}</Text>
+                <Text fontSize={['xs', 'sm']} px="1">
+                  {news.body}
+                </Text>
               </Box>
             </TabPanel>
           )
         })}
       </TabPanels>
 
-      <TabList justifyContent="center">
+      <TabList justifyContent="center" pt="2">
         {newsList.map((news) => {
           return (
             <Tab
@@ -113,9 +116,9 @@ export const NewsTab = ({
               borderRadius="full"
               borderWidth="thin"
               key={news.title}
-              mx="1"
+              mx="2"
               p="0"
-              size="20px"
+              size={['15px', '20px']}
             />
           )
         })}
