@@ -6,13 +6,13 @@ import type {
   ValueType,
 } from 'recharts/types/component/DefaultTooltipContent'
 import type { ContentType } from 'recharts/types/component/Tooltip'
-import type { StudyLogGraph_StudyLogFragment } from '../../../generates/graphql'
+import type { StudyLog_StudyLogGraphFragment } from '../../../generates/graphql'
 
 const TooltipContent: ContentType<ValueType, NameType> = ({
   active,
   payload,
 }) => {
-  const item = payload?.[0]?.payload as StudyLogGraph_StudyLogFragment
+  const item = payload?.[0]?.payload as StudyLog_StudyLogGraphFragment
 
   if (active && item) {
     return (
@@ -40,15 +40,15 @@ const TooltipContent: ContentType<ValueType, NameType> = ({
 }
 
 export type StudyLogGraphProps = Omit<CategoricalChartProps, 'data'> & {
-  data: StudyLogGraph_StudyLogFragment[]
+  data: StudyLog_StudyLogGraphFragment[]
 }
 
 export const StudyLogGraph = ({ ...props }: StudyLogGraphProps) => {
   return (
     <LineChart
-      height={400}
+      height={300}
       margin={{ bottom: 5, left: 0, right: 20, top: 5 }}
-      width={400}
+      width={450}
       {...props}
     >
       <CartesianGrid stroke="#ccc" />
