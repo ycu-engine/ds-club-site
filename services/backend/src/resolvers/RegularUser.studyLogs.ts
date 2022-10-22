@@ -10,5 +10,8 @@ export const studyLogsResolver: NonNullable<
   const studyLogs = await listStudyLogs(regularUser.id, (collection) =>
     collection.orderBy('studiedAt', 'asc'),
   )
+  if (!studyLogs) {
+    return []
+  }
   return studyLogs
 }
