@@ -16,7 +16,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../clients/firebase'
 import { Loading } from '../components/Loading'
 import TopLogo from '../assets/images/topPage/top_logo.png'
-import Image from 'next/image'
+import { FadeInImage } from '../components/Image/FadeInImage'
 
 // https://nextjs.org/docs/advanced-features/dynamic-import#example
 // react18なので、Suspenseを使うことが推奨されているがエラーが出るので、loadingを使う
@@ -55,7 +55,7 @@ const HomePage = () => {
 
   return (
     <DefaultLayout>
-      <Image src={TopLogo} />
+      <FadeInImage src={TopLogo} />
 
       <Flex direction={['column', 'row']} justifyContent="space-between" p={5}>
         <NewsTab
