@@ -42,7 +42,6 @@ const HomePage = () => {
     },
   })
   if (authLoading || queryLoading) {
-    console.info(authLoading, queryLoading)
     return <Loading />
   }
   if (!user) {
