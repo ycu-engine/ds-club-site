@@ -16,9 +16,6 @@ const rolesToMemberStatus = (roles: UserRole[]): string => {
   if (roles.includes(UserRole.Admin) || roles.includes(UserRole.Staff)) {
     return '運営'
   }
-  if (roles.includes(UserRole.Trial)) {
-    return '体験会員'
-  }
   return '一般会員'
 }
 
