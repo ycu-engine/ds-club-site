@@ -16,18 +16,12 @@ import {
   Table,
 } from '@chakra-ui/react'
 import { useRef } from 'react'
-
-type UserType = {
-  id: string
-  name: string
-  trialEndDate: string
-  trialStartDate: string
-}
+import type { TrialManagementTableFragment } from '../../../../generates/graphql'
 
 type UserInfoTableProps = {
-  user: UserType | null
+  trialUser: TrialManagementTableFragment | null
 }
-const UserInfoTable = ({ user }: UserInfoTableProps) => {
+const UserInfoTable = ({ trialUser }: UserInfoTableProps) => {
   return (
     <TableContainer>
       <Table>
@@ -35,19 +29,19 @@ const UserInfoTable = ({ user }: UserInfoTableProps) => {
           <Tr>
             <Th>名前</Th>
 
-            <Td>{user?.name}</Td>
+            <Td>{trialUser?.name}</Td>
           </Tr>
 
           <Tr>
             <Th>体験入会開始日</Th>
 
-            <Td>{user?.trialStartDate}</Td>
+            <Td>{trialUser?.createdAt}</Td>
           </Tr>
 
           <Tr>
             <Th>体験入会終了日</Th>
 
-            <Td>{user?.trialEndDate}</Td>
+            <Td>{trialUser?.expiredAt}</Td>
           </Tr>
         </Tbody>
 
@@ -62,9 +56,13 @@ const UserInfoTable = ({ user }: UserInfoTableProps) => {
 type CancelDialogProps = {
   isOpen: boolean
   onClose: () => void
-  user: UserType | null
+  trialUser: TrialManagementTableFragment | null
 }
-export const CanselDialog = ({ isOpen, onClose, user }: CancelDialogProps) => {
+export const CanselDialog = ({
+  isOpen,
+  onClose,
+  trialUser: user,
+}: CancelDialogProps) => {
   const cancelRef = useRef(null)
   const toast = useToast()
   const handleClickCanselButton = () => {
@@ -91,7 +89,7 @@ export const CanselDialog = ({ isOpen, onClose, user }: CancelDialogProps) => {
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              <UserInfoTable user={user} />
+              <UserInfoTable trialUser={user} />
             </AlertDialogBody>
 
             <AlertDialogFooter>

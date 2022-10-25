@@ -10,32 +10,19 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useState } from 'react'
+import type { TrialManagementTableFragment } from '../../../generates/graphql'
 import { CanselDialog } from './ConfirmDialog/CancelDialog'
 
-type UserType = {
-  id: string
-  name: string
-  trialEndDate: string
-  trialStartDate: string
+type TrialManagementTableProps = {
+  trialUsers: TrialManagementTableFragment[]
 }
-const sampleUsers: UserType[] = [
-  {
-    id: '1',
-    name: '山田太郎',
-    trialEndDate: '2021-01-31',
-    trialStartDate: '2021-01-01',
-  },
-  {
-    id: '2',
-    name: '山田花子',
-    trialEndDate: '2021-12-31',
-    trialStartDate: '2021-12-01',
-  },
-]
-export const TrialManagementTable = () => {
+export const TrialManagementTable = ({
+  trialUsers,
+}: TrialManagementTableProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [targetUser, setTargetUser] = useState<UserType | null>(null)
-  const handleClickCanselButton = (user: UserType) => {
+  const [targetUser, setTargetUser] =
+    useState<TrialManagementTableFragment | null>(null)
+  const handleClickCanselButton = (user: TrialManagementTableFragment) => {
     setTargetUser(user)
     onOpen()
   }
@@ -56,19 +43,19 @@ export const TrialManagementTable = () => {
         </Thead>
 
         <Tbody>
-          {sampleUsers.map((user) => (
-            <Tr key={user.id}>
-              <Td>{user.name}</Td>
+          {trialUsers.map((trialUser) => (
+            <Tr key={trialUser.id}>
+              <Td>{trialUser.name}</Td>
 
-              <Td>{user.trialStartDate}</Td>
+              <Td>{trialUser.createdAt}</Td>
 
-              <Td>{user.trialEndDate}</Td>
+              <Td>{trialUser.expiredAt}</Td>
 
               <Td>
                 <Button
                   colorScheme="orange"
                   onClick={() => {
-                    handleClickCanselButton(user)
+                    handleClickCanselButton(trialUser)
                   }}
                 >
                   キャンセル
@@ -79,7 +66,7 @@ export const TrialManagementTable = () => {
         </Tbody>
       </Table>
 
-      <CanselDialog isOpen={isOpen} onClose={onClose} user={targetUser} />
+      <CanselDialog isOpen={isOpen} onClose={onClose} trialUser={targetUser} />
     </TableContainer>
   )
 }

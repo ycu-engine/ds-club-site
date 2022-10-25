@@ -1,8 +1,11 @@
 import { Container, Heading } from '@chakra-ui/react'
+import { filter } from 'graphql-anywhere'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../../../clients/firebase'
 import { Loading } from '../../../components/Loading'
 import {
+  TrialManagementTableFragment,
+  TrialManagementTableFragmentDoc,
   UserRole,
   useTrialManagementPageQuery,
 } from '../../../generates/graphql'
@@ -23,7 +26,11 @@ export const TrialManagementPage = () => {
     return <Heading>データの取得に失敗しました</Heading>
   }
 
-  const { roles } = data.getUser
+  const { getUser: loginUser, getTrialUsers: trialUsers } = data
+  console.info(loginUser)
+  console.info(trialUsers)
+
+  const { roles } = loginUser
   if (!roles.includes(UserRole.Admin) && !roles.includes(UserRole.Staff)) {
     return <Heading>権限がありません</Heading>
   }
@@ -32,8 +39,13 @@ export const TrialManagementPage = () => {
     <>
       <Heading p="5">体験入会管理ページ</Heading>
 
-      <Container>
-        <TrialManagementTable />
+      <Container maxW="container.xl">
+        <TrialManagementTable
+          trialUsers={filter<TrialManagementTableFragment[]>(
+            TrialManagementTableFragmentDoc,
+            trialUsers,
+          )}
+        />
       </Container>
     </>
   )

@@ -1,0 +1,7 @@
+fragment TrialManagementTable on TrialUser {
+  id
+  name
+  email
+  createdAt
+  expiredAt
+}
