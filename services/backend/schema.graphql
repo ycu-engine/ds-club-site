@@ -81,6 +81,10 @@ type TrialUser implements User {
   学習記録
   """
   studyLogs: [StudyLog!]!
+  """
+  体験入会の開始日
+  """
+  createdAt: Date!
 }
 
 """
