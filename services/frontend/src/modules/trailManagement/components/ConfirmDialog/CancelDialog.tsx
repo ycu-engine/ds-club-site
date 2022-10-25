@@ -16,7 +16,11 @@ import {
   Table,
 } from '@chakra-ui/react'
 import { useRef } from 'react'
-import type { TrialManagementTableFragment } from '../../../../generates/graphql'
+import {
+  TrialManagementPageDocument,
+  TrialManagementTableFragment,
+  useCancelDialogMutation,
+} from '../../../../generates/graphql'
 
 type UserInfoTableProps = {
   trialUser: TrialManagementTableFragment | null
@@ -61,18 +65,40 @@ type CancelDialogProps = {
 export const CanselDialog = ({
   isOpen,
   onClose,
-  trialUser: user,
+  trialUser,
 }: CancelDialogProps) => {
-  const cancelRef = useRef(null)
   const toast = useToast()
-  const handleClickCanselButton = () => {
-    onClose()
-    toast({
-      duration: 3000,
-      isClosable: true,
-      status: 'success',
-      title: 'キャンセルしました',
+  const [cancelDialogMutation, { loading }] = useCancelDialogMutation({
+    onCompleted: () => {
+      toast({
+        duration: 3000,
+        isClosable: true,
+        status: 'success',
+        title: 'キャンセルしました',
+      })
+    },
+    onError: () => {
+      toast({
+        duration: 3000,
+        isClosable: true,
+        status: 'error',
+        title:
+          'キャンセルに失敗しました\nログイン状態や権限を確認してください。',
+      })
+    },
+    refetchQueries: [{ query: TrialManagementPageDocument }],
+    variables: {
+      userId: trialUser?.id || '',
+    },
+  })
+  const cancelRef = useRef(null)
+  const handleClickCanselButton = async () => {
+    await cancelDialogMutation({
+      variables: {
+        userId: trialUser?.id || '',
+      },
     })
+    onClose()
   }
 
   return (
@@ -89,7 +115,7 @@ export const CanselDialog = ({
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              <UserInfoTable trialUser={user} />
+              <UserInfoTable trialUser={trialUser} />
             </AlertDialogBody>
 
             <AlertDialogFooter>
@@ -99,6 +125,7 @@ export const CanselDialog = ({
 
               <Button
                 colorScheme="red"
+                isLoading={loading}
                 ml={3}
                 onClick={handleClickCanselButton}
               >

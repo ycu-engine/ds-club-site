@@ -1,0 +1,5 @@
+mutation CancelDialog($userId: ID!) {
+  deleteTrialUser(userId: $userId) {
+    id
+  }
+}

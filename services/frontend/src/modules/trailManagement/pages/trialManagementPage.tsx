@@ -27,9 +27,6 @@ export const TrialManagementPage = () => {
   }
 
   const { getUser: loginUser, getTrialUsers: trialUsers } = data
-  console.info(loginUser)
-  console.info(trialUsers)
-
   const { roles } = loginUser
   if (!roles.includes(UserRole.Admin) && !roles.includes(UserRole.Staff)) {
     return <Heading>権限がありません</Heading>
