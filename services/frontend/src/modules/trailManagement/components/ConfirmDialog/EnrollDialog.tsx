@@ -7,8 +7,11 @@ import {
   AlertDialogBody,
   AlertDialogFooter,
   useToast,
+  Spinner,
 } from '@chakra-ui/react'
 import { useRef } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '../../../../clients/firebase'
 import {
   TrialManagementPageDocument,
   TrialManagementTableFragment,
@@ -27,6 +30,7 @@ export const EnrollDialog = ({
   trialUser,
 }: EnrollDialogProps) => {
   const toast = useToast()
+  const [user, authLoading] = useAuthState(auth)
   const [enrollDialogMutation, { loading }] = useEnrollDialogMutation({
     onCompleted: () => {
       toast({
@@ -44,12 +48,15 @@ export const EnrollDialog = ({
         title: '入会処理に失敗しました\nログイン状態や権限を確認してください。',
       })
     },
-    refetchQueries: [{ query: TrialManagementPageDocument }],
+    refetchQueries: [
+      { query: TrialManagementPageDocument, variables: { userId: user?.uid } },
+    ],
     variables: {
       userId: trialUser?.id || '',
     },
   })
   const enrollRef = useRef(null)
+  if (authLoading) return <Spinner />
   const handleClickEnrollButton = async () => {
     await enrollDialogMutation({
       variables: {

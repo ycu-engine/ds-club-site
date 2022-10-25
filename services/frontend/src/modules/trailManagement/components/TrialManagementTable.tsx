@@ -46,28 +46,28 @@ export const TrialManagementTable = ({
       <Table variant="simple">
         <Thead bg="orange.200">
           <Tr>
-            <Th>名前</Th>
+            <Th textAlign="center">名前</Th>
 
-            <Th>体験入会開始日</Th>
+            <Th textAlign="center">体験入会開始日</Th>
 
-            <Th>体験入会終了日</Th>
+            <Th textAlign="center">体験入会終了日</Th>
 
-            <Th>キャンセル</Th>
+            <Th textAlign="center">キャンセル</Th>
 
-            <Th>本入会</Th>
+            <Th textAlign="center">本入会</Th>
           </Tr>
         </Thead>
 
         <Tbody>
           {trialUsers.map((trialUser) => (
             <Tr key={trialUser.id}>
-              <Td>{trialUser.name}</Td>
+              <Td textAlign="center">{trialUser.name}</Td>
 
-              <Td>{trialUser.createdAt}</Td>
+              <Td textAlign="center">{trialUser.createdAt}</Td>
 
-              <Td>{trialUser.expiredAt}</Td>
+              <Td textAlign="center">{trialUser.expiredAt}</Td>
 
-              <Td>
+              <Td textAlign="center">
                 <Button
                   colorScheme="orange"
                   onClick={() => {
@@ -78,7 +78,7 @@ export const TrialManagementTable = ({
                 </Button>
               </Td>
 
-              <Td>
+              <Td textAlign="center">
                 <Button
                   colorScheme="orange"
                   onClick={() => {

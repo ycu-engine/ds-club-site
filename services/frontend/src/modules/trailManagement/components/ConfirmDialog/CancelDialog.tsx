@@ -7,8 +7,11 @@ import {
   AlertDialogBody,
   AlertDialogFooter,
   useToast,
+  Spinner,
 } from '@chakra-ui/react'
 import { useRef } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '../../../../clients/firebase'
 import {
   TrialManagementPageDocument,
   TrialManagementTableFragment,
@@ -27,6 +30,7 @@ export const CanselDialog = ({
   trialUser,
 }: CancelDialogProps) => {
   const toast = useToast()
+  const [user, authLoading] = useAuthState(auth)
   const [cancelDialogMutation, { loading }] = useCancelDialogMutation({
     onCompleted: () => {
       toast({
@@ -45,12 +49,15 @@ export const CanselDialog = ({
           'キャンセルに失敗しました\nログイン状態や権限を確認してください。',
       })
     },
-    refetchQueries: [{ query: TrialManagementPageDocument }],
+    refetchQueries: [
+      { query: TrialManagementPageDocument, variables: { userId: user?.uid } },
+    ],
     variables: {
       userId: trialUser?.id || '',
     },
   })
   const cancelRef = useRef(null)
+  if (authLoading) return <Spinner />
   const handleClickCanselButton = async () => {
     await cancelDialogMutation({
       variables: {
