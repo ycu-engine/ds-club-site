@@ -49,7 +49,7 @@ export const EnrollDialog = ({
       userId: trialUser?.id || '',
     },
   })
-  const cancelRef = useRef(null)
+  const enrollRef = useRef(null)
   const handleClickEnrollButton = async () => {
     await enrollDialogMutation({
       variables: {
@@ -63,7 +63,7 @@ export const EnrollDialog = ({
     <>
       <AlertDialog
         isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
+        leastDestructiveRef={enrollRef}
         onClose={onClose}
       >
         <AlertDialogOverlay>
@@ -80,7 +80,7 @@ export const EnrollDialog = ({
             </AlertDialogBody>
 
             <AlertDialogFooter>
-              <Button onClick={onClose} ref={cancelRef}>
+              <Button onClick={onClose} ref={enrollRef}>
                 戻る
               </Button>
 
