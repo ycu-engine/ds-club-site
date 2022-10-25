@@ -3,3 +3,9 @@ mutation CancelDialog($userId: ID!) {
     id
   }
 }
+
+mutation EnrollDialog($userId: ID!) {
+  enrollTrialUser(userId: $userId) {
+    id
+  }
+}

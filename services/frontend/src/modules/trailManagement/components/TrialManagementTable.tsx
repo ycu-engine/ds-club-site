@@ -12,6 +12,7 @@ import {
 import { useState } from 'react'
 import type { TrialManagementTableFragment } from '../../../generates/graphql'
 import { CanselDialog } from './ConfirmDialog/CancelDialog'
+import { EnrollDialog } from './ConfirmDialog/EnrollDialog'
 
 type TrialManagementTableProps = {
   trialUsers: TrialManagementTableFragment[]
@@ -19,12 +20,25 @@ type TrialManagementTableProps = {
 export const TrialManagementTable = ({
   trialUsers,
 }: TrialManagementTableProps) => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const {
+    isOpen: isOpenCancel,
+    onOpen: onOpenCancel,
+    onClose: onCloseCancel,
+  } = useDisclosure()
+  const {
+    isOpen: isOpenEnroll,
+    onOpen: onOpenEnroll,
+    onClose: onCloseEnroll,
+  } = useDisclosure()
   const [targetUser, setTargetUser] =
     useState<TrialManagementTableFragment | null>(null)
-  const handleClickCanselButton = (user: TrialManagementTableFragment) => {
-    setTargetUser(user)
-    onOpen()
+  const handleClickCanselButton = (trialUser: TrialManagementTableFragment) => {
+    setTargetUser(trialUser)
+    onOpenCancel()
+  }
+  const handleClickEnrollButton = (trialUser: TrialManagementTableFragment) => {
+    setTargetUser(trialUser)
+    onOpenEnroll()
   }
 
   return (
@@ -39,6 +53,8 @@ export const TrialManagementTable = ({
             <Th>体験入会終了日</Th>
 
             <Th>キャンセル</Th>
+
+            <Th>本入会</Th>
           </Tr>
         </Thead>
 
@@ -61,12 +77,33 @@ export const TrialManagementTable = ({
                   キャンセル
                 </Button>
               </Td>
+
+              <Td>
+                <Button
+                  colorScheme="orange"
+                  onClick={() => {
+                    handleClickEnrollButton(trialUser)
+                  }}
+                >
+                  本入会
+                </Button>
+              </Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
 
-      <CanselDialog isOpen={isOpen} onClose={onClose} trialUser={targetUser} />
+      <CanselDialog
+        isOpen={isOpenCancel}
+        onClose={onCloseCancel}
+        trialUser={targetUser}
+      />
+
+      <EnrollDialog
+        isOpen={isOpenEnroll}
+        onClose={onCloseEnroll}
+        trialUser={targetUser}
+      />
     </TableContainer>
   )
 }

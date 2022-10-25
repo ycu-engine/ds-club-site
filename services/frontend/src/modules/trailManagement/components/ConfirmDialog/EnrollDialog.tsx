@@ -12,28 +12,28 @@ import { useRef } from 'react'
 import {
   TrialManagementPageDocument,
   TrialManagementTableFragment,
-  useCancelDialogMutation,
+  useEnrollDialogMutation,
 } from '../../../../generates/graphql'
 import { UserInfoTable } from './UserInfoTable'
 
-type CancelDialogProps = {
+type EnrollDialogProps = {
   isOpen: boolean
   onClose: () => void
   trialUser: TrialManagementTableFragment | null
 }
-export const CanselDialog = ({
+export const EnrollDialog = ({
   isOpen,
   onClose,
   trialUser,
-}: CancelDialogProps) => {
+}: EnrollDialogProps) => {
   const toast = useToast()
-  const [cancelDialogMutation, { loading }] = useCancelDialogMutation({
+  const [enrollDialogMutation, { loading }] = useEnrollDialogMutation({
     onCompleted: () => {
       toast({
         duration: 3000,
         isClosable: true,
         status: 'success',
-        title: 'キャンセルしました',
+        title: '入会が完了しました',
       })
     },
     onError: () => {
@@ -41,8 +41,7 @@ export const CanselDialog = ({
         duration: 3000,
         isClosable: true,
         status: 'error',
-        title:
-          'キャンセルに失敗しました\nログイン状態や権限を確認してください。',
+        title: '入会処理に失敗しました\nログイン状態や権限を確認してください。',
       })
     },
     refetchQueries: [{ query: TrialManagementPageDocument }],
@@ -51,8 +50,8 @@ export const CanselDialog = ({
     },
   })
   const cancelRef = useRef(null)
-  const handleClickCanselButton = async () => {
-    await cancelDialogMutation({
+  const handleClickEnrollButton = async () => {
+    await enrollDialogMutation({
       variables: {
         userId: trialUser?.id || '',
       },
@@ -70,12 +69,12 @@ export const CanselDialog = ({
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              体験入会キャンセル確認画面
+              本入会確認画面
             </AlertDialogHeader>
 
             <AlertDialogBody>
               <UserInfoTable
-                caption="本当にキャンセルしますか？この操作は取り消せません。"
+                caption="本入会処理を行いますか？この操作は取り消せません。"
                 trialUser={trialUser}
               />
             </AlertDialogBody>
@@ -89,9 +88,9 @@ export const CanselDialog = ({
                 colorScheme="red"
                 isLoading={loading}
                 ml={3}
-                onClick={handleClickCanselButton}
+                onClick={handleClickEnrollButton}
               >
-                キャンセルする
+                入会処理を行う
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>
