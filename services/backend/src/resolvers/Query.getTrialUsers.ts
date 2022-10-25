@@ -11,7 +11,7 @@ export const getTrialUserResolver: NonNullable<
   }
 
   const users = await listTrialUsers((collection) =>
-    collection.orderBy(orderBy || '', orderByDirection),
+    collection.orderBy(orderBy || 'id', orderByDirection),
   )
 
   return users
