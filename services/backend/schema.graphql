@@ -85,6 +85,10 @@ type TrialUser implements User {
   体験入会の開始日
   """
   createdAt: Date!
+  """
+  体験入会の終了日
+  """
+  expiredAt: Date!
 }
 
 """

@@ -31,6 +31,7 @@ import { TrialUserMenterResolver } from './resolvers/TrialUser.menter'
 import { TrialUserStudyLogsResolver } from './resolvers/TrialUser.studyLogs'
 import { enrollTrialUserResolver } from './resolvers/Mutation.enrollTrialUser'
 import { deleteTrialUserResolver } from './resolvers/Mutation.deleteTrialUser'
+import { TrialUserExpiredAtResolver } from './resolvers/TrialUser.expiredAt'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
@@ -69,6 +70,7 @@ const resolvers: Resolvers = {
     user: userResolver,
   },
   TrialUser: {
+    expiredAt: TrialUserExpiredAtResolver,
     menter: TrialUserMenterResolver,
     studyLogs: TrialUserStudyLogsResolver,
   },
