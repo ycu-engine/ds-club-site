@@ -139,7 +139,7 @@ type StudyLog {
 type Query {
   getUser(id: ID!): RegularUser!
   getRegularUsers: [RegularUser!]!
-  getTrialUsers: [TrialUser!]!
+  getTrialUsers(order: String, orderBy: String): [TrialUser!]!
   getNewsList: [News!]!
   getStudyLog(userId: ID!): [StudyLog!]!
   getEvents: [Event!]!
