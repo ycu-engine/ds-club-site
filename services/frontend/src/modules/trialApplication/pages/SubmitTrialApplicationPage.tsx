@@ -9,7 +9,7 @@ import {
 import { ErrorMessage } from '@hookform/error-message'
 import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
-import { DefaultLayout } from '../../../components/DefaultLayout'
+import { DefaultLayout } from '../../../components/Layout/DefaultLayout'
 import { InputBox } from '../../../components/InputForm/InputBox'
 import { useSubmitTrialApplicationPage_SubmitTrialApplicationMutation } from '../../../generates/graphql'
 

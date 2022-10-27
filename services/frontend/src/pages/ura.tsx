@@ -1,4 +1,4 @@
-import { DefaultLayout } from '../components/DefaultLayout'
+import { DefaultLayout } from '../components/Layout/DefaultLayout'
 
 const Page = () => {
   return (

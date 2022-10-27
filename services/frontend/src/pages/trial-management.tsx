@@ -1,4 +1,4 @@
-import { DefaultLayout } from '../components/DefaultLayout'
+import { DefaultLayout } from '../components/Layout/DefaultLayout'
 import { TrialManagementPage } from '../modules/trailManagement/pages/trialManagementPage'
 
 const Page = () => {

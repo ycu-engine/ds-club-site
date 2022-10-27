@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { DefaultLayout } from '../../../components/DefaultLayout'
+import { DefaultLayout } from '../../../components/Layout/DefaultLayout'
 import { StudyLogPage } from '../../../modules/studyLog/pages/StudyLogPage'
 
 const Page: NextPage = () => {
