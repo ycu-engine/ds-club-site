@@ -9,8 +9,16 @@ import type { OAuth2Client } from 'googleapis-common'
 const SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly']
 // token.jsonというファイルには、ユーザーのアクセストークンやリフレッシュトークンが保存され、
 // 認可フローが初めて完了したときに自動的に作成されます。
-const TOKEN_PATH = path.join(process.cwd(), 'token.json')
-const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json')
+const TOKEN_PATH = path.join(
+  process.cwd(),
+  'src/clients/google_drive',
+  'token.json',
+)
+const CREDENTIALS_PATH = path.join(
+  process.cwd(),
+  'src/clients/google_drive',
+  'credentials.json',
+)
 
 /**
  * 保存ファイルから以前に認証された資格情報を読み取ります。
@@ -72,6 +80,7 @@ const authorize = async () => {
     keyfilePath: CREDENTIALS_PATH,
     scopes: SCOPES,
   })
+  console.info(client)
   if (client.credentials) {
     await saveCredentials(client)
   }
