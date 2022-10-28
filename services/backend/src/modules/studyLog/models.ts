@@ -8,6 +8,7 @@ export const StudyLogModelSchema = z.object({
   studyContent: z.string(),
   studyTime: z.number().int().nonnegative(),
   updatedAt: timestamp,
+  userId: z.string(),
 })
 
 export type StudyLogModel = z.infer<typeof StudyLogModelSchema>

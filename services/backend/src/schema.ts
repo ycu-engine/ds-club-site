@@ -14,7 +14,6 @@ import { getRegularUsersResolver } from './resolvers/Query.getRegularUsers'
 import { getStudyLogResolver } from './resolvers/Query.getStudyLog'
 import { getUserResolver } from './resolvers/Query.getUser'
 import { okResolver } from './resolvers/Query.ok'
-import { userResolver } from './resolvers/StudyLog.user'
 import { __resolveTypeResolve } from './resolvers/User.__resolveType'
 import { addMenterResolver } from './resolvers/Mutation.addMenter'
 import { removeMenterResolver } from './resolvers/Mutation.removeMenter'
@@ -32,6 +31,9 @@ import { TrialUserStudyLogsResolver } from './resolvers/TrialUser.studyLogs'
 import { enrollTrialUserResolver } from './resolvers/Mutation.enrollTrialUser'
 import { deleteTrialUserResolver } from './resolvers/Mutation.deleteTrialUser'
 import { TrialUserExpiredAtResolver } from './resolvers/TrialUser.expiredAt'
+import { getStudyLogsResolver } from './resolvers/Query.getStudyLogs'
+import { regularUserStudyLogsResolver } from './resolvers/RegularUser.studyLogs'
+
 
 const resolvers: Resolvers = {
   Date: DateResolver,
@@ -58,6 +60,7 @@ const resolvers: Resolvers = {
     getNewsList: getNewsListResolver,
     getRegularUsers: getRegularUsersResolver,
     getStudyLog: getStudyLogResolver,
+    getStudyLogs: getStudyLogsResolver,
     getTrialUsers: getTrialUserResolver,
     getUser: getUserResolver,
     ok: okResolver,
@@ -65,9 +68,7 @@ const resolvers: Resolvers = {
   RegularUser: {
     mentee: menteeResolver,
     menter: menterResolver,
-  },
-  StudyLog: {
-    user: userResolver,
+    studyLogs: regularUserStudyLogsResolver,
   },
   TrialUser: {
     expiredAt: TrialUserExpiredAtResolver,
