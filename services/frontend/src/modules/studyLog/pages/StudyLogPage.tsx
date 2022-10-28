@@ -1,5 +1,6 @@
 import { Box, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
 import { filter } from 'graphql-anywhere'
+import { useRouter } from 'next/router'
 import { Loading } from '../../../components/Loading'
 import {
   StudyLog_StudyLogGraphFragment,
@@ -23,13 +24,20 @@ type StudyLogPageProps = {
   userId: string
 }
 export const StudyLogPage = ({ userId }: StudyLogPageProps) => {
-  const { data, loading } = useStudyLogPageQuery({
+  const router = useRouter()
+  const { data, loading, error } = useStudyLogPageQuery({
     variables: { userId: userId },
   })
 
   if (loading) {
     return <Loading />
   }
+
+  if (error?.message === 'login required') {
+    void router.push('/login')
+    return <Loading />
+  }
+
   if (!data) {
     return <Heading>データが見つかりませんでした</Heading>
   }
