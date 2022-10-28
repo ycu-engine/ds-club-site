@@ -105,7 +105,7 @@ type Event {
 
 type StudyLog {
   id: ID!
-  user: User!
+  userId: ID!
   """
   作成日時
   """
@@ -133,7 +133,8 @@ type Query {
   getRegularUsers: [RegularUser!]!
   getTrialUsers: [TrialUser!]!
   getNewsList: [News!]!
-  getStudyLog(userId: ID!): [StudyLog!]!
+  getStudyLog(id: ID!, userId: ID!): StudyLog!
+  getStudyLogs(userId: ID!): [StudyLog!]!
   getEvents: [Event!]!
   ok: Boolean!
 }
