@@ -34,7 +34,6 @@ import { TrialUserExpiredAtResolver } from './resolvers/TrialUser.expiredAt'
 import { getStudyLogsResolver } from './resolvers/Query.getStudyLogs'
 import { regularUserStudyLogsResolver } from './resolvers/RegularUser.studyLogs'
 
-
 const resolvers: Resolvers = {
   Date: DateResolver,
   DateTime: DateTimeResolver,
