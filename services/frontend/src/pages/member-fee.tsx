@@ -1,4 +1,4 @@
-import { DefaultLayout } from '../components/DefaultLayout'
+import { DefaultLayout } from '../components/Layout/DefaultLayout'
 import { Text, Box, Heading, Flex } from '@chakra-ui/react'
 
 const Page = () => {

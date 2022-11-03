@@ -19,7 +19,15 @@
       ]
     }
   },
-  "forwardPorts": [9099, 8080, 9199, 9299],
+  "forwardPorts": [
+    9099,
+    8080,
+    9199,
+    9299
+  ],
   "remoteUser": "node",
-  "postCreateCommand": "./.devcontainer/postCreateCommand.sh"
+  "postCreateCommand": "./.devcontainer/postCreateCommand.sh",
+  "features": {
+    "docker-from-docker": "latest"
+  }
 }

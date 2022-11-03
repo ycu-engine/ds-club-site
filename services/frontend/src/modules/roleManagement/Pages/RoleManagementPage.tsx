@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react'
-import { DefaultLayout } from '../../../components/DefaultLayout'
+import { DefaultLayout } from '../../../components/Layout/DefaultLayout'
 
 import { RoleTable } from '../components/RoleTable'
 

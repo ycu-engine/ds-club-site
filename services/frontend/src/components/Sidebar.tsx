@@ -15,6 +15,7 @@ import { CloseIcon } from '@chakra-ui/icons'
 import { SidebarButton } from './Button/SidebarButton'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../clients/firebase'
+import { COLORS } from '../theme'
 
 type SidebarProps = {
   isOpen: boolean
@@ -24,10 +25,13 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const [user, _loading] = useAuthState(auth)
   const button_contents = [
     { link: user ? `/users/${user.uid}/mypage` : '/login', text: '個人ページ' },
-    { link: user ? `/users/${user.uid}/weekly` : '/login', text: '週目標' },
+    {
+      link: user ? `/users/${user.uid}/study-log` : '/login',
+      text: '学習記録',
+    },
     { link: '/materials', text: '教材' },
-    { link: '/test', text: 'テスト' },
-    { link: '/documents', text: '資料' },
+    // { link: '/test', text: 'テスト' },
+    { link: '/view-terms', text: '会員規約等' },
   ]
 
   return (
@@ -35,7 +39,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       <DrawerOverlay />
 
       <DrawerContent>
-        <Container bgColor="orange.400" h="100vh">
+        <Container bgColor={COLORS.orange} h="100vh">
           <DrawerHeader borderBottomWidth="1px">
             <Flex alignItems="center" justifyContent="space-between">
               <Text>各種リンク</Text>

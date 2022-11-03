@@ -1,0 +1,5 @@
+# docker build . とすると、 . 中のファイルたちを docket context へ一度送る
+
+node_modules
+dist
+.env.local
