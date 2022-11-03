@@ -1,9 +1,9 @@
-import { firestore } from '../../clients/firebase'
 import type { CollectionReference, Query } from 'firebase-admin/firestore'
 import { FieldValue } from 'firebase-admin/firestore'
+import { firestore } from '../../clients/firebase'
+import { PaymentStatus, RankKind, UserRole } from '../../generates/graphql'
 import type { UserModel } from './models'
 import { userModelConverter } from './models'
-import { PaymentStatus, RankKind, UserRole } from '../../generates/graphql'
 import type { UserModelMapper } from './types'
 
 const userCollection = firestore
@@ -79,6 +79,7 @@ export const updateUser = async (
     currentRank?: RankKind
     paymentStatus?: PaymentStatus
     roles?: UserRole[]
+
     menterId?: string | null
   },
 ): Promise<UserModelMapper> => {

@@ -185,6 +185,10 @@ type Mutation {
     paymentStatus: PaymentStatus!
   ): RegularUser!
   updateUserRank(userId: ID!, rank: RankKind!): RegularUser!
+  removeUserRole(userId: ID!, role: UserRole!): RegularUser!
+  addUserRole(userId: ID!, role: UserRole!): RegularUser!
+  submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
+
   addMenter(userId: ID!, menterId: ID!): RegularUser!
   removeMenter(userId: ID!): RegularUser!
 

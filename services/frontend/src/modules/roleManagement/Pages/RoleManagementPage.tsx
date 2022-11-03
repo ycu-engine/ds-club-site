@@ -1,13 +1,13 @@
 import { Flex } from '@chakra-ui/react'
 import { DefaultLayout } from '../../../components/Layout/DefaultLayout'
 
-import { PrivilegeTable } from './components/PrivilegeTable'
+import { RoleTable } from '../components/RoleTable'
 
-export const Privilege = () => {
+export const RoleManagementPage = () => {
   return (
     <DefaultLayout>
       <Flex justifyContent="center">
-        <PrivilegeTable />
+        <RoleTable />
       </Flex>
     </DefaultLayout>
   )
