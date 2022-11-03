@@ -1,7 +1,7 @@
 import { Box, Grid, GridItem, Heading, Text } from '@chakra-ui/react'
 import { filter } from 'graphql-anywhere'
+import { Loading } from '../../../components/Layout/Loading'
 import { useRouter } from 'next/router'
-import { Loading } from '../../../components/Loading'
 import {
   StudyLog_StudyLogGraphFragment,
   StudyLog_StudyLogGraphFragmentDoc,

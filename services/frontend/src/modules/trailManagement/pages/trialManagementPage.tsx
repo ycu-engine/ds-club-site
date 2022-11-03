@@ -1,7 +1,7 @@
 import { Container, Heading } from '@chakra-ui/react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../../../clients/firebase'
-import { Loading } from '../../../components/Loading'
+import { Loading } from '../../../components/Layout/Loading'
 import {
   UserRole,
   useTrialManagementPageQuery,

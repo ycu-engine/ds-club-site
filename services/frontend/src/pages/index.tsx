@@ -1,5 +1,5 @@
 import { Container, Flex, Spinner } from '@chakra-ui/react'
-import { DefaultLayout } from '../components/DefaultLayout'
+import { DefaultLayout } from '../components/Layout/DefaultLayout'
 import dynamic from 'next/dynamic'
 import type { SchedulerProps } from '../modules/scheduler/Scheduler'
 import { NewsTab } from '../modules/newsTab/NewsTab'
@@ -14,7 +14,7 @@ import {
 import { filter } from 'graphql-anywhere'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../clients/firebase'
-import { Loading } from '../components/Loading'
+import { Loading } from '../components/Layout/Loading'
 
 // https://nextjs.org/docs/advanced-features/dynamic-import#example
 // react18なので、Suspenseを使うことが推奨されているがエラーが出るので、loadingを使う
