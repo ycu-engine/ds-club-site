@@ -7,7 +7,12 @@ export const TrialUserExpiredAtResolver: TrialUserResolvers['expiredAt'] = (
     new Date(trialUser.createdAt).getMonth() + 1,
   )
 
-  return `${new Date(expiredAt).getFullYear()}-${
+  return `${new Date(expiredAt).getFullYear()}-${(
     new Date(expiredAt).getMonth() + 1
-  }-${new Date(expiredAt).getDate()}`
+  )
+    .toString()
+    .padStart(2, '0')}-${new Date(expiredAt)
+    .getDate()
+    .toString()
+    .padStart(2, '0')}`
 }
