@@ -10,8 +10,8 @@ export const deleteTrialUserResolver: NonNullable<
   }
 
   if (
-    user.roles.includes(UserRole.Admin) ||
-    user.roles.includes(UserRole.Staff)
+    !user.roles.includes(UserRole.Admin) &&
+    !user.roles.includes(UserRole.Staff)
   ) {
     throw new Error('権限がありません')
   }

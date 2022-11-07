@@ -36,7 +36,7 @@ import {
   FormLabel,
 } from '@chakra-ui/react'
 
-import { DefaultLayout } from '../components/DefaultLayout'
+import { DefaultLayout } from '../components/Layout/DefaultLayout'
 import { RadioButton } from '../components/RadioButton/RadioButton'
 import { LegendInput } from '../components/InputForm/LegendInput'
 

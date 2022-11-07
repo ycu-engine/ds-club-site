@@ -1,6 +1,6 @@
 import { Flex, Text, Button, Heading, Checkbox } from '@chakra-ui/react'
 import React from 'react'
-import { DefaultTestLayout } from '../components/DefaultTestLayout'
+import { DefaultTestLayout } from '../components/Layout/DefaultTestLayout'
 const Page = () => {
   const [time, setTime] = React.useState(5)
   React.useEffect(() => {

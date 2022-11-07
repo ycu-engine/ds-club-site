@@ -8,7 +8,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
-import { DefaultLayout } from '../components/DefaultLayout'
+import { DefaultLayout } from '../components/Layout/DefaultLayout'
 
 import { ErrorMessage } from '@hookform/error-message'
 import Image from 'next/image'

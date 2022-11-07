@@ -1,5 +1,5 @@
 import { Box, Heading } from '@chakra-ui/react'
-import { DefaultLayout } from '../components/DefaultLayout'
+import { DefaultLayout } from '../components/Layout/DefaultLayout'
 // import { useState } from 'react'
 
 const Page = () => {

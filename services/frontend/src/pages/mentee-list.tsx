@@ -1,6 +1,6 @@
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../clients/firebase'
-import { DefaultLayout } from '../components/DefaultLayout'
+import { DefaultLayout } from '../components/Layout/DefaultLayout'
 import { MenteeListPage } from '../modules/menteeList/Pages/MenteeListPage'
 
 const Page = () => {

@@ -10,34 +10,35 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useState } from 'react'
+import type { TrialManagementTableFragment } from '../../../generates/graphql'
 import { CanselDialog } from './ConfirmDialog/CancelDialog'
+import { EnrollDialog } from './ConfirmDialog/EnrollDialog'
 
-type UserType = {
-  id: string
-  name: string
-  trialEndDate: string
-  trialStartDate: string
+type TrialManagementTableProps = {
+  trialUsers: TrialManagementTableFragment[]
 }
-const sampleUsers: UserType[] = [
-  {
-    id: '1',
-    name: '山田太郎',
-    trialEndDate: '2021-01-31',
-    trialStartDate: '2021-01-01',
-  },
-  {
-    id: '2',
-    name: '山田花子',
-    trialEndDate: '2021-12-31',
-    trialStartDate: '2021-12-01',
-  },
-]
-export const TrialManagementTable = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [targetUser, setTargetUser] = useState<UserType | null>(null)
-  const handleClickCanselButton = (user: UserType) => {
-    setTargetUser(user)
-    onOpen()
+export const TrialManagementTable = ({
+  trialUsers,
+}: TrialManagementTableProps) => {
+  const {
+    isOpen: isOpenCancel,
+    onOpen: onOpenCancel,
+    onClose: onCloseCancel,
+  } = useDisclosure()
+  const {
+    isOpen: isOpenEnroll,
+    onOpen: onOpenEnroll,
+    onClose: onCloseEnroll,
+  } = useDisclosure()
+  const [targetUser, setTargetUser] =
+    useState<TrialManagementTableFragment | null>(null)
+  const handleClickCanselButton = (trialUser: TrialManagementTableFragment) => {
+    setTargetUser(trialUser)
+    onOpenCancel()
+  }
+  const handleClickEnrollButton = (trialUser: TrialManagementTableFragment) => {
+    setTargetUser(trialUser)
+    onOpenEnroll()
   }
 
   return (
@@ -45,33 +46,46 @@ export const TrialManagementTable = () => {
       <Table variant="simple">
         <Thead bg="orange.200">
           <Tr>
-            <Th>名前</Th>
+            <Th textAlign="center">名前</Th>
 
-            <Th>体験入会開始日</Th>
+            <Th textAlign="center">体験入会開始日</Th>
 
-            <Th>体験入会終了日</Th>
+            <Th textAlign="center">体験入会終了日</Th>
 
-            <Th>キャンセル</Th>
+            <Th textAlign="center">キャンセル</Th>
+
+            <Th textAlign="center">本入会</Th>
           </Tr>
         </Thead>
 
         <Tbody>
-          {sampleUsers.map((user) => (
-            <Tr key={user.id}>
-              <Td>{user.name}</Td>
+          {trialUsers.map((trialUser) => (
+            <Tr key={trialUser.id}>
+              <Td textAlign="center">{trialUser.name}</Td>
 
-              <Td>{user.trialStartDate}</Td>
+              <Td textAlign="center">{trialUser.createdAt}</Td>
 
-              <Td>{user.trialEndDate}</Td>
+              <Td textAlign="center">{trialUser.expiredAt}</Td>
 
-              <Td>
+              <Td textAlign="center">
                 <Button
                   colorScheme="orange"
                   onClick={() => {
-                    handleClickCanselButton(user)
+                    handleClickCanselButton(trialUser)
                   }}
                 >
                   キャンセル
+                </Button>
+              </Td>
+
+              <Td textAlign="center">
+                <Button
+                  colorScheme="orange"
+                  onClick={() => {
+                    handleClickEnrollButton(trialUser)
+                  }}
+                >
+                  本入会
                 </Button>
               </Td>
             </Tr>
@@ -79,7 +93,17 @@ export const TrialManagementTable = () => {
         </Tbody>
       </Table>
 
-      <CanselDialog isOpen={isOpen} onClose={onClose} user={targetUser} />
+      <CanselDialog
+        isOpen={isOpenCancel}
+        onClose={onCloseCancel}
+        trialUser={targetUser}
+      />
+
+      <EnrollDialog
+        isOpen={isOpenEnroll}
+        onClose={onCloseEnroll}
+        trialUser={targetUser}
+      />
     </TableContainer>
   )
 }
