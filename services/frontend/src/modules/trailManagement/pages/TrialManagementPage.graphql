@@ -2,4 +2,7 @@ query TrialManagementPage($userId: ID!) {
   getUser(id: $userId) {
     roles
   }
+  getTrialUsers(orderBy: "createdAt", order: "asc") {
+    ...TrialManagementTable
+  }
 }

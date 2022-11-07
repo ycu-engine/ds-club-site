@@ -81,6 +81,14 @@ type TrialUser implements User {
   学習記録
   """
   studyLogs: [StudyLog!]!
+  """
+  体験入会の開始日
+  """
+  createdAt: Date!
+  """
+  体験入会の終了日
+  """
+  expiredAt: Date!
 }
 
 """
@@ -131,7 +139,7 @@ type StudyLog {
 type Query {
   getUser(id: ID!): RegularUser!
   getRegularUsers: [RegularUser!]!
-  getTrialUsers: [TrialUser!]!
+  getTrialUsers(order: String, orderBy: String): [TrialUser!]!
   getNewsList: [News!]!
   getStudyLog(id: ID!, userId: ID!): StudyLog!
   getStudyLogs(userId: ID!): [StudyLog!]!
