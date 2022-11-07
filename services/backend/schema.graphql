@@ -89,6 +89,10 @@ type TrialUser implements User {
   体験入会の終了日
   """
   expiredAt: Date!
+  """
+  認証の有効・無効
+  """
+  disabled: Boolean!
 }
 
 """
@@ -223,4 +227,5 @@ type Mutation {
   createTrialUser(input: createTrialUserInput!): TrialUser!
   enrollTrialUser(userId: ID!): RegularUser!
   deleteTrialUser(userId: ID!): TrialUser!
+  enableTrialUser(userId: ID!): Boolean!
 }

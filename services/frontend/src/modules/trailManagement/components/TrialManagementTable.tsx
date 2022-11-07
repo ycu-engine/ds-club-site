@@ -10,7 +10,13 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import type { TrialManagementTableFragment } from '../../../generates/graphql'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { auth } from '../../../clients/firebase'
+import {
+  TrialManagementPageDocument,
+  TrialManagementTableFragment,
+  useEnableTrialUserMutation,
+} from '../../../generates/graphql'
 import { CanselDialog } from './ConfirmDialog/CancelDialog'
 import { EnrollDialog } from './ConfirmDialog/EnrollDialog'
 
@@ -20,6 +26,8 @@ type TrialManagementTableProps = {
 export const TrialManagementTable = ({
   trialUsers,
 }: TrialManagementTableProps) => {
+  const [user, _loading] = useAuthState(auth)
+  const [enableTrialUserMutation, { loading }] = useEnableTrialUserMutation({})
   const {
     isOpen: isOpenCancel,
     onOpen: onOpenCancel,
@@ -32,6 +40,21 @@ export const TrialManagementTable = ({
   } = useDisclosure()
   const [targetUser, setTargetUser] =
     useState<TrialManagementTableFragment | null>(null)
+
+  const handleClickEnabelButton = async (
+    trialUser: TrialManagementTableFragment,
+  ) => {
+    await enableTrialUserMutation({
+      refetchQueries: [
+        {
+          query: TrialManagementPageDocument,
+          variables: { userId: user?.uid },
+        },
+      ],
+      variables: { userId: trialUser.id },
+    })
+  }
+
   const handleClickCanselButton = (trialUser: TrialManagementTableFragment) => {
     setTargetUser(trialUser)
     onOpenCancel()
@@ -52,6 +75,8 @@ export const TrialManagementTable = ({
 
             <Th textAlign="center">体験入会終了日</Th>
 
+            <Th textAlign="center">認証情報</Th>
+
             <Th textAlign="center">キャンセル</Th>
 
             <Th textAlign="center">本入会</Th>
@@ -66,6 +91,20 @@ export const TrialManagementTable = ({
               <Td textAlign="center">{trialUser.createdAt}</Td>
 
               <Td textAlign="center">{trialUser.expiredAt}</Td>
+
+              <Td textAlign="center">
+                {trialUser.disabled ? (
+                  <Button
+                    colorScheme="blue"
+                    isLoading={loading}
+                    onClick={() => handleClickEnabelButton(trialUser)}
+                  >
+                    有効にする
+                  </Button>
+                ) : (
+                  '認証済み'
+                )}
+              </Td>
 
               <Td textAlign="center">
                 <Button

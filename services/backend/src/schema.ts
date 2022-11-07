@@ -33,6 +33,8 @@ import { deleteTrialUserResolver } from './resolvers/Mutation.deleteTrialUser'
 import { TrialUserExpiredAtResolver } from './resolvers/TrialUser.expiredAt'
 import { getStudyLogsResolver } from './resolvers/Query.getStudyLogs'
 import { regularUserStudyLogsResolver } from './resolvers/RegularUser.studyLogs'
+import { enableTrialUserResolver } from './resolvers/Mutation.enableTrialUser'
+import { TrialUserDisabledResolver } from './resolvers/TrialUser.disabled'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
@@ -48,6 +50,7 @@ const resolvers: Resolvers = {
     deleteEvent: deleteEventResolver,
     deleteEvents: deleteEventsResolver,
     deleteTrialUser: deleteTrialUserResolver,
+    enableTrialUser: enableTrialUserResolver,
     enrollTrialUser: enrollTrialUserResolver,
     removeMenter: removeMenterResolver,
     submitTrialApplication: submitTrialApplicationResolver,
@@ -70,6 +73,7 @@ const resolvers: Resolvers = {
     studyLogs: regularUserStudyLogsResolver,
   },
   TrialUser: {
+    disabled: TrialUserDisabledResolver,
     expiredAt: TrialUserExpiredAtResolver,
     menter: TrialUserMenterResolver,
     studyLogs: TrialUserStudyLogsResolver,
