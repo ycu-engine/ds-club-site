@@ -45,6 +45,27 @@ export const createTrialUser = async (obj: {
   return trialUser
 }
 
+export const createTrialUserWithId = async (
+  id: string,
+  obj: {
+    name: string
+    email: string
+  },
+): Promise<TrialUserModelMapper> => {
+  const ref = trialUserCollection.doc(id)
+  await ref.set({
+    ...obj,
+    createdAt: FieldValue.serverTimestamp(),
+    updatedAt: FieldValue.serverTimestamp(),
+  })
+
+  const trialUser = await getTrialUser(id)
+  if (!trialUser) {
+    throw new Error('TrialUser not created')
+  }
+  return trialUser
+}
+
 export const removeTrialUser = async (
   userId: string,
 ): Promise<TrialUserModelMapper | null> => {

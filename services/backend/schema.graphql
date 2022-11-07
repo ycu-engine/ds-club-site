@@ -143,6 +143,8 @@ input SubmitTrialApplicationInput {
   name: String!
   email: String!
   affiliation: String!
+  password: String!
+  passwordConfirmation: String!
 }
 
 input CreateStudyLogInput {

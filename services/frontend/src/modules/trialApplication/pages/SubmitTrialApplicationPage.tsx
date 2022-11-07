@@ -57,7 +57,7 @@ export const SubmitTrialApplicationPage = () => {
         toast({
           description:
             '運営の承認後、ログインが可能になります。\nメールをご確認ください。',
-          duration: null,
+          duration: 30000,
           isClosable: true,
           status: 'success',
           title: '登録完了です',
