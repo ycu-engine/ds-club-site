@@ -37,16 +37,7 @@ export const SubmitTrialApplicationPage = () => {
     handleSubmit,
     reset,
     getValues,
-  } = useForm<TrialApplicationForm>({
-    // テスト用
-    defaultValues: {
-      affiliation: 'サンプル大学',
-      email: 'sample@mail.com',
-      name: 'サンプル',
-      password: 'password7',
-      passwordConfirmation: 'password7',
-    },
-  })
+  } = useForm<TrialApplicationForm>({})
   // ConfirmDialogで使用するために、フォームのIdを設定しておく
   const formId = 'trial-application-form'
 
@@ -56,7 +47,7 @@ export const SubmitTrialApplicationPage = () => {
         reset()
         toast({
           description:
-            '運営の承認後、ログインが可能になります。\nメールをご確認ください。',
+            '運営の承認後、ログインが可能になります。メールをご確認ください。',
           duration: 30000,
           isClosable: true,
           status: 'success',
@@ -204,7 +195,7 @@ export const SubmitTrialApplicationPage = () => {
             onClick={handleClickConfirmDialogBtn}
             w="100%"
           >
-            確認ページへ
+            確認画面へ
           </Button>
 
           <ConfirmDialog

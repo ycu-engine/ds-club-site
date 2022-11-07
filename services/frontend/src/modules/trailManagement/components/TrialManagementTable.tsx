@@ -71,6 +71,8 @@ export const TrialManagementTable = ({
           <Tr>
             <Th textAlign="center">名前</Th>
 
+            <Th textAlign="center">メールアドレス</Th>
+
             <Th textAlign="center">体験入会開始日</Th>
 
             <Th textAlign="center">体験入会終了日</Th>
@@ -87,6 +89,8 @@ export const TrialManagementTable = ({
           {trialUsers.map((trialUser) => (
             <Tr key={trialUser.id}>
               <Td textAlign="center">{trialUser.name}</Td>
+
+              <Td textAlign="center">{trialUser.email}</Td>
 
               <Td textAlign="center">{trialUser.createdAt}</Td>
 
