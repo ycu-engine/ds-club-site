@@ -3,6 +3,17 @@ scalar DateTime
 interface User {
   id: ID!
   name: String!
+  email: String!
+  roles: [UserRole!]!
+  menterId: String
+  """
+  メンター
+  """
+  menter: RegularUser
+  """
+  学習記録
+  """
+  studyLogs: [StudyLog!]!
 }
 
 enum UserRole {
@@ -11,6 +22,7 @@ enum UserRole {
   TREASURER
   MENTER
   MEMBER
+  TRIAL
 }
 
 """
@@ -28,10 +40,21 @@ enum RankKind {
   IMPERATOR
 }
 
+"""
+一般会員ユーザー
+"""
 type RegularUser implements User {
   id: ID!
   name: String!
   email: String!
+  roles: [UserRole!]!
+  menterId: String
+  """
+  メンティーのリスト
+  """
+  mentee: [User!]!
+  menter: RegularUser
+  studyLogs: [StudyLog!]!
   """
   段位
   """
@@ -40,26 +63,6 @@ type RegularUser implements User {
   支払い状況
   """
   paymentStatus: PaymentStatus!
-  """
-  役割
-  """
-  roles: [UserRole!]!
-  """
-  メンターのID
-  """
-  menterId: String
-  """
-  メンター
-  """
-  menter: RegularUser
-  """
-  メンティーのリスト
-  """
-  mentee: [RegularUser!]!
-  """
-  学習記録
-  """
-  studyLogs: [StudyLog!]!
 }
 
 """
@@ -69,20 +72,13 @@ type TrialUser implements User {
   id: ID!
   name: String!
   email: String!
-  """
-  メンターのID
-  """
+  roles: [UserRole!]!
   menterId: String
-  """
-  メンター
-  """
   menter: RegularUser
-  """
-  学習記録
-  """
+  mentee: [User!]!
   studyLogs: [StudyLog!]!
   """
-  体験入会の開始日
+  体験入会開始日
   """
   createdAt: Date!
   """

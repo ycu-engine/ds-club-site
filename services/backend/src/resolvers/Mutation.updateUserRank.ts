@@ -1,9 +1,9 @@
 import type { MutationResolvers } from '../generates/graphql'
-import { updateUser } from '../modules/user'
+import { updateRegularUser } from '../modules/regularUser'
 
 export const updateUserRankResolver: NonNullable<
   MutationResolvers['updateUserRank']
 > = async (_root, { rank, userId }) => {
-  const user = await updateUser(userId, { currentRank: rank })
+  const user = await updateRegularUser(userId, { currentRank: rank })
   return user
 }

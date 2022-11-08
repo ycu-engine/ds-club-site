@@ -1,13 +1,13 @@
 import type { QueryResolvers } from '../generates/graphql'
 import { getTrialUser } from '../modules/trialUser'
-import { getUser } from '../modules/user'
+import { getRegularUser } from '../modules/regularUser'
 
 export const getUserResolver: NonNullable<QueryResolvers['getUser']> = async (
   _root,
   { id },
 ) => {
   try {
-    const regularUser = await getUser(id)
+    const regularUser = await getRegularUser(id)
     if (regularUser) {
       return regularUser
     }
