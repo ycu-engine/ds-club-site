@@ -35,6 +35,7 @@ import { getStudyLogsResolver } from './resolvers/Query.getStudyLogs'
 import { regularUserStudyLogsResolver } from './resolvers/RegularUser.studyLogs'
 import { enableTrialUserResolver } from './resolvers/Mutation.enableTrialUser'
 import { TrialUserDisabledResolver } from './resolvers/TrialUser.disabled'
+import { getUsersResolver } from './resolvers/Query.getUsers'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
@@ -65,6 +66,7 @@ const resolvers: Resolvers = {
     getStudyLogs: getStudyLogsResolver,
     getTrialUsers: getTrialUserResolver,
     getUser: getUserResolver,
+    getUsers: getUsersResolver,
     ok: okResolver,
   },
   RegularUser: {

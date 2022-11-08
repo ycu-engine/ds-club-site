@@ -141,7 +141,9 @@ type StudyLog {
 }
 
 type Query {
-  getUser(id: ID!): RegularUser!
+  # getUser(id: ID!): RegularUser!
+  getUser(id: ID!): User!
+  getUsers: [User!]!
   getRegularUsers: [RegularUser!]!
   getTrialUsers(order: String, orderBy: String): [TrialUser!]!
   getNewsList: [News!]!
