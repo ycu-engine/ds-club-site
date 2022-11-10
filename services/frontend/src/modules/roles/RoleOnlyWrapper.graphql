@@ -1,0 +1,5 @@
+query RoleOnlyWrapper($userId: ID!) {
+  getUser(id: $userId) {
+    roles
+  }
+}
