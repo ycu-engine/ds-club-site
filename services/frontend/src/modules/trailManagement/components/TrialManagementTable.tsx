@@ -10,10 +10,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { useState } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../../../clients/firebase'
 import {
-  TrialManagementPageDocument,
   TrialManagementTableFragment,
   useEnableTrialUserMutation,
 } from '../../../generates/graphql'
@@ -26,7 +23,6 @@ type TrialManagementTableProps = {
 export const TrialManagementTable = ({
   trialUsers,
 }: TrialManagementTableProps) => {
-  const [user, _loading] = useAuthState(auth)
   const [enableTrialUserMutation, { loading }] = useEnableTrialUserMutation({})
   const {
     isOpen: isOpenCancel,
@@ -45,12 +41,6 @@ export const TrialManagementTable = ({
     trialUser: TrialManagementTableFragment,
   ) => {
     await enableTrialUserMutation({
-      refetchQueries: [
-        {
-          query: TrialManagementPageDocument,
-          variables: { userId: user?.uid },
-        },
-      ],
       variables: { userId: trialUser.id },
     })
   }

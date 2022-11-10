@@ -9,7 +9,7 @@ export const enableTrialUserResolver: NonNullable<
   try {
     const trialUser = await getTrialUser(userId)
     if (!trialUser) {
-      return false
+      throw new Error('ユーザーが見つかりません')
     }
 
     if (
@@ -22,8 +22,13 @@ export const enableTrialUserResolver: NonNullable<
     await auth.updateUser(userId, {
       disabled: false,
     })
-    return true
+    const updatedTrialUser = await getTrialUser(userId)
+    if (!updatedTrialUser) {
+      throw new Error('ユーザーが見つかりません')
+    }
+    return updatedTrialUser
   } catch (error) {
-    return false
+    console.error(error)
+    throw new Error('不明なエラーが発生しました')
   }
 }
