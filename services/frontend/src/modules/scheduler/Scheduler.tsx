@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState, useRef } from 'react'
 import {
   Button,
   Text,
@@ -137,6 +137,7 @@ export const Scheduler = ({
           >
             {formatedDate}
           </Text>
+
           <RoleOnlyWrapper roles={[UserRole.Admin, UserRole.Staff]}>
             <EditButton onClick={onOpen} />
           </RoleOnlyWrapper>
