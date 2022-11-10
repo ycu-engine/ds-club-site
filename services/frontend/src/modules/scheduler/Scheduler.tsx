@@ -16,8 +16,9 @@ import { EditIcon } from '@chakra-ui/icons'
 import { SchedulerFragment, UserRole } from '../../generates/graphql'
 import type { EventObject } from '@toast-ui/calendar/types/types/events.d.ts'
 import type { DocumentNode } from '@apollo/client'
+import { RoleOnlyWrapper } from '../roles/RoleOnlyWrapper'
 
-interface DateSelectButtonProps {
+type DateSelectButtonProps = {
   onClick: () => void
   children?: React.ReactNode
 }
@@ -31,12 +32,8 @@ const DateSelectButton = ({ onClick, children }: DateSelectButtonProps) => {
 
 type EditButtonProps = {
   onClick: () => void
-  roles?: UserRole[]
 } & IconProps
-const EditButton = ({ onClick, roles, ...props }: EditButtonProps) => {
-  if (!roles?.includes(UserRole.Admin) && !roles?.includes(UserRole.Staff)) {
-    return null
-  }
+const EditButton = ({ onClick, ...props }: EditButtonProps) => {
   return (
     <Tooltip label="編集画面を開く">
       <EditIcon
@@ -61,7 +58,6 @@ export const Scheduler = ({
   isLoading,
   refetchQueryDoc,
 }: SchedulerProps) => {
-  const { roles } = result.getUser
   const events = result.getEvents
   const fmtEvents: EventObject[] = events.map((event) => {
     return {
@@ -141,8 +137,9 @@ export const Scheduler = ({
           >
             {formatedDate}
           </Text>
-
-          <EditButton onClick={onOpen} roles={roles} />
+          <RoleOnlyWrapper roles={[UserRole.Admin, UserRole.Staff]}>
+            <EditButton onClick={onOpen} />
+          </RoleOnlyWrapper>
         </Flex>
       </Flex>
 
