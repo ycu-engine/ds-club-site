@@ -1,0 +1,5 @@
+query AdminOnly($userId: ID!) {
+  getUser(id: $userId) {
+    roles
+  }
+}

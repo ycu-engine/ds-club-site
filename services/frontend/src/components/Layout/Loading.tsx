@@ -16,11 +16,14 @@ const MotionDivStyle: MotionStyle = {
   top: 0,
 }
 
-export const Loading: React.FC = () => {
+type LoadingProps = {
+  loadingText?: string
+}
+export const Loading = ({ loadingText = 'Now Loading...' }: LoadingProps) => {
   return (
     <motion.div style={MotionDivStyle}>
       <Text color="orange.500" fontSize="5xl">
-        Now Loading...
+        {loadingText}
       </Text>
 
       <br />
