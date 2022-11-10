@@ -1,11 +1,13 @@
-import type { ContextFunction } from 'apollo-server-core'
 import type { ExpressContext } from 'apollo-server-express'
+import type { ContextFunction } from 'apollo-server-core'
 import { verifyToken } from './modules/auth'
-import { getUser } from './modules/user'
-import type { UserModelMapper } from './modules/user/types'
+import { getRegularUser } from './modules/regularUser'
+import type { UserModelMapper } from './modules/regularUser/types'
+import type { TrialUserModelMapper } from './modules/trialUser/types'
+import { getTrialUser } from './modules/trialUser'
 
 export interface Context {
-  user: UserModelMapper | null
+  user: UserModelMapper | TrialUserModelMapper | null
 }
 
 export const createContext: ContextFunction<ExpressContext, Context> = async ({
@@ -24,8 +26,15 @@ export const createContext: ContextFunction<ExpressContext, Context> = async ({
     return { user: null }
   }
   try {
-    const user = await getUser(decodedToken.uid)
-    return { user }
+    const regularUser = await getRegularUser(decodedToken.uid)
+    if (regularUser) {
+      return { user: regularUser }
+    }
+    const trialUser = await getTrialUser(decodedToken.uid)
+    if (trialUser) {
+      return { user: trialUser }
+    }
+    return { user: null }
   } catch {
     return { user: null }
   }

@@ -1,13 +1,25 @@
 import type { QueryResolvers } from '../generates/graphql'
-import { getUser } from '../modules/user'
+import { getTrialUser } from '../modules/trialUser'
+import { getRegularUser } from '../modules/regularUser'
 
 export const getUserResolver: NonNullable<QueryResolvers['getUser']> = async (
   _root,
   { id },
 ) => {
-  const user = await getUser(id)
-  if (!user) {
-    throw new Error('User not found')
+  try {
+    const regularUser = await getRegularUser(id)
+    if (regularUser) {
+      return regularUser
+    }
+
+    const trialUser = await getTrialUser(id)
+    if (trialUser) {
+      return trialUser
+    }
+
+    throw new Error('ユーザーが見つかりませんでした')
+  } catch (error) {
+    console.error(error)
+    throw new Error('ユーザーの取得に失敗しました')
   }
-  return user
 }

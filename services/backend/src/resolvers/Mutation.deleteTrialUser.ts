@@ -1,3 +1,4 @@
+import { auth } from '../clients/firebase'
 import type { MutationResolvers } from '../generates/graphql'
 import { UserRole } from '../generates/graphql'
 import { getTrialUser, removeTrialUser } from '../modules/trialUser'
@@ -20,8 +21,13 @@ export const deleteTrialUserResolver: NonNullable<
   if (!trialUser) {
     throw new Error('該当するユーザーが見つかりません')
   }
-
-  await removeTrialUser(trialUser.id)
+  // authの方からも削除
+  try {
+    await auth.deleteUser(trialUser.id)
+    await removeTrialUser(trialUser.id)
+  } catch (error) {
+    throw new Error('エラーが発生しました')
+  }
 
   return trialUser
 }

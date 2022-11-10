@@ -1,14 +1,17 @@
 import type { CollectionReference, Query } from 'firebase-admin/firestore'
 import { FieldValue, Timestamp } from 'firebase-admin/firestore'
 import { firestore } from '../../clients/firebase'
+import { getRegularUser } from '../regularUser'
 
 import type { StudyLogModel } from './models'
 import { studyLogModelConverter } from './models'
 import type { StudyLogModelMapper } from './types'
 
-const getStudyLogCollection = (userId: string) => {
+const getStudyLogCollection = async (userId: string) => {
+  const collectionId = (await getRegularUser(userId)) ? 'users' : 'trialUsers'
+
   return firestore
-    .collection('users')
+    .collection(collectionId)
     .doc(userId)
     .collection('studyLogs')
     .withConverter(studyLogModelConverter)
@@ -18,7 +21,7 @@ export const getStudyLog = async (
   id: string,
   userId: string,
 ): Promise<StudyLogModelMapper | null> => {
-  const snapshot = await getStudyLogCollection(userId).doc(id).get()
+  const snapshot = await (await getStudyLogCollection(userId)).doc(id).get()
   const studyLog = snapshot.data()
   if (!studyLog) {
     return null
@@ -36,7 +39,7 @@ export const listStudyLogs = async (
     collection: CollectionReference<StudyLogModel>,
   ) => Query<StudyLogModel> = (collection) => collection,
 ): Promise<StudyLogModelMapper[]> => {
-  const snapshot = await query(getStudyLogCollection(userId)).get()
+  const snapshot = await query(await getStudyLogCollection(userId)).get()
   return snapshot.docs.map((doc) => ({
     ...doc.data(),
     id: doc.id,
@@ -50,7 +53,9 @@ export const createStudyLog = async (obj: {
   studyContent: string
   studiedAt: number
 }): Promise<StudyLogModelMapper> => {
-  const ref = await getStudyLogCollection(obj.userId).add({
+  const ref = await (
+    await getStudyLogCollection(obj.userId)
+  ).add({
     ...obj,
     createdAt: FieldValue.serverTimestamp(),
     studiedAt: Timestamp.fromMillis(obj.studiedAt),
@@ -68,7 +73,7 @@ export const updateStudyLog = async (
   userId: string,
   obj: { studyTime?: number; studyContent?: string; studiedAt?: number },
 ): Promise<StudyLogModelMapper> => {
-  const ref = getStudyLogCollection(userId).doc(id)
+  const ref = (await getStudyLogCollection(userId)).doc(id)
 
   await ref.update({
     ...obj,
@@ -90,6 +95,6 @@ export const deleteStudyLog = async (
   if (!studyLog) {
     throw new Error('StudyLog not found')
   }
-  await getStudyLogCollection(userId).doc(id).delete()
+  await (await getStudyLogCollection(userId)).doc(id).delete()
   return studyLog
 }

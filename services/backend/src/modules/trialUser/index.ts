@@ -1,6 +1,7 @@
 import type { CollectionReference, Query } from 'firebase-admin/firestore'
 import { FieldValue } from 'firebase-admin/firestore'
 import { firestore } from '../../clients/firebase'
+import { UserRole } from '../../generates/graphql'
 import type { TrialUserModel } from './models'
 import { trialUserModelConverter } from './models'
 import type { TrialUserModelMapper } from './types'
@@ -36,9 +37,32 @@ export const createTrialUser = async (obj: {
   const ref = await trialUserCollection.add({
     ...obj,
     createdAt: FieldValue.serverTimestamp(),
+    roles: [UserRole.Trial],
     updatedAt: FieldValue.serverTimestamp(),
   })
   const trialUser = await getTrialUser(ref.id)
+  if (!trialUser) {
+    throw new Error('TrialUser not created')
+  }
+  return trialUser
+}
+
+export const createTrialUserWithId = async (
+  id: string,
+  obj: {
+    name: string
+    email: string
+  },
+): Promise<TrialUserModelMapper> => {
+  const ref = trialUserCollection.doc(id)
+  await ref.set({
+    ...obj,
+    createdAt: FieldValue.serverTimestamp(),
+    roles: [UserRole.Trial],
+    updatedAt: FieldValue.serverTimestamp(),
+  })
+
+  const trialUser = await getTrialUser(id)
   if (!trialUser) {
     throw new Error('TrialUser not created')
   }

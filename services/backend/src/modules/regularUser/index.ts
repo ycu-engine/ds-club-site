@@ -10,7 +10,9 @@ const userCollection = firestore
   .collection('users')
   .withConverter(userModelConverter)
 
-export const getUser = async (id: string): Promise<UserModelMapper | null> => {
+export const getRegularUser = async (
+  id: string,
+): Promise<UserModelMapper | null> => {
   const snapshot = await userCollection.doc(id).get()
   const user = snapshot.data()
   if (!user) {
@@ -19,7 +21,7 @@ export const getUser = async (id: string): Promise<UserModelMapper | null> => {
   return { ...user, id: snapshot.id }
 }
 
-export const listUsers = async (
+export const listRegularUsers = async (
   query: (collection: CollectionReference<UserModel>) => Query<UserModel> = (
     collection,
   ) => collection,
@@ -34,7 +36,7 @@ const defaultRequiredFields = {
   roles: [UserRole.Member],
 }
 
-export const createUser = async (obj: {
+export const createRegularUser = async (obj: {
   name: string
   email: string
 }): Promise<UserModelMapper> => {
@@ -44,14 +46,14 @@ export const createUser = async (obj: {
     createdAt: FieldValue.serverTimestamp(),
     updatedAt: FieldValue.serverTimestamp(),
   })
-  const user = await getUser(ref.id)
+  const user = await getRegularUser(ref.id)
   if (!user) {
     throw new Error('RegularUser not created')
   }
   return user
 }
 
-export const createUserWithId = async (
+export const createRegularUserWithId = async (
   id: string,
   obj: {
     name: string
@@ -65,14 +67,14 @@ export const createUserWithId = async (
     createdAt: FieldValue.serverTimestamp(),
     updatedAt: FieldValue.serverTimestamp(),
   })
-  const user = await getUser(ref.id)
+  const user = await getRegularUser(ref.id)
   if (!user) {
     throw new Error('RegularUser not created')
   }
   return user
 }
 
-export const updateUser = async (
+export const updateRegularUser = async (
   id: string,
   obj: {
     name?: string
@@ -89,15 +91,17 @@ export const updateUser = async (
     }
   }
   await ref.update({ ...obj, updatedAt: FieldValue.serverTimestamp() })
-  const user = await getUser(ref.id)
+  const user = await getRegularUser(ref.id)
   if (!user) {
     throw new Error('RegularUser not created')
   }
   return user
 }
 
-export const deleteUser = async (id: string): Promise<UserModelMapper> => {
-  const user = await getUser(id)
+export const deleteRegularUser = async (
+  id: string,
+): Promise<UserModelMapper> => {
+  const user = await getRegularUser(id)
   if (!user) {
     throw new Error('RegularUser not found')
   }
