@@ -1,4 +1,4 @@
-query Home($userId: ID!) {
+query Home {
   getNewsList {
     ...NewsTab
   }
