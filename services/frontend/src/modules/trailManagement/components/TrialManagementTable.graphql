@@ -8,5 +8,8 @@ fragment TrialManagementTable on TrialUser {
 }
 
 mutation EnableTrialUser($userId: ID!) {
-  enableTrialUser(userId: $userId)
+  enableTrialUser(userId: $userId) {
+    id
+    disabled
+  }
 }
