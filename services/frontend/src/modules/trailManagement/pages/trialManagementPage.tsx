@@ -1,36 +1,39 @@
-import { Container, Heading } from '@chakra-ui/react'
+import { Container, Heading, useToast } from '@chakra-ui/react'
 import { filter } from 'graphql-anywhere'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../../../clients/firebase'
 import { Loading } from '../../../components/Layout/Loading'
 import {
   TrialManagementTableFragment,
   TrialManagementTableFragmentDoc,
-  UserRole,
   useTrialManagementPageQuery,
 } from '../../../generates/graphql'
 import { TrialManagementTable } from '../components/TrialManagementTable'
 
 export const TrialManagementPage = () => {
-  const [user, authLoading] = useAuthState(auth)
-  const { data, loading: queryLoading } = useTrialManagementPageQuery({
-    skip: !user || authLoading,
-    variables: { userId: user?.uid || '' },
-  })
+  const toast = useToast()
+  const { data, loading, error } = useTrialManagementPageQuery({})
 
-  if (authLoading || queryLoading) {
-    return <Loading />
+  if (loading) {
+    return <Loading loadingText="データ取得中..." />
+  }
+
+  if (error) {
+    toast({
+      description: error.message,
+      duration: 5000,
+      isClosable: true,
+      status: 'error',
+      title: 'エラー',
+    })
+    return (
+      <Loading loadingText="データの取得に失敗しました。再度お試しください" />
+    )
   }
 
   if (!data) {
-    return <Heading>データの取得に失敗しました</Heading>
+    return <Loading loadingText="データがありません" />
   }
 
-  const { getUser: loginUser, getTrialUsers: trialUsers } = data
-  const { roles } = loginUser
-  if (!roles.includes(UserRole.Admin) && !roles.includes(UserRole.Staff)) {
-    return <Heading>権限がありません</Heading>
-  }
+  const { getTrialUsers: trialUsers } = data
 
   return (
     <>
