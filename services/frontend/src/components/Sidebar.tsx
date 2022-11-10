@@ -16,6 +16,8 @@ import { SidebarButton } from './Button/SidebarButton'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../clients/firebase'
 import { COLORS } from '../theme'
+import { RoleOnlyWrapper } from '../modules/roles/RoleOnlyWrapper'
+import { UserRole } from '../generates/graphql'
 
 type SidebarProps = {
   isOpen: boolean
@@ -54,21 +56,23 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             </Flex>
           </DrawerHeader>
 
-          <DrawerBody>
-            <VStack p={5} spacing={10}>
-              {/* ボタンをmapで追加 */}
+          <DrawerBody as={VStack} p={5} spacing={10}>
+            {/* ボタンをmapで追加 */}
 
-              {button_contents.map((button_content) => {
-                return (
-                  <SidebarButton
-                    key={button_content.link}
-                    link={button_content.link}
-                  >
-                    {button_content.text}
-                  </SidebarButton>
-                )
-              })}
-            </VStack>
+            {button_contents.map((button_content) => {
+              return (
+                <SidebarButton
+                  key={button_content.link}
+                  link={button_content.link}
+                >
+                  {button_content.text}
+                </SidebarButton>
+              )
+            })}
+
+            <RoleOnlyWrapper roles={UserRole.Admin}>
+              <SidebarButton link="/admin">管理者ページ</SidebarButton>
+            </RoleOnlyWrapper>
           </DrawerBody>
         </Container>
       </DrawerContent>
