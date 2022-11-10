@@ -8,7 +8,6 @@ import { createUserResolver } from './resolvers/Mutation.createUser'
 import { submitTrialApplicationResolver } from './resolvers/Mutation.submitTrialApplication'
 import { updateUserPaymentStatusResolver } from './resolvers/Mutation.updateUserPaymentStatus'
 import { updateUserRankResolver } from './resolvers/Mutation.updateUserRank'
-import { menterResolver } from './resolvers/RegularUser.menter'
 import { getNewsListResolver } from './resolvers/Query.getNewsList'
 import { getRegularUsersResolver } from './resolvers/Query.getRegularUsers'
 import { getStudyLogResolver } from './resolvers/Query.getStudyLog'
@@ -17,7 +16,6 @@ import { okResolver } from './resolvers/Query.ok'
 import { __resolveTypeResolve } from './resolvers/User.__resolveType'
 import { addMenterResolver } from './resolvers/Mutation.addMenter'
 import { removeMenterResolver } from './resolvers/Mutation.removeMenter'
-import { menteeResolver } from './resolvers/RegularUser.mentee'
 import { getEventsResolver } from './resolvers/Query.getEvents'
 import { createEventResolver } from './resolvers/Mutation.createEvent'
 import { createWeeklyRepeatEventResolver } from './resolvers/Mutation.createWeeklyRepeatEvent'
@@ -26,15 +24,16 @@ import { deleteEventsResolver } from './resolvers/Mutation.deleteEvents'
 import { createNewsResolver } from './resolvers/Mutation.createNews'
 import { createTrialUserResolver } from './resolvers/Mutation.createTrialUser'
 import { getTrialUserResolver } from './resolvers/Query.getTrialUsers'
-import { TrialUserMenterResolver } from './resolvers/TrialUser.menter'
-import { TrialUserStudyLogsResolver } from './resolvers/TrialUser.studyLogs'
 import { enrollTrialUserResolver } from './resolvers/Mutation.enrollTrialUser'
 import { deleteTrialUserResolver } from './resolvers/Mutation.deleteTrialUser'
 import { TrialUserExpiredAtResolver } from './resolvers/TrialUser.expiredAt'
 import { getStudyLogsResolver } from './resolvers/Query.getStudyLogs'
-import { regularUserStudyLogsResolver } from './resolvers/RegularUser.studyLogs'
 import { enableTrialUserResolver } from './resolvers/Mutation.enableTrialUser'
 import { TrialUserDisabledResolver } from './resolvers/TrialUser.disabled'
+import { getUsersResolver } from './resolvers/Query.getUsers'
+import { studyLogsResolver } from './resolvers/User.studyLogs'
+import { menterResolver } from './resolvers/User.menter'
+import { menteeResolver } from './resolvers/RegularUser.mentee'
 
 const resolvers: Resolvers = {
   Date: DateResolver,
@@ -65,18 +64,19 @@ const resolvers: Resolvers = {
     getStudyLogs: getStudyLogsResolver,
     getTrialUsers: getTrialUserResolver,
     getUser: getUserResolver,
+    getUsers: getUsersResolver,
     ok: okResolver,
   },
   RegularUser: {
     mentee: menteeResolver,
     menter: menterResolver,
-    studyLogs: regularUserStudyLogsResolver,
+    studyLogs: studyLogsResolver,
   },
   TrialUser: {
     disabled: TrialUserDisabledResolver,
     expiredAt: TrialUserExpiredAtResolver,
-    menter: TrialUserMenterResolver,
-    studyLogs: TrialUserStudyLogsResolver,
+    menter: menterResolver,
+    studyLogs: studyLogsResolver,
   },
   User: {
     __resolveType: __resolveTypeResolve,

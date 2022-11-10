@@ -1,5 +1,5 @@
 import type { MutationResolvers } from '../generates/graphql'
-import { createUser } from '../modules/user'
+import { createRegularUser } from '../modules/regularUser'
 
 export const createUserResolver: NonNullable<
   MutationResolvers['createUser']
@@ -7,7 +7,7 @@ export const createUserResolver: NonNullable<
   if (!user) {
     throw new Error('ログインされていません')
   }
-  const log = await createUser({
+  const log = await createRegularUser({
     ...input,
   })
   return log

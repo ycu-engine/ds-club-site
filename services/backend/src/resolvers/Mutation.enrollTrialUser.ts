@@ -1,7 +1,10 @@
 import type { MutationResolvers } from '../generates/graphql'
 import { PaymentStatus, UserRole } from '../generates/graphql'
 import { getTrialUser, removeTrialUser } from '../modules/trialUser'
-import { createUserWithId, updateUser } from '../modules/user'
+import {
+  createRegularUserWithId,
+  updateRegularUser,
+} from '../modules/regularUser'
 
 export const enrollTrialUserResolver: NonNullable<
   MutationResolvers['enrollTrialUser']
@@ -22,7 +25,7 @@ export const enrollTrialUserResolver: NonNullable<
     throw new Error('該当するユーザーが見つかりません')
   }
 
-  const enrollUser = await createUserWithId(trialUser?.id, {
+  const enrollUser = await createRegularUserWithId(trialUser?.id, {
     email: trialUser.email,
     name: trialUser.name,
   })
@@ -30,7 +33,7 @@ export const enrollTrialUserResolver: NonNullable<
   if (enrollUser) await removeTrialUser(trialUser.id)
 
   // 色々変更、できればここら辺もcreateUserWithIdの引数にしたい
-  const updatedEnrollUser = await updateUser(enrollUser.id, {
+  const updatedEnrollUser = await updateRegularUser(enrollUser.id, {
     menterId: trialUser?.menterId || null,
     paymentStatus: PaymentStatus.Paid,
   })
