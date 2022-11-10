@@ -1,7 +1,4 @@
 fragment Scheduler on Query {
-  getUser(id: $userId) {
-    roles
-  }
   getEvents {
     title
     start
