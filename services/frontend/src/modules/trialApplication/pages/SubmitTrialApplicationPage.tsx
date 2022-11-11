@@ -11,9 +11,9 @@ import { ErrorMessage } from '@hookform/error-message'
 import { useRouter } from 'next/router'
 import type { SubmitHandler } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
-import { DefaultLayout } from '../../../../../components/Layout/DefaultLayout'
-import { InputBox } from '../../../../../components/InputForm/InputBox'
-import { useSubmitTrialApplicationPage_SubmitTrialApplicationMutation } from '../../../../../generates/graphql'
+import { DefaultLayout } from '../../../components/Layout/DefaultLayout'
+import { InputBox } from '../../../components/InputForm/InputBox'
+import { useSubmitTrialApplicationPage_SubmitTrialApplicationMutation } from '../../../generates/graphql'
 import { ConfirmDialog } from '../ConfirmationDialog'
 
 export type TrialApplicationForm = {

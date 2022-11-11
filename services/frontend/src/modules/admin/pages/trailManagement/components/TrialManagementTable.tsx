@@ -13,7 +13,7 @@ import { useState } from 'react'
 import {
   TrialManagementTableFragment,
   useEnableTrialUserMutation,
-} from '../../../generates/graphql'
+} from '../../../../../generates/graphql'
 import { CanselDialog } from './ConfirmDialog/CancelDialog'
 import { EnrollDialog } from './ConfirmDialog/EnrollDialog'
 

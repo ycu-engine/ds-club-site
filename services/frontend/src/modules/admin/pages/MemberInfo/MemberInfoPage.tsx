@@ -11,14 +11,14 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-import { DefaultLayout } from '../../../components/Layout/DefaultLayout'
+import { DefaultLayout } from 'components/Layout/DefaultLayout'
 import {
   PaymentStatus,
   RankKind,
   useMemberInfoPageQuery,
   useMemberInfoPage_UpdateCurrentRankMutation,
   useMemberInfoPage_UpdatePaymentStatusMutation,
-} from '../../../generates/graphql'
+} from 'generates/graphql'
 
 //   ランクに応じて色を変える
 const RANK_COLOR: Record<RankKind, string> = {
