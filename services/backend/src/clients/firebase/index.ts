@@ -5,6 +5,15 @@ import { getAuth } from 'firebase-admin/auth'
 
 const app = initializeApp()
 
-export const firestore = getFirestore(app)
-export const storage = getStorage(app)
-export const auth = getAuth(app)
+let firestore: ReturnType<typeof getFirestore>
+let storage: ReturnType<typeof getStorage>
+let auth: ReturnType<typeof getAuth>
+try {
+  firestore = getFirestore(app)
+  storage = getStorage(app)
+  auth = getAuth(app)
+} catch (error) {
+  console.error(error)
+}
+
+export { firestore, storage, auth }
