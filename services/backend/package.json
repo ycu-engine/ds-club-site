@@ -4,11 +4,12 @@
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "dotenv -e .env.local concurrently \"ts-node-dev src/index.ts\" \"graphql-codegen --watch\"",
+    "dev": "dotenv -e .env.local concurrently \"ts-node-dev src/index.ts\" \"graphql-codegen --watch\" \"copy-and-watch --watch ./schema.graphql ../frontend\"",
     "lint": "eslint src",
     "create-user-with-id": "dotenv -e .env.local ts-node src/bin/createUserWithId.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "copy-schema": "copy-and-watch --watch ./schema.graphql ../frontend"
   },
   "dependencies": {
     "@graphql-tools/graphql-file-loader": "^7.4.0",

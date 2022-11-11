@@ -47,7 +47,7 @@ export const MyPage = () => {
               <Heading color={COLORS.pink}>段位:</Heading>
 
               <Heading color={COLORS.black}>
-                {data.getUser?.currentRank}
+                {/* {data.getUser?.currentRank} */}
               </Heading>
             </Flex>
 
@@ -75,7 +75,7 @@ export const MyPage = () => {
             >
               会員：
               <Text as="span" color={COLORS.black}>
-                {data.getUser?.roles}
+                {/* {data.getUser?.roles} */}
               </Text>
             </Text>
           </Box>
