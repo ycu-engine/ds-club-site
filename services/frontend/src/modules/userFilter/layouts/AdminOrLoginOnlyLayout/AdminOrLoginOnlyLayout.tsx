@@ -22,7 +22,7 @@ export const AdminOrLoginOnlyLayout = ({
     return <Loading loadingText="ログインしてください" />
   }
   if (user.uid === userId) {
-    return children
+    return <> {children} </>
   }
   // 本人でない場合は管理者かどうかを確認
   return <AdminOnlyLayout>{children}</AdminOnlyLayout>
