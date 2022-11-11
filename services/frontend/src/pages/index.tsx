@@ -1,4 +1,4 @@
-import { Container, Flex, Spinner } from '@chakra-ui/react'
+import { Container, Flex, Spinner, useToast } from '@chakra-ui/react'
 import { DefaultLayout } from '../components/Layout/DefaultLayout'
 import dynamic from 'next/dynamic'
 import type { SchedulerProps } from '../modules/scheduler/Scheduler'
@@ -12,8 +12,6 @@ import {
   useHomeQuery,
 } from '../generates/graphql'
 import { filter } from 'graphql-anywhere'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../clients/firebase'
 import { Loading } from '../components/Layout/Loading'
 
 // https://nextjs.org/docs/advanced-features/dynamic-import#example
@@ -37,19 +35,22 @@ const Scheduler = dynamic<SchedulerProps>(
 )
 
 const HomePage = () => {
-  const [user, authLoading] = useAuthState(auth)
-  const { data, loading: queryLoading } = useHomeQuery({
-    skip: !user,
-    variables: {
-      userId: user?.uid || '',
-    },
-  })
-  if (authLoading || queryLoading) {
+  const toast = useToast()
+  const { data, loading, error } = useHomeQuery({})
+  if (loading) {
     return <Loading />
   }
-  if (!user) {
-    return <DefaultLayout />
+  if (error) {
+    toast({
+      description: error.message,
+      duration: 5000,
+      isClosable: true,
+      status: 'error',
+      title: 'エラー',
+    })
+    return <Loading loadingText="エラーが発生しました" />
   }
+
   if (!data) {
     return <DefaultLayout />
   }
@@ -59,12 +60,12 @@ const HomePage = () => {
     <DefaultLayout>
       <Flex direction={['column', 'row']} justifyContent="space-between" p={5}>
         <NewsTab
-          isLoading={authLoading || queryLoading}
+          isLoading={loading}
           newsList={filter<NewsTabFragment[]>(NewsTabFragmentDoc, newsList)}
         />
 
         <Scheduler
-          isLoading={authLoading || queryLoading}
+          isLoading={loading}
           refetchQueryDoc={HomeDocument}
           schedulerData={filter<SchedulerFragment>(SchedulerFragmentDoc, data)}
         />

@@ -1,5 +1,5 @@
 import { AdminOnly } from '../../../modules/admin/components/AdminOnly'
-import { MemberInfoPage } from '../../../modules/admin/pages/MemberInfoPage'
+import { MemberInfoPage } from '../../../modules/admin/pages/MemberInfo/MemberInfoPage'
 
 const Page = () => {
   return (
