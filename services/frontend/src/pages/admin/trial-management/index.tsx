@@ -1,14 +1,14 @@
 import { DefaultLayout } from '../../../components/Layout/DefaultLayout'
-import { AdminOnly } from '../../../modules/userFilter/AdminOnly/AdminOnly'
+import { AdminOnlyLayout } from '../../../modules/userFilter/layouts/AdminOnlyLayout/AdminOnlyLayout'
 import { TrialManagementPage } from '../../../modules/admin/trailManagement/pages/trialManagementPage'
 
 const Page = () => {
   return (
-    <AdminOnly>
+    <AdminOnlyLayout>
       <DefaultLayout>
         <TrialManagementPage />
       </DefaultLayout>
-    </AdminOnly>
+    </AdminOnlyLayout>
   )
 }
 

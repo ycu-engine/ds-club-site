@@ -2,9 +2,12 @@ import { useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../../../clients/firebase'
-import { Loading } from '../../../components/Layout/Loading'
-import { useAdminOnlyQuery, UserRole } from '../../../generates/graphql'
+import { auth } from '../../../../clients/firebase'
+import { Loading } from '../../../../components/Layout/Loading'
+import {
+  useAdminOnlyLayoutQuery,
+  UserRole,
+} from '../../../../generates/graphql'
 
 const Denied = () => {
   const router = useRouter()
@@ -30,7 +33,10 @@ type AdminOnlyProps = {
  * @param children
  * @param mode `admin`: Adminのみ `staff`: Staffのみ `both`(default): AdminもしくはStaff
  */
-export const AdminOnly = ({ children, mode = 'both' }: AdminOnlyProps) => {
+export const AdminOnlyLayout = ({
+  children,
+  mode = 'both',
+}: AdminOnlyProps) => {
   const toast = useToast()
 
   const [user, authLoading] = useAuthState(auth)
@@ -38,7 +44,7 @@ export const AdminOnly = ({ children, mode = 'both' }: AdminOnlyProps) => {
     data,
     loading: userLoading,
     error,
-  } = useAdminOnlyQuery({
+  } = useAdminOnlyLayoutQuery({
     variables: {
       userId: user?.uid ?? '',
     },

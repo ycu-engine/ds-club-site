@@ -16,7 +16,7 @@ import { SidebarButton } from './Button/SidebarButton'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../clients/firebase'
 import { COLORS } from '../theme'
-import { RoleOnlyWrapper } from '../modules/roles/RoleOnlyWrapper'
+import { RoleOnlyWrapper } from '../modules/userFilter/wrappers/RoleOnlyWrapper/RoleOnlyWrapper'
 import { UserRole } from '../generates/graphql'
 
 type SidebarProps = {

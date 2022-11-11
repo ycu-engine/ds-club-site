@@ -1,4 +1,4 @@
-query AdminOnly($userId: ID!) {
+query AdminOnlyLayout($userId: ID!) {
   getUser(id: $userId) {
     roles
   }

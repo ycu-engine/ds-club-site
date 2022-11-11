@@ -16,7 +16,7 @@ import { EditIcon } from '@chakra-ui/icons'
 import { SchedulerFragment, UserRole } from '../../generates/graphql'
 import type { EventObject } from '@toast-ui/calendar/types/types/events.d.ts'
 import type { DocumentNode } from '@apollo/client'
-import { RoleOnlyWrapper } from '../roles/RoleOnlyWrapper'
+import { RoleOnlyWrapper } from '../RoleOnlyWrapper/RoleOnlyWrapper'
 
 type DateSelectButtonProps = {
   onClick: () => void

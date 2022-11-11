@@ -1,6 +1,9 @@
-import { useRoleOnlyWrapperQuery, UserRole } from '../../generates/graphql'
+import {
+  useRoleOnlyWrapperQuery,
+  UserRole,
+} from '../../../../generates/graphql'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../../clients/firebase'
+import { auth } from '../../../../clients/firebase'
 
 type RoleOnlyWrapperProps = {
   children: React.ReactNode
