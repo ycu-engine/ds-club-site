@@ -1,4 +1,4 @@
-import { SubmitTrialApplicationPage } from '../modules/trialApplication/pages/SubmitTrialApplicationPage'
+import { SubmitTrialApplicationPage } from '../modules/admin/pages/trialApplication/pages/SubmitTrialApplicationPage'
 
 const Page = SubmitTrialApplicationPage
 export default Page
