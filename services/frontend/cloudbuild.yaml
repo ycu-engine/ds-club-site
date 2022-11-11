@@ -8,7 +8,7 @@ steps:
       - --context=dir://.
       - --log-format=text
       - --log-timestamp=false
-    dir: 'services/backend'
+    dir: 'services/frontend'
 
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
