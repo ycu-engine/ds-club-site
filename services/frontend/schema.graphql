@@ -1,0 +1,229 @@
+scalar Date
+scalar DateTime
+interface User {
+  id: ID!
+  name: String!
+  email: String!
+  roles: [UserRole!]!
+  menterId: String
+  """
+  メンター
+  """
+  menter: RegularUser
+  """
+  学習記録
+  """
+  studyLogs: [StudyLog!]!
+}
+
+enum UserRole {
+  ADMIN
+  STAFF
+  TREASURER
+  MENTER
+  MEMBER
+  TRIAL
+}
+
+"""
+支払い状況
+"""
+enum PaymentStatus {
+  NOT_PAID
+  PAID
+}
+
+enum RankKind {
+  BEGINNER
+  EVANGELIST
+  MASTER
+  IMPERATOR
+}
+
+"""
+一般会員ユーザー
+"""
+type RegularUser implements User {
+  id: ID!
+  name: String!
+  email: String!
+  roles: [UserRole!]!
+  menterId: String
+  """
+  メンティーのリスト
+  """
+  mentee: [User!]!
+  menter: RegularUser
+  studyLogs: [StudyLog!]!
+  """
+  段位
+  """
+  currentRank: RankKind!
+  """
+  支払い状況
+  """
+  paymentStatus: PaymentStatus!
+}
+
+"""
+体験入会ユーザー
+"""
+type TrialUser implements User {
+  id: ID!
+  name: String!
+  email: String!
+  roles: [UserRole!]!
+  menterId: String
+  menter: RegularUser
+  mentee: [User!]!
+  studyLogs: [StudyLog!]!
+  """
+  体験入会開始日
+  """
+  createdAt: Date!
+  """
+  体験入会の終了日
+  """
+  expiredAt: Date!
+  """
+  認証の有効・無効
+  """
+  disabled: Boolean!
+}
+
+"""
+お知らせ
+"""
+type News {
+  id: ID!
+  title: String!
+  body: String!
+}
+
+"""
+日々の活動やイベントの情報
+"""
+type Event {
+  id: ID!
+  start: DateTime!
+  end: DateTime!
+  location: String!
+  title: String!
+}
+
+type StudyLog {
+  id: ID!
+  userId: ID!
+  """
+  作成日時
+  """
+  createdAt: DateTime!
+  """
+  更新日時
+  """
+  updatedAt: DateTime!
+  """
+  学習時間（分）
+  """
+  studyTime: Int!
+  """
+  本日の学習内容
+  """
+  studyContent: String!
+  """
+  学習日
+  """
+  studiedAt: Date!
+}
+
+type Query {
+  # getUser(id: ID!): RegularUser!
+  getUser(id: ID!): User!
+  getUsers: [User!]!
+  getRegularUsers: [RegularUser!]!
+  getTrialUsers(order: String, orderBy: String): [TrialUser!]!
+  getNewsList: [News!]!
+  getStudyLog(id: ID!, userId: ID!): StudyLog!
+  getStudyLogs(userId: ID!): [StudyLog!]!
+  getEvents: [Event!]!
+  ok: Boolean!
+}
+
+input SubmitTrialApplicationInput {
+  name: String!
+  email: String!
+  affiliation: String!
+  password: String!
+  passwordConfirmation: String!
+}
+
+input CreateStudyLogInput {
+  userId: ID!
+  studyTime: Int!
+  studyContent: String!
+  studiedAt: Date!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+}
+
+input createTrialUserInput {
+  name: String!
+  email: String!
+}
+
+input createEventInput {
+  start: DateTime!
+  end: DateTime!
+  location: String!
+  title: String!
+}
+input createWeeklyRepeatEventInput {
+  start: DateTime!
+  end: DateTime!
+  location: String!
+  title: String!
+  repeatUntil: DateTime!
+}
+type Mutation {
+  """
+  ユーザー
+  """
+  createUser(input: CreateUserInput!): RegularUser!
+  updateUserPaymentStatus(
+    userId: ID!
+    paymentStatus: PaymentStatus!
+  ): RegularUser!
+  updateUserRank(userId: ID!, rank: RankKind!): RegularUser!
+  addMenter(userId: ID!, menterId: ID!): RegularUser!
+  removeMenter(userId: ID!): RegularUser!
+
+  """
+  学習記録
+  """
+  createStudyLog(input: CreateStudyLogInput!): StudyLog!
+
+  """
+  イベント
+  """
+  createWeeklyRepeatEvent(input: createWeeklyRepeatEventInput!): [Event!]!
+  createEvent(input: createEventInput!): Event!
+  deleteEvent(id: ID!): Event!
+  deleteEvents(title: String!): [Event!]!
+
+  """
+  お知らせ
+  """
+  createNews(title: String!, body: String!): News!
+
+  """
+  体験入会ユーザー
+  """
+  submitTrialApplication(input: SubmitTrialApplicationInput!): Boolean!
+  createTrialUser(input: createTrialUserInput!): TrialUser!
+  enrollTrialUser(userId: ID!): RegularUser!
+  deleteTrialUser(userId: ID!): TrialUser!
+  enableTrialUser(userId: ID!): TrialUser!
+}

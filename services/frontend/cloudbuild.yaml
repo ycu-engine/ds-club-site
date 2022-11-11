@@ -1,0 +1,28 @@
+steps:
+  - name: 'gcr.io/kaniko-project/executor:latest'
+    args:
+      - --destination=$_ARTIFACT_REPOSITORY_NAME/$PROJECT_ID/$_REPOSITORY_NAME/$_CLOUD_RUN_SERVICE_NAME:latest
+      - --cache=true
+      - --cache-ttl=24h
+      - --dockerfile=Dockerfile
+      - --context=dir://.
+      - --log-format=text
+      - --log-timestamp=false
+    dir: 'services/backend'
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - '$_CLOUD_RUN_SERVICE_NAME'
+      - '--image'
+      - '$_ARTIFACT_REPOSITORY_NAME/$PROJECT_ID/$_REPOSITORY_NAME/$_CLOUD_RUN_SERVICE_NAME:latest'
+      - '--region'
+      - '$_CLOUD_RUN_REGION'
+
+substitutions:
+  _REPOSITORY_NAME: 'ds-club-site'
+  _CLOUD_RUN_SERVICE_NAME: 'frontend'
+  _CLOUD_RUN_REGION: 'us-central1'
+  _ARTIFACT_REPOSITORY_NAME: 'us-central1-docker.pkg.dev'
