@@ -8,7 +8,7 @@ import {
 import type { NextPage } from 'next'
 import NextLink from 'next/link'
 import { DefaultLayout } from '../../components/Layout/DefaultLayout'
-import { AdminOnly } from '../../modules/admin/components/AdminOnly'
+import { AdminOnly } from '../../modules/userFilter/AdminOnly/AdminOnly'
 
 const links = [
   { href: '/admin/trial-management', label: '体験入会管理ページ' },

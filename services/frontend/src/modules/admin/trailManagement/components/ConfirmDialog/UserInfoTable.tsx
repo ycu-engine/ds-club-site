@@ -7,7 +7,7 @@ import {
   Td,
   TableCaption,
 } from '@chakra-ui/react'
-import type { TrialManagementTableFragment } from '../../../../../../generates/graphql'
+import type { TrialManagementTableFragment } from '../../../../../generates/graphql'
 
 type UserInfoTableProps = {
   trialUser: TrialManagementTableFragment | null

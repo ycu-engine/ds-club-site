@@ -1,6 +1,6 @@
 import { DefaultLayout } from '../../../components/Layout/DefaultLayout'
-import { AdminOnly } from '../../../modules/admin/components/AdminOnly'
-import { TrialManagementPage } from '../../../modules/admin/pages/trailManagement/pages/trialManagementPage'
+import { AdminOnly } from '../../../modules/userFilter/AdminOnly/AdminOnly'
+import { TrialManagementPage } from '../../../modules/admin/trailManagement/pages/trialManagementPage'
 
 const Page = () => {
   return (

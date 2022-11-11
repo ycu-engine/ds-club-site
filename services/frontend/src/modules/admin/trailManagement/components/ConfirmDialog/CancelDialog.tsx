@@ -11,12 +11,12 @@ import {
 } from '@chakra-ui/react'
 import { useRef } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { auth } from '../../../../../../clients/firebase'
+import { auth } from '../../../../../clients/firebase'
 import {
   TrialManagementPageDocument,
   TrialManagementTableFragment,
   useCancelDialogMutation,
-} from '../../../../../../generates/graphql'
+} from '../../../../../generates/graphql'
 import { UserInfoTable } from './UserInfoTable'
 
 type CancelDialogProps = {

@@ -1,11 +1,11 @@
 import { Container, Heading, useToast } from '@chakra-ui/react'
 import { filter } from 'graphql-anywhere'
-import { Loading } from '../../../../../components/Layout/Loading'
+import { Loading } from '../../../../components/Layout/Loading'
 import {
   TrialManagementTableFragment,
   TrialManagementTableFragmentDoc,
   useTrialManagementPageQuery,
-} from '../../../../../generates/graphql'
+} from '../../../../generates/graphql'
 import { TrialManagementTable } from '../components/TrialManagementTable'
 
 export const TrialManagementPage = () => {
