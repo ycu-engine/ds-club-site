@@ -1,4 +1,5 @@
 import { DefaultLayout } from 'components/Layout/DefaultLayout'
+import { MyPage } from 'modules/user/pages/MyPage'
 import { AdminOrLoginOnlyLayout } from 'modules/userFilter/layouts/AdminOrLoginOnlyLayout/AdminOrLoginOnlyLayout'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -12,7 +13,9 @@ const Page: NextPage = () => {
   }
   return (
     <AdminOrLoginOnlyLayout userId={userId}>
-      <DefaultLayout>{userId}</DefaultLayout>
+      <DefaultLayout>
+        <MyPage userId={userId} />
+      </DefaultLayout>
     </AdminOrLoginOnlyLayout>
   )
 }
