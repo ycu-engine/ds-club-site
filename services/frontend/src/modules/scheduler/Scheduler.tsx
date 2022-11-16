@@ -16,6 +16,7 @@ import { EditIcon } from '@chakra-ui/icons'
 import { SchedulerFragment, UserRole } from '../../generates/graphql'
 import type { EventObject } from '@toast-ui/calendar/types/types/events.d.ts'
 import type { DocumentNode } from '@apollo/client'
+import { COLORS } from '../../theme'
 import { RoleOnlyWrapper } from '../roles/RoleOnlyWrapper'
 
 type DateSelectButtonProps = {
@@ -24,7 +25,12 @@ type DateSelectButtonProps = {
 }
 const DateSelectButton = ({ onClick, children }: DateSelectButtonProps) => {
   return (
-    <Button _hover={{ color: 'orange.700' }} bg="transparent" onClick={onClick}>
+    <Button
+      _hover={{ color: 'orange.700' }}
+      bg="transparent"
+      onClick={onClick}
+      size={['xs', 'md']}
+    >
       {children}
     </Button>
   )
@@ -110,9 +116,9 @@ export const Scheduler = ({
   const formatedDate = `${date.getFullYear()}年${date.getMonth() + 1}月`
 
   return (
-    <Container textAlign="center">
+    <Container bgSize="contain" textAlign="center">
       <Flex alignItems="center" justify="space-between" px={5}>
-        <Flex bg="gray.200" borderRadius={10} color="orange.400" m={1}>
+        <Flex bg="gray.200" borderRadius={10} color={COLORS.orange} m={1}>
           <DateSelectButton onClick={handleClickPrevButton}>
             {'<'}
           </DateSelectButton>

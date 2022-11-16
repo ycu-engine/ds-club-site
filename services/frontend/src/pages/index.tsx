@@ -1,4 +1,4 @@
-import { Container, Flex, Spinner, useToast } from '@chakra-ui/react'
+import { Center, Flex, Spinner, useToast } from '@chakra-ui/react'
 import { DefaultLayout } from '../components/Layout/DefaultLayout'
 import dynamic from 'next/dynamic'
 import type { SchedulerProps } from '../modules/scheduler/Scheduler'
@@ -12,6 +12,8 @@ import {
   useHomeQuery,
 } from '../generates/graphql'
 import { filter } from 'graphql-anywhere'
+import TopLogo from '../assets/images/topPage/top_logo.png'
+import { FadeInImage } from '../components/Image/FadeInImage'
 import { Loading } from '../components/Layout/Loading'
 
 // https://nextjs.org/docs/advanced-features/dynamic-import#example
@@ -20,14 +22,9 @@ const Scheduler = dynamic<SchedulerProps>(
   () => import('../modules/scheduler/Scheduler').then((mod) => mod.Scheduler),
   {
     loading: () => (
-      <Container
-        alignItems="center"
-        display="flex"
-        h="60vh"
-        justifyContent="center"
-      >
+      <Center h="60vh">
         <Spinner size="lg" />
-      </Container>
+      </Center>
     ),
 
     ssr: false,
@@ -58,6 +55,8 @@ const HomePage = () => {
 
   return (
     <DefaultLayout>
+      <FadeInImage src={TopLogo} />
+
       <Flex direction={['column', 'row']} justifyContent="space-between" p={5}>
         <NewsTab
           isLoading={loading}
