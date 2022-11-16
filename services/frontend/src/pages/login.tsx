@@ -20,6 +20,7 @@ import Logo from '../assets/images/icon.png'
 import { auth } from '../clients/firebase'
 import { InputBox } from '../components/InputForm/InputBox'
 import { InputPasswordBox } from '../components/InputForm/InputPasswordBox'
+import Head from 'next/head'
 
 type LoginForm = {
   userName: string
@@ -43,6 +44,10 @@ const Page = () => {
 
   return (
     <DefaultLayout authenticated={false} hideHeader>
+      <Head>
+        <title>ログイン</title>
+      </Head>
+
       <Container mt="5%" w="100%">
         <VStack align="center">
           <Image
