@@ -1,11 +1,11 @@
-import { AdminOnly } from '../../../modules/admin/components/AdminOnly'
-import { MemberInfoPage } from '../../../modules/admin/pages/MemberInfo/MemberInfoPage'
+import { AdminOnlyLayout } from '../../../modules/userFilter/layouts/AdminOnlyLayout/AdminOnlyLayout'
+import { MemberInfoPage } from '../../../modules/admin/MemberInfo/MemberInfoPage'
 
 const Page = () => {
   return (
-    <AdminOnly>
+    <AdminOnlyLayout>
       <MemberInfoPage />
-    </AdminOnly>
+    </AdminOnlyLayout>
   )
 }
 export default Page

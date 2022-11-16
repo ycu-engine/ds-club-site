@@ -8,7 +8,7 @@ import {
 import type { NextPage } from 'next'
 import NextLink from 'next/link'
 import { DefaultLayout } from '../../components/Layout/DefaultLayout'
-import { AdminOnly } from '../../modules/admin/components/AdminOnly'
+import { AdminOnlyLayout } from '../../modules/userFilter/layouts/AdminOnlyLayout/AdminOnlyLayout'
 
 const links = [
   { href: '/admin/trial-management', label: '体験入会管理ページ' },
@@ -16,7 +16,7 @@ const links = [
 ]
 const Page: NextPage = () => {
   return (
-    <AdminOnly>
+    <AdminOnlyLayout>
       <DefaultLayout>
         <Container>
           <Heading my="5">管理者ページ</Heading>
@@ -40,7 +40,7 @@ const Page: NextPage = () => {
           </UnorderedList>
         </Container>
       </DefaultLayout>
-    </AdminOnly>
+    </AdminOnlyLayout>
   )
 }
 

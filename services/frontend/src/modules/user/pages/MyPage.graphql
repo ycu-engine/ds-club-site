@@ -6,5 +6,8 @@ query MyPage($userId: ID!) {
       currentRank
       roles
     }
+    studyLogs {
+      ...StudyLog_StudyLogGraph
+    }
   }
 }
