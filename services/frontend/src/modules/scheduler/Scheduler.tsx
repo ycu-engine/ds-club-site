@@ -17,7 +17,7 @@ import { SchedulerFragment, UserRole } from '../../generates/graphql'
 import type { EventObject } from '@toast-ui/calendar/types/types/events.d.ts'
 import type { DocumentNode } from '@apollo/client'
 import { COLORS } from '../../theme'
-import { RoleOnlyWrapper } from '../roles/RoleOnlyWrapper'
+import { RoleOnlyWrapper } from 'modules/userFilter/wrappers/RoleOnlyWrapper/RoleOnlyWrapper'
 
 type DateSelectButtonProps = {
   onClick: () => void
