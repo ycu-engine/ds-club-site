@@ -1,16 +1,17 @@
 import { Box, Heading } from '@chakra-ui/react'
+import Head from 'next/head'
 import { DefaultLayout } from '../components/Layout/DefaultLayout'
 // import { useState } from 'react'
 
 const Page = () => {
   return (
     <DefaultLayout authenticated={false}>
-      {/* <Text>あいうえお</Text> */}
+      <Head>
+        <title>会員規約・プライバシーポリシー</title>
+      </Head>
 
       <Box justifyContent="center" p={5}>
         <Heading m={2}>会員規約</Heading>
-
-        {/* sandboxのエラーは解決するのが難しそう */}
 
         <Box
           as="iframe"

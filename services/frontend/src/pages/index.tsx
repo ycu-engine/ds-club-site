@@ -15,6 +15,7 @@ import { filter } from 'graphql-anywhere'
 import TopLogo from '../assets/images/topPage/top_logo.png'
 import { FadeInImage } from '../components/Image/FadeInImage'
 import { Loading } from '../components/Layout/Loading'
+import Head from 'next/head'
 
 // https://nextjs.org/docs/advanced-features/dynamic-import#example
 // react18なので、Suspenseを使うことが推奨されているがエラーが出るので、loadingを使う
@@ -55,6 +56,33 @@ const HomePage = () => {
 
   return (
     <DefaultLayout>
+      <Head>
+        <title>データサイエンス倶楽部公式サイト</title>
+
+        <meta
+          content="データサイエンス倶楽部の公式サイトです。"
+          name="description"
+        />
+
+        <meta content="データサイエンス倶楽部公式サイト" property="og:title" />
+
+        <meta
+          content="データサイエンス倶楽部の公式サイトです。"
+          property="og:description"
+        />
+
+        <meta content="https://datascience-club.jp/" property="og:url" />
+
+        <meta content={TopLogo.src} property="og:image" />
+
+        <meta
+          content="データサイエンス倶楽部公式サイト"
+          property="og:site_name"
+        />
+
+        <meta content="website" property="og:type" />
+      </Head>
+
       <FadeInImage src={TopLogo} />
 
       <Flex direction={['column', 'row']} justifyContent="space-between" p={5}>
