@@ -17,7 +17,6 @@ import { SchedulerFragment, UserRole } from '../../generates/graphql'
 import type { EventObject } from '@toast-ui/calendar/types/types/events.d.ts'
 import type { DocumentNode } from '@apollo/client'
 import { COLORS } from '../../theme'
-import CalenderBgImage from '../../assets/images/topPage/calender_bg.png'
 import { RoleOnlyWrapper } from '../roles/RoleOnlyWrapper'
 
 type DateSelectButtonProps = {
@@ -117,7 +116,7 @@ export const Scheduler = ({
   const formatedDate = `${date.getFullYear()}年${date.getMonth() + 1}月`
 
   return (
-    <Container bgImg={CalenderBgImage.src} bgSize="contain" textAlign="center">
+    <Container bgSize="contain" textAlign="center">
       <Flex alignItems="center" justify="space-between" px={5}>
         <Flex bg="gray.200" borderRadius={10} color={COLORS.orange} m={1}>
           <DateSelectButton onClick={handleClickPrevButton}>

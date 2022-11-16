@@ -4,7 +4,7 @@ import Image, { StaticImageData, ImageProps } from 'next/image'
 type FadeInImageProps = {
   src: StaticImageData
   duration?: number | string
-} & ImageProps
+} & Omit<ImageProps, 'src'>
 export const FadeInImage = ({
   src,
   duration = 1,
