@@ -1,0 +1,11 @@
+mutation CancelDialog($userId: ID!) {
+  deleteTrialUser(userId: $userId) {
+    id
+  }
+}
+
+mutation EnrollDialog($userId: ID!) {
+  enrollTrialUser(userId: $userId) {
+    id
+  }
+}

@@ -1,5 +1,0 @@
-query TrialManagementPage($userId: ID!) {
-  getUser(id: $userId) {
-    roles
-  }
-}

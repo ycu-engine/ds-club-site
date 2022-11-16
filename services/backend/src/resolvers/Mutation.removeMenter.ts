@@ -1,6 +1,6 @@
 import { UserRole } from '../generates/graphql'
 import type { MutationResolvers } from '../generates/graphql'
-import { updateUser } from '../modules/user'
+import { updateRegularUser } from '../modules/regularUser'
 
 export const removeMenterResolver: NonNullable<
   MutationResolvers['removeMenter']
@@ -15,5 +15,5 @@ export const removeMenterResolver: NonNullable<
   ) {
     throw new Error('権限がありません')
   }
-  return await updateUser(userId, { menterId: null })
+  return await updateRegularUser(userId, { menterId: null })
 }

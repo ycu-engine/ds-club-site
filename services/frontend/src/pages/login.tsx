@@ -8,7 +8,7 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth'
-import { DefaultLayout } from '../components/DefaultLayout'
+import { DefaultLayout } from '../components/Layout/DefaultLayout'
 
 import { ErrorMessage } from '@hookform/error-message'
 import Image from 'next/image'
@@ -121,10 +121,7 @@ const Page = () => {
           <Flex direction="column" justify="center" mt={4}>
             <Text lineHeight="3">活動に興味がありますか？</Text>
 
-            <NextLink
-              href="https://datascienceclubjp.wixsite.com/home/%E5%8F%82%E5%8A%A0%E7%94%B3%E3%81%97%E8%BE%BC%E3%81%BF"
-              passHref
-            >
+            <NextLink href="/trial-application" passHref>
               <Link color="#D9376E" fontSize="xs">
                 体験入会をする
               </Link>

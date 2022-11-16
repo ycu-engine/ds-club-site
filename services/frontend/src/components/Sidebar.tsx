@@ -16,6 +16,8 @@ import { SidebarButton } from './Button/SidebarButton'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../clients/firebase'
 import { COLORS } from '../theme'
+import { RoleOnlyWrapper } from '../modules/roles/RoleOnlyWrapper'
+import { UserRole } from '../generates/graphql'
 
 type SidebarProps = {
   isOpen: boolean
@@ -25,14 +27,13 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const [user, _loading] = useAuthState(auth)
   const button_contents = [
     { link: user ? `/users/${user.uid}/mypage` : '/login', text: '個人ページ' },
-    { link: user ? `/users/${user.uid}/weekly` : '/login', text: '週目標' },
     {
       link: user ? `/users/${user.uid}/study-log` : '/login',
       text: '学習記録',
     },
     { link: '/materials', text: '教材' },
-    { link: '/test', text: 'テスト' },
-    { link: '/documents', text: '資料' },
+    // { link: '/test', text: 'テスト' },
+    { link: '/view-terms', text: '会員規約等' },
   ]
 
   return (
@@ -55,21 +56,23 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
             </Flex>
           </DrawerHeader>
 
-          <DrawerBody>
-            <VStack p={5} spacing={10}>
-              {/* ボタンをmapで追加 */}
+          <DrawerBody as={VStack} p={5} spacing={10}>
+            {/* ボタンをmapで追加 */}
 
-              {button_contents.map((button_content) => {
-                return (
-                  <SidebarButton
-                    key={button_content.link}
-                    link={button_content.link}
-                  >
-                    {button_content.text}
-                  </SidebarButton>
-                )
-              })}
-            </VStack>
+            {button_contents.map((button_content) => {
+              return (
+                <SidebarButton
+                  key={button_content.link}
+                  link={button_content.link}
+                >
+                  {button_content.text}
+                </SidebarButton>
+              )
+            })}
+
+            <RoleOnlyWrapper roles={UserRole.Admin}>
+              <SidebarButton link="/admin">管理者ページ</SidebarButton>
+            </RoleOnlyWrapper>
           </DrawerBody>
         </Container>
       </DrawerContent>

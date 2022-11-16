@@ -1,4 +1,4 @@
-schema: ../backend/schema.graphql
+schema: ./schema.graphql
 
 generates:
   src/generates/graphql.ts:

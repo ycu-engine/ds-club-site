@@ -1,4 +1,4 @@
-import { DefaultLayout } from '../../../components/DefaultLayout'
+import { DefaultLayout } from '../../../components/Layout/DefaultLayout'
 import { Box, Flex, Heading, Text, Container } from '@chakra-ui/react'
 import Image from 'next/image'
 import Rank from '../../../assets/images/eva.png'
@@ -47,7 +47,7 @@ export const MyPage = () => {
               <Heading color={COLORS.pink}>段位:</Heading>
 
               <Heading color={COLORS.black}>
-                {data.getUser?.currentRank}
+                {/* {data.getUser?.currentRank} */}
               </Heading>
             </Flex>
 
@@ -75,7 +75,7 @@ export const MyPage = () => {
             >
               会員：
               <Text as="span" color={COLORS.black}>
-                {data.getUser?.roles}
+                {/* {data.getUser?.roles} */}
               </Text>
             </Text>
           </Box>

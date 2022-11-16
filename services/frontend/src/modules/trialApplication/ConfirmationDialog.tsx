@@ -6,7 +6,6 @@ import {
   AlertDialogHeader,
   AlertDialogBody,
   AlertDialogFooter,
-  useToast,
   TableContainer,
   Tbody,
   Td,
@@ -16,18 +15,14 @@ import {
   Table,
 } from '@chakra-ui/react'
 import { useRef } from 'react'
+import type { TrialApplicationForm } from './pages/SubmitTrialApplicationPage'
 
-type UserType = {
-  id: string
-  name: string
-  trialEndDate: string
-  trialStartDate: string
+type InfoTableProps = {
+  trialApplication: TrialApplicationForm
 }
-
-type UserInfoTableProps = {
-  user: UserType | null
-}
-const UserInfoTable = ({ user }: UserInfoTableProps) => {
+const InfoTable = ({
+  trialApplication: { name, email, affiliation },
+}: InfoTableProps) => {
   return (
     <TableContainer>
       <Table>
@@ -35,76 +30,80 @@ const UserInfoTable = ({ user }: UserInfoTableProps) => {
           <Tr>
             <Th>名前</Th>
 
-            <Td>{user?.name}</Td>
+            <Td>{name}</Td>
           </Tr>
 
           <Tr>
-            <Th>体験入会開始日</Th>
+            <Th>メールアドレス</Th>
 
-            <Td>{user?.trialStartDate}</Td>
+            <Td>{email}</Td>
           </Tr>
 
           <Tr>
-            <Th>体験入会終了日</Th>
+            <Th>所属</Th>
 
-            <Td>{user?.trialEndDate}</Td>
+            <Td>{affiliation}</Td>
           </Tr>
         </Tbody>
 
         <TableCaption>
-          本当にキャンセルしますか？この操作は取り消せません。
+          上記の内容で間違いはないですか？この操作は取り消せません。
         </TableCaption>
       </Table>
     </TableContainer>
   )
 }
 
-type CancelDialogProps = {
+type ConfirmDialogProps = {
   isOpen: boolean
   onClose: () => void
-  user: UserType | null
+  trialApplicationInfo: TrialApplicationForm
+  onSubmit: () => void
+  formId: string
+  isLoading: boolean
 }
-export const CanselDialog = ({ isOpen, onClose, user }: CancelDialogProps) => {
+export const ConfirmDialog = ({
+  isOpen,
+  onClose,
+  trialApplicationInfo,
+  onSubmit,
+  formId,
+  isLoading,
+}: ConfirmDialogProps) => {
   const cancelRef = useRef(null)
-  const toast = useToast()
-  const handleClickCanselButton = () => {
-    onClose()
-    toast({
-      duration: 3000,
-      isClosable: true,
-      status: 'success',
-      title: 'キャンセルしました',
-    })
-  }
 
   return (
     <>
       <AlertDialog
+        closeOnOverlayClick={false}
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}
         onClose={onClose}
+        size="xl"
       >
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              体験入会キャンセル確認画面
+              確認画面
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              <UserInfoTable user={user} />
+              <InfoTable trialApplication={trialApplicationInfo} />
             </AlertDialogBody>
 
             <AlertDialogFooter>
-              <Button onClick={onClose} ref={cancelRef}>
+              <Button isDisabled={isLoading} onClick={onClose} ref={cancelRef}>
                 戻る
               </Button>
 
               <Button
                 colorScheme="red"
+                form={formId}
+                isLoading={isLoading}
                 ml={3}
-                onClick={handleClickCanselButton}
+                onClick={onSubmit}
               >
-                キャンセルする
+                申請する
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

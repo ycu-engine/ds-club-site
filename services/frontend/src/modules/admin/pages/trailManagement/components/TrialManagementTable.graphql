@@ -1,0 +1,15 @@
+fragment TrialManagementTable on TrialUser {
+  id
+  name
+  email
+  createdAt
+  expiredAt
+  disabled
+}
+
+mutation EnableTrialUser($userId: ID!) {
+  enableTrialUser(userId: $userId) {
+    id
+    disabled
+  }
+}

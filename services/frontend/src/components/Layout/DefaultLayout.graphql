@@ -1,0 +1,5 @@
+query DefaultLayout($userId: ID!) {
+  getUser(id: $userId) {
+    name
+  }
+}

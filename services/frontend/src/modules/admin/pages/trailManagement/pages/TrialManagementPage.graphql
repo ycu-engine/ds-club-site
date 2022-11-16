@@ -1,0 +1,5 @@
+query TrialManagementPage {
+  getTrialUsers(orderBy: "createdAt", order: "asc") {
+    ...TrialManagementTable
+  }
+}

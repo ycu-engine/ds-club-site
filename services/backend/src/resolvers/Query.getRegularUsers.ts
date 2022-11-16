@@ -1,10 +1,9 @@
 import type { QueryResolvers } from '../generates/graphql'
-import { listUsers } from '../modules/user'
+import { listRegularUsers } from '../modules/regularUser'
 
 export const getRegularUsersResolver: NonNullable<
   QueryResolvers['getRegularUsers']
 > = async () => {
-  const users = await listUsers()
-  // 実際はDBから取得するが、仮で値を返す
+  const users = await listRegularUsers()
   return users
 }
