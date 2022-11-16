@@ -6,6 +6,7 @@ import {
   UnorderedList,
 } from '@chakra-ui/react'
 import type { NextPage } from 'next'
+import Head from 'next/head'
 import NextLink from 'next/link'
 import { DefaultLayout } from '../../components/Layout/DefaultLayout'
 import { AdminOnlyLayout } from '../../modules/userFilter/layouts/AdminOnlyLayout/AdminOnlyLayout'
@@ -18,6 +19,10 @@ const Page: NextPage = () => {
   return (
     <AdminOnlyLayout>
       <DefaultLayout>
+        <Head>
+          <title>管理者ページ</title>
+        </Head>
+
         <Container>
           <Heading my="5">管理者ページ</Heading>
 
