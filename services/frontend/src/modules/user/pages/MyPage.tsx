@@ -1,13 +1,18 @@
-import { Box, Flex, Heading, Text, Container } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, AspectRatio } from '@chakra-ui/react'
 import Image from 'next/image'
 import Rank from '../../../assets/images/eva.png'
 import DS from '../../../assets/images/DS_degree.png'
 import Engi from '../../../assets/images/Engineering_degree.png'
 import Sta from '../../../assets/images/Statistics_degree.png'
-import Learn from '../../../assets/images/learning_time.png'
 import { COLORS } from '../../../theme'
-import { useMyPageQuery } from '../../../generates/graphql'
+import {
+  StudyLog_StudyLogGraphFragment,
+  StudyLog_StudyLogGraphFragmentDoc,
+  useMyPageQuery,
+} from '../../../generates/graphql'
 import { Loading } from 'components/Layout/Loading'
+import { StudyLogSpan } from 'modules/studyLog/components/StudyLogSpan'
+import { filter } from 'graphql-anywhere'
 
 type MyPageProps = {
   userId: string
@@ -28,38 +33,38 @@ export const MyPage = ({ userId }: MyPageProps) => {
   }
 
   return (
-    <Box pb={10} pt={10} px={10} py={10}>
-      {/* 一列目 */}
-
+    <Box p={10}>
       <Flex
         align="center"
+        alignContent="center"
         direction={{ base: 'column-reverse', lg: 'row' }}
+        gap={10}
         justify="space-around"
       >
-        {/* 左の要素について */}
+        <Box
+          bg={COLORS.white}
+          borderRadius="3xl"
+          p={5}
+          textAlign="center"
+          w={{ base: '100%', lg: '50%' }}
+        >
+          <Heading color={COLORS.black}>
+            <Text as="span" color={COLORS.pink}>
+              段位:{' '}
+            </Text>
 
-        <Container bg="#FFFFFE" borderRadius="3xl" mx="auto" p={2}>
-          <Flex justify="center">
-            <Heading color={COLORS.pink}>段位:</Heading>
+            {data.getUser?.__typename === 'RegularUser'
+              ? data.getUser.currentRank
+              : '未登録'}
+          </Heading>
 
-            <Heading color={COLORS.black}>
-              {data.getUser?.__typename === 'RegularUser'
-                ? data.getUser.currentRank
-                : '未登録'}
-            </Heading>
-          </Flex>
+          <AspectRatio maxW="300px" mx="auto" ratio={1}>
+            <Image src={Rank} />
+          </AspectRatio>
+        </Box>
 
-          <Image src={Rank} />
-        </Container>
-
-        {/* 右の要素について */}
-
-        <Box bg="#FFFFFE" borderRadius="3xl" m={5} maxH="32" p={2}>
-          <Text
-            color={COLORS.pink}
-            fontSize={{ base: '2xl', lg: '3xl' }}
-            minW="24"
-          >
+        <Box bg={COLORS.white} borderRadius="3xl" p={10}>
+          <Text color={COLORS.pink} fontSize={{ base: '2xl', lg: '3xl' }}>
             名前：
             <Text as="span" color={COLORS.black}>
               {data.getUser?.name}
@@ -81,27 +86,26 @@ export const MyPage = ({ userId }: MyPageProps) => {
         </Box>
       </Flex>
 
-      {/* 二列目 */}
-
       <Flex
         align="center"
         direction={{ base: 'column', lg: 'row' }}
+        gap={10}
         justify="space-around"
         mt={8}
       >
-        <Container
+        <Box
           alignItems="center"
           as="section"
           bg="#0D0D0D"
           borderRadius="3xl"
-          mx="auto"
           p={3}
+          w={{ base: '100%', lg: '50%' }}
         >
-          <Heading color="#FFFFFE" textAlign="center">
+          <Heading color={COLORS.white} textAlign="center">
             称号
           </Heading>
 
-          <Flex justify="space-around" mx="auto">
+          <Flex gap={3} justify="space-around" mx="auto">
             <Box bg="transparent">
               <Image objectFit="contain" src={DS} />
             </Box>
@@ -115,16 +119,18 @@ export const MyPage = ({ userId }: MyPageProps) => {
             </Box>
           </Flex>
 
-          <Heading color="#FFFFFE" textAlign="center">
+          <Heading color={COLORS.white} textAlign="center">
             あと1つで称号獲得!
           </Heading>
-        </Container>
-
-        <Box bg="#FFFFFE" borderRadius="3xl" ml={5} mt={5}>
-          <Heading textAlign="center">学習時間の記録</Heading>
-
-          <Image src={Learn} />
         </Box>
+
+        <StudyLogSpan
+          data={filter<StudyLog_StudyLogGraphFragment[]>(
+            StudyLog_StudyLogGraphFragmentDoc,
+            data.getUser?.studyLogs,
+          )}
+          w={{ base: '100%', lg: '50%' }}
+        />
       </Flex>
     </Box>
   )

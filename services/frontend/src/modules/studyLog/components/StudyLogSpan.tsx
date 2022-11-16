@@ -1,5 +1,6 @@
 import {
   Box,
+  BoxProps,
   Center,
   FormControl,
   FormErrorMessage,
@@ -46,8 +47,8 @@ type setSpanForm = {
 
 type StudyLogSpanProps = {
   data: StudyLog_StudyLogGraphFragment[]
-}
-export const StudyLogSpan = ({ data }: StudyLogSpanProps) => {
+} & BoxProps
+export const StudyLogSpan = ({ data, ...props }: StudyLogSpanProps) => {
   const {
     register,
     formState: { errors },
@@ -78,6 +79,7 @@ export const StudyLogSpan = ({ data }: StudyLogSpanProps) => {
       borderWidth="2px"
       overflow="hidden"
       p="12px"
+      {...props}
     >
       <Text fontSize={32}>学習時間の記録</Text>
 
