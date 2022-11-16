@@ -4,7 +4,10 @@ import { getIdToken } from 'firebase/auth'
 import { auth } from './firebase'
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri:
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:4000/graphql'
+      : 'https://backend-5kn7a6bhsa-uc.a.run.app/graphql',
 })
 
 const authLink = setContext(async (_, { headers }) => {

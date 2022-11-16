@@ -5,57 +5,66 @@ import {
   TabPanels,
   Tab,
   Heading,
-  Container,
   TabPanel,
   Text,
   Spinner,
-  BoxProps,
+  ContainerProps,
+  Circle,
+  AspectRatio,
 } from '@chakra-ui/react'
 import type { ReactNode } from 'react'
 import type { NewsTabFragment } from '../../generates/graphql'
+import NewsBgImage from '../../assets/images/topPage/info_bg.png'
 
 type NewsTabWrapperProps = {
   children?: ReactNode
-} & BoxProps
-const NewsTabWrapper = ({ children, ...props }: NewsTabWrapperProps) => {
+} & ContainerProps
+const NewsTabWrapper = ({
+  children,
+  ...containerProps
+}: NewsTabWrapperProps) => {
   return (
-    <Container py="5" w="40vw">
+    <AspectRatio
+      bgImg={NewsBgImage.src}
+      bgPosition="center"
+      bgRepeat="no-repeat"
+      bgSize="contain"
+      height="100%"
+      justifyContent="center"
+      minW="50%"
+      overflow="hidden"
+      ratio={NewsBgImage.width / NewsBgImage.height}
+      {...containerProps}
+    >
       <Tabs
-        border="1px solid black"
-        borderRadius="20"
         colorScheme="green"
+        display="flex"
+        flexDir="column"
+        h="70%"
         isManual={false}
-        p="5"
+        maxW="70%"
+        mx="auto"
+        pt="10%"
         variant="soft-rounded"
       >
-        <Heading fontSize={['xl', '2xl', '3xl']}>お知らせ</Heading>
-
-        <Box
-          border="1px solid black"
-          borderRadius="20"
-          h="50vh"
-          m={['2,', '5']}
-          {...props}
-        >
-          {children}
-        </Box>
+        {children}
       </Tabs>
-    </Container>
+    </AspectRatio>
   )
 }
 
 type NewsTabProps = {
   newsList?: NewsTabFragment[]
   isLoading: boolean
-}
-export const NewsTab = ({ newsList, isLoading: loading }: NewsTabProps) => {
+} & ContainerProps
+export const NewsTab = ({
+  newsList,
+  isLoading: loading,
+  ...containerProps
+}: NewsTabProps) => {
   if (loading) {
     return (
-      <NewsTabWrapper
-        alignItems="center"
-        display="flex"
-        justifyContent="center"
-      >
+      <NewsTabWrapper {...containerProps}>
         <Spinner size="lg" />
       </NewsTabWrapper>
     )
@@ -63,7 +72,7 @@ export const NewsTab = ({ newsList, isLoading: loading }: NewsTabProps) => {
 
   if (!newsList || newsList.length === 0) {
     return (
-      <NewsTabWrapper>
+      <NewsTabWrapper {...containerProps}>
         <Heading fontSize="lg" p="5">
           現在お知らせはありません
         </Heading>
@@ -71,31 +80,46 @@ export const NewsTab = ({ newsList, isLoading: loading }: NewsTabProps) => {
     )
   }
   return (
-    <NewsTabWrapper>
-      <TabPanels h="50vh" overflow="scroll" p="5">
+    <NewsTabWrapper {...containerProps}>
+      <TabPanels
+        borderColor="black"
+        borderRadius="3xl"
+        borderWidth={['thin', 'medium']}
+        h="65%"
+        overflow="scroll"
+        w="50%"
+      >
         {newsList.map((news) => {
           return (
             <TabPanel key={news.title}>
               <Box>
-                <Heading fontSize={['xl', '2xl', '3xl']}>{news.title}</Heading>
+                <Heading fontSize={['lg', 'xl']}>{news.title}</Heading>
 
-                <Text>{news.body}</Text>
+                <Text fontSize={['xs', 'sm']} px="1">
+                  {news.body}
+                </Text>
               </Box>
             </TabPanel>
           )
         })}
       </TabPanels>
 
-      <TabList justifyContent="center">
+      <TabList justifyContent="center" pt="2">
         {newsList.map((news) => {
           return (
             <Tab
               _focus={{ outline: 'none' }}
-              _selected={{ bg: 'blackAlpha.200', color: 'red' }}
+              _hover={{ cursor: 'pointer' }}
+              _selected={{ bg: 'black' }}
+              as={Circle}
+              borderColor="black"
+              borderRadius="full"
+              borderWidth="thin"
               key={news.title}
-            >
-              ・
-            </Tab>
+              mx="2"
+              p="0"
+              size={['15px', '20px']}
+            />
           )
         })}
       </TabList>
