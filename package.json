@@ -6,11 +6,6 @@
   "author": "YutaUra <yuuta3594@outlook.jp>",
   "license": "MIT",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "services/*"
-    ]
-  },
   "scripts": {
     "dev": "run-p dev:*",
     "dev:backend": "yarn --cwd services/backend dev",
