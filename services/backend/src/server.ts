@@ -6,6 +6,7 @@ import { createSchema } from './schema'
 export const createServer = async () => {
   return new ApolloServer({
     context: createContext,
+    debug: true,
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
     schema: await createSchema(),
   })
