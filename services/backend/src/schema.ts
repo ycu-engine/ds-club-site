@@ -35,7 +35,7 @@ import { studyLogsResolver } from './resolvers/User.studyLogs'
 import { menterResolver } from './resolvers/User.menter'
 import { menteeResolver } from './resolvers/RegularUser.mentee'
 
-const resolvers: Resolvers = {
+export const resolvers: Resolvers = {
   Date: DateResolver,
   DateTime: DateTimeResolver,
   Mutation: {
