@@ -29,6 +29,7 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: yarn
+        working-directory: services/frontend
       - name: Codegen
         run: yarn graphql-codegen
         working-directory: services/frontend
@@ -46,6 +47,7 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: yarn
+        working-directory: services/frontend
       - name: Codegen
         run: yarn graphql-codegen
         working-directory: services/frontend
@@ -63,6 +65,7 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: yarn
+        working-directory: services/backend
       - name: Codegen
         run: yarn graphql-codegen
         working-directory: services/backend
@@ -80,6 +83,7 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: yarn
+        working-directory: services/backend
       - name: Codegen
         run: yarn graphql-codegen
         working-directory: services/backend
