@@ -17,7 +17,7 @@
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@graphql-codegen/add": "^3.2.0",
-    "@graphql-codegen/cli": "^2.10.0",
+    "@graphql-codegen/cli": "^2.13.12",
     "@graphql-codegen/typescript": "^2.7.2",
     "@graphql-codegen/typescript-document-nodes": "^2.3.2",
     "@graphql-codegen/typescript-operations": "^2.5.2",
