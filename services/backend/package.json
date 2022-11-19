@@ -12,10 +12,12 @@
     "copy-schema": "copy-and-watch --watch ./schema.graphql ../frontend"
   },
   "dependencies": {
+    "@google-cloud/local-auth": "2.1.0",
     "@graphql-tools/graphql-file-loader": "^7.4.0",
     "@graphql-tools/load": "^7.7.0",
     "apollo-server": "^3.11.1",
     "firebase-admin": "^11.0.0",
+    "googleapis": "105",
     "graphql": "^16.5.0",
     "graphql-scalars": "^1.18.0",
     "zod": "^3.17.10"
