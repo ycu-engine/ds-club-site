@@ -1,13 +1,13 @@
-import { ApolloServer } from 'apollo-server'
-import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core'
-import { createContext } from './context'
-import { createSchema } from './schema'
+import { ApolloServer } from '@apollo/server'
+import { ApolloServerPluginLandingPageGraphQLPlayground } from '@apollo/server-plugin-landing-page-graphql-playground'
+import type { Context } from './context'
+import { createSchema, resolvers } from './schema'
 
 export const createServer = async () => {
-  return new ApolloServer({
-    context: createContext,
-    debug: true,
+  const schema = await createSchema()
+  return new ApolloServer<Context>({
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
-    schema: await createSchema(),
+    resolvers,
+    typeDefs: schema,
   })
 }
