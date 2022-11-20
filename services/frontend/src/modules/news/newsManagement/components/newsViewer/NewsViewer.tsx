@@ -63,12 +63,13 @@ export const NewsViewer = ({ newsList }: NewsViewerProps) => {
     }
   }
   const [isEditabled, setIsEditabled] = useBoolean(false)
-  const toast = useToast()
-  const [newsViewerUpdateNewsMutation, { loading }] =
-    useNewsViewer_UpdateNewsMutation({})
+
   const { register, setValue, handleSubmit, reset } = useForm<UpdateNewsInput>()
-  const onSubmit: SubmitHandler<UpdateNewsInput> = async (form) => {
-    const updatedNews = await newsViewerUpdateNewsMutation({
+
+  const toast = useToast()
+
+  const [newsViewerUpdateNewsMutation, { loading }] =
+    useNewsViewer_UpdateNewsMutation({
       onCompleted: () => {
         toast({
           duration: 3000,
@@ -87,6 +88,10 @@ export const NewsViewer = ({ newsList }: NewsViewerProps) => {
         })
         console.error(error)
       },
+    })
+
+  const onSubmit: SubmitHandler<UpdateNewsInput> = async (form) => {
+    const updatedNews = await newsViewerUpdateNewsMutation({
       variables: {
         id: selectedNews?.id || '',
         input: form,
