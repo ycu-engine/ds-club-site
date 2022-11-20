@@ -17,4 +17,5 @@ generates:
         RegularUser: ../modules/regularUser/types#UserModelMapper
         TrialUser: ../modules/trialUser/types#TrialUserModelMapper
         StudyLog: ../modules/studyLog/types#StudyLogModelMapper
+        News: ../modules/news/types#NewsModelMapper
         DateTime: Date

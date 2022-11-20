@@ -34,6 +34,7 @@ import { getUsersResolver } from './resolvers/Query.getUsers'
 import { studyLogsResolver } from './resolvers/User.studyLogs'
 import { menterResolver } from './resolvers/User.menter'
 import { menteeResolver } from './resolvers/RegularUser.mentee'
+import { updateNewsResolver } from './resolvers/Mutation.updateNews'
 
 export const resolvers: Resolvers = {
   Date: DateResolver,
@@ -53,6 +54,7 @@ export const resolvers: Resolvers = {
     enrollTrialUser: enrollTrialUserResolver,
     removeMenter: removeMenterResolver,
     submitTrialApplication: submitTrialApplicationResolver,
+    updateNews: updateNewsResolver,
     updateUserPaymentStatus: updateUserPaymentStatusResolver,
     updateUserRank: updateUserRankResolver,
   },

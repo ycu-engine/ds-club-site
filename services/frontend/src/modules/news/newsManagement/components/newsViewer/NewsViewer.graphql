@@ -5,3 +5,9 @@ fragment NewsViewer on News {
   createdAt
   updatedAt
 }
+
+mutation NewsViewer_updateNews($id: ID!, $input: updateNewsInput!) {
+  updateNews(id: $id, input: $input) {
+    ...NewsViewer
+  }
+}

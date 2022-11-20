@@ -187,6 +187,11 @@ input createNewsInput {
   title: String!
   body: String!
 }
+
+input updateNewsInput {
+  title: String!
+  body: String!
+}
 input createWeeklyRepeatEventInput {
   start: DateTime!
   end: DateTime!
@@ -224,7 +229,7 @@ type Mutation {
   お知らせ
   """
   createNews(input: createNewsInput!): News!
-
+  updateNews(id: ID!, input: updateNewsInput!): News!
   """
   体験入会ユーザー
   """
