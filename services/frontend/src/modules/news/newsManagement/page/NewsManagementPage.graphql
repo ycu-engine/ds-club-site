@@ -1,0 +1,7 @@
+query NewsManagementPage {
+  getNewsList {
+    id
+    title
+    body
+  }
+}
