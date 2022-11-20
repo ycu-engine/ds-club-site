@@ -14,6 +14,7 @@ import { AdminOnlyLayout } from '../../modules/userFilter/layouts/AdminOnlyLayou
 const links = [
   { href: '/admin/trial-management', label: '体験入会管理ページ' },
   { href: '/admin/members', label: 'メンバー一覧ページ' },
+  { href: '/admin/news-management', label: 'お知らせ管理ページ' },
 ]
 const Page: NextPage = () => {
   return (
