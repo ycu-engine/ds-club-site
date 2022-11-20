@@ -1,0 +1,7 @@
+fragment NewsViewer on News {
+  id
+  title
+  body
+  createdAt
+  updatedAt
+}

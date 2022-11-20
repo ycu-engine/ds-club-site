@@ -105,7 +105,7 @@ export const CreateNewsForm = ({ onSubmitCallback }: CreateNewsModalProps) => {
   )
 }
 
-export const MakeNewsModal = () => {
+export const CreateNewsModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <>
@@ -117,7 +117,7 @@ export const MakeNewsModal = () => {
         <ModalOverlay />
 
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>お知らせ作成画面</ModalHeader>
 
           <ModalCloseButton />
 
