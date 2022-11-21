@@ -55,3 +55,13 @@ export const updateNews = async (
   }
   return news
 }
+
+export const deleteNews = async (id: string): Promise<NewsModelMapper> => {
+  const ref = newsCollection.doc(id)
+  const news = await getNews(id)
+  if (!news) {
+    throw new Error('対象のお知らせが存在しません')
+  }
+  await ref.delete()
+  return news
+}

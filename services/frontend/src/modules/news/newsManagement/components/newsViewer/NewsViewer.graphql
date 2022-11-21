@@ -11,3 +11,9 @@ mutation NewsViewer_updateNews($id: ID!, $input: updateNewsInput!) {
     ...NewsViewer
   }
 }
+
+mutation NewsViewer_deleteNews($id: ID!) {
+  deleteNews(id: $id) {
+    ...NewsViewer
+  }
+}

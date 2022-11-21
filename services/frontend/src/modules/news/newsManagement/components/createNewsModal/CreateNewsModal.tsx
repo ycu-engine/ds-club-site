@@ -16,7 +16,10 @@ import {
   VStack,
   useToast,
 } from '@chakra-ui/react'
-import { useCreateNewsModalMutation } from 'generates/graphql'
+import {
+  NewsManagementPageDocument,
+  useCreateNewsModalMutation,
+} from 'generates/graphql'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 type CreateNewsFormValues = {
@@ -49,6 +52,7 @@ export const CreateNewsForm = ({ onSubmitCallback }: CreateNewsModalProps) => {
           title: error?.message,
         })
       },
+      refetchQueries: [NewsManagementPageDocument],
     })
   const {
     register,

@@ -230,6 +230,7 @@ type Mutation {
   """
   createNews(input: createNewsInput!): News!
   updateNews(id: ID!, input: updateNewsInput!): News!
+  deleteNews(id: ID!): News!
   """
   体験入会ユーザー
   """

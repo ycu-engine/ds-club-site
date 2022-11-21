@@ -13,12 +13,15 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import {
+  NewsManagementPageDocument,
   NewsViewerFragment,
   UpdateNewsInput,
+  useNewsViewer_DeleteNewsMutation,
   useNewsViewer_UpdateNewsMutation,
 } from 'generates/graphql'
 import { CheckCircleIcon, EditIcon } from '@chakra-ui/icons'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { DeleteButton } from 'components/Button/deleteButton'
 
 type NewsSelecterProps = {
   newsList: NewsViewerFragment[]
@@ -68,7 +71,7 @@ export const NewsViewer = ({ newsList }: NewsViewerProps) => {
 
   const toast = useToast()
 
-  const [newsViewerUpdateNewsMutation, { loading }] =
+  const [newsViewerUpdateNewsMutation, { loading: updateLoading }] =
     useNewsViewer_UpdateNewsMutation({
       onCompleted: () => {
         toast({
@@ -88,6 +91,28 @@ export const NewsViewer = ({ newsList }: NewsViewerProps) => {
         })
         console.error(error)
       },
+    })
+
+  const [newsViewerDeleteNewsMutation, { loading: deleteLoading }] =
+    useNewsViewer_DeleteNewsMutation({
+      onCompleted: () => {
+        toast({
+          duration: 3000,
+          isClosable: true,
+          status: 'success',
+          title: 'お知らせを削除しました',
+        })
+      },
+      onError: (error) => {
+        toast({
+          duration: 3000,
+          isClosable: true,
+          status: 'error',
+          title: error?.message,
+        })
+        console.error(error)
+      },
+      refetchQueries: [NewsManagementPageDocument],
     })
 
   const onSubmit: SubmitHandler<UpdateNewsInput> = async (form) => {
@@ -129,12 +154,27 @@ export const NewsViewer = ({ newsList }: NewsViewerProps) => {
           py="4"
           spacing="4"
         >
+          <Tooltip label="削除">
+            <Box position="absolute" right="14" top="8">
+              <DeleteButton
+                isLoading={deleteLoading}
+                onClick={() => {
+                  setSelectedNews(null)
+                  return newsViewerDeleteNewsMutation({
+                    variables: {
+                      id: selectedNews.id,
+                    },
+                  })
+                }}
+              />
+            </Box>
+          </Tooltip>
+
           <Tooltip label={isEditabled ? '編集を終了' : '編集'}>
             <IconButton
               aria-label="編集"
               colorScheme={isEditabled ? 'blue' : 'gray'}
-              disabled={loading}
-              float="right"
+              disabled={updateLoading}
               icon={<EditIcon />}
               onClick={handleClickEditButton}
               position="absolute"
@@ -147,9 +187,8 @@ export const NewsViewer = ({ newsList }: NewsViewerProps) => {
               <IconButton
                 aria-label="確定"
                 colorScheme="green"
-                float="right"
                 icon={<CheckCircleIcon />}
-                isLoading={loading}
+                isLoading={updateLoading}
                 onClick={handleSubmit(onSubmit)}
                 position="absolute"
                 right="4"
@@ -162,7 +201,7 @@ export const NewsViewer = ({ newsList }: NewsViewerProps) => {
             <FormLabel fontWeight="semibold">タイトル</FormLabel>
 
             <Input
-              disabled={loading}
+              disabled={updateLoading}
               isReadOnly={!isEditabled}
               {...register('title', { minLength: 1 })}
             />
@@ -172,7 +211,7 @@ export const NewsViewer = ({ newsList }: NewsViewerProps) => {
             <FormLabel fontWeight="semibold">本文</FormLabel>
 
             <Textarea
-              disabled={loading}
+              disabled={updateLoading}
               isReadOnly={!isEditabled}
               size="lg"
               {...register('body', { minLength: 1 })}
