@@ -1,27 +1,31 @@
-import { useBoolean } from '@chakra-ui/react'
-import Image, { StaticImageData, ImageProps } from 'next/image'
+import { Box, BoxProps, useBoolean } from '@chakra-ui/react'
+import Image, { ImageProps } from 'next/image'
 
 type FadeInImageProps = {
-  src: StaticImageData
   duration?: number | string
-} & Omit<ImageProps, 'src'>
+  width?: BoxProps['width']
+  height?: BoxProps['height']
+} & Omit<ImageProps, 'width' | 'height'>
 export const FadeInImage = ({
   src,
-  duration = 1,
+  duration = 0.5,
+  width,
+  height,
   ...props
 }: FadeInImageProps) => {
   const [imageLoading, setImageLoading] = useBoolean(true)
   return (
-    <Image
-      height={src.height}
-      layout="responsive"
-      onLoadingComplete={() => setImageLoading.off()}
-      src={src.src}
-      style={
-        imageLoading ? { opacity: 0 } : { transition: `opacity ${duration}s` }
-      }
-      width={src.width}
-      {...props}
-    />
+    <Box h={height || '100%'} position="relative" w={width || '100%'}>
+      <Image
+        layout="fill"
+        objectFit="contain"
+        onLoadingComplete={() => setImageLoading.off()}
+        src={src}
+        style={
+          imageLoading ? { opacity: 0 } : { transition: `opacity ${duration}s` }
+        }
+        {...props}
+      />
+    </Box>
   )
 }
