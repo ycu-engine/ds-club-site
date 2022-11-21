@@ -1,10 +1,10 @@
 import type { MutationResolvers } from '../generates/graphql'
 import { UserRole } from '../generates/graphql'
-import { createNews } from '../modules/news'
+import { updateNews } from '../modules/news'
 
-export const createNewsResolver: MutationResolvers['createNews'] = async (
+export const updateNewsResolver: MutationResolvers['updateNews'] = async (
   _root,
-  { input },
+  { id, input },
   { user },
 ) => {
   if (!user) {
@@ -18,8 +18,7 @@ export const createNewsResolver: MutationResolvers['createNews'] = async (
     throw new Error('権限がありません')
   }
   try {
-    const news = await createNews(input)
-    return news
+    return await updateNews(id, { ...input })
   } catch (error) {
     console.error(error)
     throw new Error('不明なエラーが発生しました')

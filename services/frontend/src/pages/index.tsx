@@ -2,7 +2,7 @@ import { Center, Flex, Spinner, useToast } from '@chakra-ui/react'
 import { DefaultLayout } from '../components/Layout/DefaultLayout'
 import dynamic from 'next/dynamic'
 import type { SchedulerProps } from '../modules/scheduler/Scheduler'
-import { NewsTab } from '../modules/newsTab/NewsTab'
+import { NewsTab } from '../modules/news/newsTab/NewsTab'
 import {
   HomeDocument,
   NewsTabFragment,

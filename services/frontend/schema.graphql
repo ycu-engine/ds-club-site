@@ -98,6 +98,8 @@ type News {
   id: ID!
   title: String!
   body: String!
+  createdAt: Date!
+  updatedAt: Date!
 }
 
 """
@@ -180,6 +182,16 @@ input createEventInput {
   location: String!
   title: String!
 }
+
+input createNewsInput {
+  title: String!
+  body: String!
+}
+
+input updateNewsInput {
+  title: String!
+  body: String!
+}
 input createWeeklyRepeatEventInput {
   start: DateTime!
   end: DateTime!
@@ -216,8 +228,9 @@ type Mutation {
   """
   お知らせ
   """
-  createNews(title: String!, body: String!): News!
-
+  createNews(input: createNewsInput!): News!
+  updateNews(id: ID!, input: updateNewsInput!): News!
+  deleteNews(id: ID!): News!
   """
   体験入会ユーザー
   """

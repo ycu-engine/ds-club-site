@@ -1,0 +1,9 @@
+mutation CreateNewsModal($input: createNewsInput!) {
+  createNews(input: $input) {
+    id
+    title
+    body
+    createdAt
+    updatedAt
+  }
+}

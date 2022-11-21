@@ -29,6 +29,7 @@
     "@tsconfig/strictest": "^1.0.1",
     "@types/node": "18.11.9",
     "concurrently": "^7.3.0",
+    "copy-and-watch": "^0.1.6",
     "dotenv-cli": "^6.0.0",
     "eslint": "^8.28.0",
     "eslint-plugin-team-vals": "^1.0.101",

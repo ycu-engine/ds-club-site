@@ -13,8 +13,8 @@ import {
   AspectRatio,
 } from '@chakra-ui/react'
 import type { ReactNode } from 'react'
-import type { NewsTabFragment } from '../../generates/graphql'
-import NewsBgImage from '../../assets/images/topPage/info_bg.png'
+import type { NewsTabFragment } from '../../../generates/graphql'
+import NewsBgImage from 'assets/images/topPage/info_bg.png'
 
 type NewsTabWrapperProps = {
   children?: ReactNode

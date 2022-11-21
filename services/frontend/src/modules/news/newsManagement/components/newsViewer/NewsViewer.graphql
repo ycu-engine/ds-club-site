@@ -1,0 +1,19 @@
+fragment NewsViewer on News {
+  id
+  title
+  body
+  createdAt
+  updatedAt
+}
+
+mutation NewsViewer_updateNews($id: ID!, $input: updateNewsInput!) {
+  updateNews(id: $id, input: $input) {
+    ...NewsViewer
+  }
+}
+
+mutation NewsViewer_deleteNews($id: ID!) {
+  deleteNews(id: $id) {
+    ...NewsViewer
+  }
+}
