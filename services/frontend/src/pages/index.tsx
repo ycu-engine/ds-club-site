@@ -12,10 +12,9 @@ import {
   useHomeQuery,
 } from '../generates/graphql'
 import { filter } from 'graphql-anywhere'
-import TopLogo from '../assets/images/topPage/top_logo.png'
-import { FadeInImage } from '../components/Image/FadeInImage'
 import { Loading } from '../components/Layout/Loading'
 import Head from 'next/head'
+import { FadeInImage } from 'components/Image/FadeInImage'
 
 // https://nextjs.org/docs/advanced-features/dynamic-import#example
 // react18なので、Suspenseを使うことが推奨されているがエラーが出るので、loadingを使う
@@ -73,7 +72,7 @@ const HomePage = () => {
 
         <meta content="https://datascience-club.jp/" property="og:url" />
 
-        <meta content={TopLogo.src} property="og:image" />
+        <meta content="/images/logo_dsci.png" property="og:image" />
 
         <meta
           content="データサイエンス倶楽部公式サイト"
@@ -83,7 +82,7 @@ const HomePage = () => {
         <meta content="website" property="og:type" />
       </Head>
 
-      <FadeInImage src={TopLogo} />
+      <FadeInImage alt="logo" src="/images/logo_dsci.png" />
 
       <Flex direction={['column', 'row']} justifyContent="space-between" p={5}>
         <NewsTab
