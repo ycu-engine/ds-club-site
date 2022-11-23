@@ -15,6 +15,7 @@ const links = [
   { href: '/admin/trial-management', label: '体験入会管理ページ' },
   { href: '/admin/members', label: 'メンバー一覧ページ' },
   { href: '/admin/news-management', label: 'お知らせ管理ページ' },
+  { href: '/admin/menter-management', label: 'メンター・メンティー管理ページ' },
 ]
 const Page: NextPage = () => {
   return (
