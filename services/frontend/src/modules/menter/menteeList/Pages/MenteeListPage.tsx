@@ -11,7 +11,7 @@ import {
   MenteeListFragment,
   MenteeListFragmentDoc,
   useMenteeListPageQuery,
-} from '../../../generates/graphql'
+} from '../../../../generates/graphql'
 import { MenteeList } from '../conpoments/MenteeList'
 
 type MenteeListWrapperProps = {

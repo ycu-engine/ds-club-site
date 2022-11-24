@@ -2,7 +2,7 @@
 import { Box, Heading, Link, VStack } from '@chakra-ui/react'
 import React from 'react'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
-import type { MenteeListFragment } from '../../../generates/graphql'
+import type { MenteeListFragment } from '../../../../generates/graphql'
 
 type MenteeListProps = {
   result: MenteeListFragment

@@ -1,0 +1,15 @@
+query MenterManagementPage {
+  getRegularUsers {
+    id
+    name
+    menterId
+    mentee {
+      id
+    }
+  }
+  getTrialUsers {
+    id
+    name
+    menterId
+  }
+}
