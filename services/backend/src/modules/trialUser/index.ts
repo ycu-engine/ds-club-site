@@ -79,3 +79,18 @@ export const removeTrialUser = async (
   await trialUserCollection.doc(userId).delete()
   return trialUser
 }
+
+export const updateTrialUser = async (
+  userId: string,
+  obj: Partial<TrialUserModel>,
+): Promise<TrialUserModelMapper | null> => {
+  const trialUser = await getTrialUser(userId)
+  if (!trialUser) {
+    return null
+  }
+  await trialUserCollection.doc(userId).update({
+    ...obj,
+    updatedAt: FieldValue.serverTimestamp(),
+  })
+  return getTrialUser(userId)
+}
