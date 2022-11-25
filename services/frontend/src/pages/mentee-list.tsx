@@ -1,7 +1,7 @@
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { auth } from '../clients/firebase'
 import { DefaultLayout } from '../components/Layout/DefaultLayout'
-import { MenteeListPage } from '../modules/menteeList/Pages/MenteeListPage'
+import { MenteeListPage } from '../modules/menter/menteeList/Pages/MenteeListPage'
 
 const Page = () => {
   const [user, _loading] = useAuthState(auth)

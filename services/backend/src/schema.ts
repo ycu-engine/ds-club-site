@@ -36,6 +36,7 @@ import { menterResolver } from './resolvers/User.menter'
 import { menteeResolver } from './resolvers/RegularUser.mentee'
 import { updateNewsResolver } from './resolvers/Mutation.updateNews'
 import { deleteNewsResolver } from './resolvers/Mutation.deleteNews'
+import { createMenterGroupResolver } from './resolvers/Mutation.createMenterGroup'
 
 export const resolvers: Resolvers = {
   Date: DateResolver,
@@ -43,6 +44,7 @@ export const resolvers: Resolvers = {
   Mutation: {
     addMenter: addMenterResolver,
     createEvent: createEventResolver,
+    createMenterGroup: createMenterGroupResolver,
     createNews: createNewsResolver,
     createStudyLog: createStudyLogResolver,
     createTrialUser: createTrialUserResolver,

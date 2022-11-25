@@ -1,0 +1,21 @@
+query MenterManagementPage {
+  getRegularUsers {
+    id
+    name
+    menterId
+    mentee {
+      id
+    }
+  }
+  getTrialUsers {
+    id
+    name
+    menterId
+  }
+}
+
+mutation MenterManagementPage_CreateMenterGroup(
+  $input: createMenterGroupInput!
+) {
+  createMenterGroup(input: $input)
+}

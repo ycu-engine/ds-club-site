@@ -199,6 +199,11 @@ input createWeeklyRepeatEventInput {
   title: String!
   repeatUntil: DateTime!
 }
+
+input createMenterGroupInput {
+  menterId: ID!
+  menteeIds: [ID!]!
+}
 type Mutation {
   """
   ユーザー
@@ -211,6 +216,11 @@ type Mutation {
   updateUserRank(userId: ID!, rank: RankKind!): RegularUser!
   addMenter(userId: ID!, menterId: ID!): RegularUser!
   removeMenter(userId: ID!): RegularUser!
+
+  """
+  メンター・メンティー
+  """
+  createMenterGroup(input: createMenterGroupInput!): Boolean!
 
   """
   学習記録
