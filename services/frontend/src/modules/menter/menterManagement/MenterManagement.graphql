@@ -13,3 +13,9 @@ query MenterManagementPage {
     menterId
   }
 }
+
+mutation MenterManagementPage_CreateMenterGroup(
+  $input: createMenterGroupInput!
+) {
+  createMenterGroup(input: $input)
+}
