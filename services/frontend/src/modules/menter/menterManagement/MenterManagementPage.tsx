@@ -1,27 +1,25 @@
-import { Button, Container } from '@chakra-ui/react'
 import {
-  AutoComplete,
-  AutoCompleteInput,
-  AutoCompleteItem,
-  AutoCompleteList,
-} from '@choc-ui/chakra-autocomplete'
+  Button,
+  Container,
+  FormLabel,
+  Flex,
+  IconButton,
+} from '@chakra-ui/react'
+
 import { useMenterManagementPageQuery } from 'generates/graphql'
-import {
-  Controller,
-  SubmitHandler,
-  useFieldArray,
-  useForm,
-} from 'react-hook-form'
+import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { UserAutoComplete } from 'components/InputForm/UserAutoComplete'
+import { DeleteIcon, AddIcon } from '@chakra-ui/icons'
 
 const schema = z.object({
   mentee: z
     .object({
-      name: z.string(),
+      name: z.string().min(1),
     })
     .array(),
-  menter: z.string(),
+  menter: z.string().min(1),
 })
 type formValues = z.infer<typeof schema>
 export const MenterManagementPage = () => {
@@ -30,7 +28,8 @@ export const MenterManagementPage = () => {
     resolver: zodResolver(schema),
   })
   const menter = watch('menter')
-  const mentee = watch('mentee')
+  const mentee = watch('mentee')?.map((m) => m.name)
+
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'mentee',
@@ -42,79 +41,48 @@ export const MenterManagementPage = () => {
     return <>エラーが発生しました</>
   }
   return (
-    <Container>
-      <Controller
-        control={control}
-        name="menter"
-        render={({ field }) => (
-          <AutoComplete onChange={(value) => value && field.onChange(value)}>
-            <AutoCompleteInput
-              disabled={loading}
-              // eslint-disable-next-line react/jsx-handler-names
-              onChange={field.onChange}
-              placeholder="Search..."
-              value={field.value}
-              variant="filled"
-            />
+    <Container bg="white" borderRadius="md" boxShadow="md" mt="2" p="5">
+      <FormLabel>メンター</FormLabel>
 
-            <AutoCompleteList>
-              {data?.getRegularUsers.map((user) => (
-                <AutoCompleteItem
-                  key={user.id}
-                  textTransform="capitalize"
-                  value={user.name}
-                >
-                  {user.name}
-                </AutoCompleteItem>
-              ))}
-            </AutoCompleteList>
-          </AutoComplete>
-        )}
+      <UserAutoComplete<formValues>
+        control={control}
+        isDisabled={loading}
+        name="menter"
+        users={data?.getRegularUsers}
       />
 
-      {fields.map((_field, index) => (
-        <Controller
-          control={control}
-          key={_field.id}
-          name={`mentee.${index}`}
-          render={({ field }) => (
-            <AutoComplete onChange={(value) => value && field.onChange(value)}>
-              <AutoCompleteInput
-                disabled={loading}
-                // eslint-disable-next-line react/jsx-handler-names
-                onChange={field.onChange}
-                placeholder="Search..."
-                value={field.value}
-                variant="filled"
-              />
+      <FormLabel>メンティー</FormLabel>
 
-              <AutoCompleteList>
-                {data?.getRegularUsers
-                  .filter(
-                    (user) =>
-                      user.name !== menter &&
-                      !mentee.map((m) => m.name).includes(user.name),
-                  )
-                  .map((user) => (
-                    <AutoCompleteItem
-                      key={user.id}
-                      textTransform="capitalize"
-                      value={user.name}
-                    >
-                      {user.name}
-                    </AutoCompleteItem>
-                  ))}
-              </AutoCompleteList>
-            </AutoComplete>
-          )}
-        />
+      {fields.map((field, index) => (
+        <Flex key={field.id} py="2">
+          <UserAutoComplete<formValues>
+            control={control}
+            isDisabled={loading}
+            name={`mentee[${index}].name`}
+            users={data?.getRegularUsers.filter(
+              (user) => user.name !== menter && !mentee.includes(user.name),
+            )}
+          />
+
+          <IconButton
+            aria-label="remove"
+            colorScheme="red"
+            icon={<DeleteIcon />}
+            onClick={() => remove(index)}
+          />
+        </Flex>
       ))}
 
-      <Button onClick={() => append({ name: '' })}>追加</Button>
+      <Flex justifyContent="space-between" mt="3">
+        <IconButton
+          aria-label="add"
+          colorScheme="blue"
+          icon={<AddIcon />}
+          onClick={() => append({ name: '' })}
+        />
 
-      <Button onClick={() => remove(0)}>削除</Button>
-
-      <Button onClick={handleSubmit(onSubmit)}>送信</Button>
+        <Button onClick={handleSubmit(onSubmit)}>送信</Button>
+      </Flex>
     </Container>
   )
 }
