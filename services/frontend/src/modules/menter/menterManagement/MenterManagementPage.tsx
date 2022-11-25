@@ -22,7 +22,8 @@ const schema = z.object({
     .object({
       name: z.string().min(1),
     })
-    .array(),
+    .array()
+    .min(1),
   menter: z.string().min(1),
 })
 type formValues = z.infer<typeof schema>

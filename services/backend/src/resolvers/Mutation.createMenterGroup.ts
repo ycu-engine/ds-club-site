@@ -6,6 +6,9 @@ import { checkAdmin } from '../utils/checkAdmin'
 export const createMenterGroupResolver: MutationResolvers['createMenterGroup'] =
   async (_root, { input: { menterId, menteeIds } }, { user }) => {
     checkAdmin(user)
+    if (!menteeIds.length) {
+      throw new Error('メンティーを選択してください')
+    }
     try {
       const menter = await getRegularUser(menterId)
       const mentees = await Promise.all(
