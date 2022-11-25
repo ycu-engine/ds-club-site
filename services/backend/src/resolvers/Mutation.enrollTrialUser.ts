@@ -5,6 +5,7 @@ import {
   createRegularUserWithId,
   updateRegularUser,
 } from '../modules/regularUser'
+import { auth } from '../clients/firebase'
 
 export const enrollTrialUserResolver: NonNullable<
   MutationResolvers['enrollTrialUser']
@@ -23,6 +24,10 @@ export const enrollTrialUserResolver: NonNullable<
   const trialUser = await getTrialUser(userId)
   if (!trialUser) {
     throw new Error('該当するユーザーが見つかりません')
+  }
+  const authUser = await auth.getUser(userId)
+  if (authUser.disabled) {
+    throw new Error('先にユーザーを有効化してください')
   }
 
   const enrollUser = await createRegularUserWithId(trialUser?.id, {
