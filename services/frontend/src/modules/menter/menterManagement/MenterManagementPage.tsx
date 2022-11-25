@@ -64,8 +64,8 @@ export const MenterManagementPage = () => {
     control,
     name: 'mentee',
   })
-  const onSubmit: SubmitHandler<formValues> = () => {
-    menterManagementPageCreateMenterGroupMutation({
+  const onSubmit: SubmitHandler<formValues> = async () => {
+    await menterManagementPageCreateMenterGroupMutation({
       variables: {
         input: {
           // 変換する
