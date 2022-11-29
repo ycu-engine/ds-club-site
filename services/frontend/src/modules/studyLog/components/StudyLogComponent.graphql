@@ -1,4 +1,5 @@
 fragment StudyLog_StudyLogGraph on StudyLog {
+  id
   studyTime
   studyContent
   studiedAt
@@ -9,5 +10,11 @@ mutation StudyLog_StudyLogInput($input: CreateStudyLogInput!) {
     studyTime
     studyContent
     studiedAt
+  }
+}
+
+mutation StudyLogGraph_DeleteStudyLog($id: ID!, $userId: ID!) {
+  deleteStudyLog(id: $id, userId: $userId) {
+    ...StudyLog_StudyLogGraph
   }
 }
