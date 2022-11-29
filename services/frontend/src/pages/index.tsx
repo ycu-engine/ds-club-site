@@ -14,7 +14,7 @@ import {
 import { filter } from 'graphql-anywhere'
 import { Loading } from '../components/Layout/Loading'
 import Head from 'next/head'
-import { FadeInImage } from 'components/Image/FadeInImage'
+import Image from 'next/image'
 
 // https://nextjs.org/docs/advanced-features/dynamic-import#example
 // react18なので、Suspenseを使うことが推奨されているがエラーが出るので、loadingを使う
@@ -82,7 +82,13 @@ const HomePage = () => {
         <meta content="website" property="og:type" />
       </Head>
 
-      <FadeInImage alt="logo" src="/images/logo_dsci.png" />
+      <Image
+        alt="logo"
+        height={500}
+        layout="responsive"
+        src="/images/logo_dsci.png"
+        width={1000}
+      />
 
       <Flex direction={['column', 'row']} justifyContent="space-between" p={5}>
         <NewsTab
