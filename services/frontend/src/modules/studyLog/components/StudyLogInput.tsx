@@ -83,7 +83,7 @@ export const StudyLogInput = ({ userId }: StudyLogInputProps) => {
 
         <Input
           id="studyContent"
-          placeholder="勉強内容"
+          placeholder="例) 統計学"
           {...register('studyContent', {
             required: 'この項目は必須です',
           })}
@@ -96,12 +96,12 @@ export const StudyLogInput = ({ userId }: StudyLogInputProps) => {
 
       <FormControl isInvalid={errors.studyTime ? true : false} isRequired>
         <FormLabel fontWeight="semibold" htmlFor="studyTime">
-          勉強時間
+          勉強時間(分)
         </FormLabel>
 
         <Input
           id="studyTime"
-          placeholder="勉強時間"
+          placeholder="例) 60"
           type="number"
           {...register('studyTime', {
             max: 24 * 60,
@@ -123,7 +123,6 @@ export const StudyLogInput = ({ userId }: StudyLogInputProps) => {
 
         <Input
           id="studiedAt"
-          placeholder="勉強日"
           type="date"
           {...register('studiedAt', {
             required: 'この項目は必須です',

@@ -37,6 +37,7 @@ import { menteeResolver } from './resolvers/RegularUser.mentee'
 import { updateNewsResolver } from './resolvers/Mutation.updateNews'
 import { deleteNewsResolver } from './resolvers/Mutation.deleteNews'
 import { createMenterGroupResolver } from './resolvers/Mutation.createMenterGroup'
+import { deleteStudyLogResolver } from './resolvers/Mutation.deleteStudyLog'
 
 export const resolvers: Resolvers = {
   Date: DateResolver,
@@ -53,6 +54,7 @@ export const resolvers: Resolvers = {
     deleteEvent: deleteEventResolver,
     deleteEvents: deleteEventsResolver,
     deleteNews: deleteNewsResolver,
+    deleteStudyLog: deleteStudyLogResolver,
     deleteTrialUser: deleteTrialUserResolver,
     enableTrialUser: enableTrialUserResolver,
     enrollTrialUser: enrollTrialUserResolver,

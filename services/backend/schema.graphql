@@ -226,6 +226,7 @@ type Mutation {
   学習記録
   """
   createStudyLog(input: CreateStudyLogInput!): StudyLog!
+  deleteStudyLog(id: ID!, userId: ID!): StudyLog!
 
   """
   イベント

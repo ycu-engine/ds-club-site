@@ -13,7 +13,7 @@ const Denied = () => {
   const router = useRouter()
   const returnBack = useCallback(() => {
     setTimeout(() => {
-      router.back()
+      void router.push('/')
     }, 3000)
   }, [router])
 
