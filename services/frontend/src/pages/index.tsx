@@ -14,6 +14,7 @@ import {
 import { filter } from 'graphql-anywhere'
 import { Loading } from '../components/Layout/Loading'
 import Head from 'next/head'
+import LogoImage from 'assets/images/topPage/logo_dsci.png'
 import Image from 'next/image'
 
 // https://nextjs.org/docs/advanced-features/dynamic-import#example
@@ -82,13 +83,7 @@ const HomePage = () => {
         <meta content="website" property="og:type" />
       </Head>
 
-      <Image
-        alt="logo"
-        height={500}
-        layout="responsive"
-        src="/images/logo_dsci.png"
-        width={1000}
-      />
+      <Image alt="データサイエンス倶楽部オンライン学習サイト" src={LogoImage} />
 
       <Flex direction={['column', 'row']} justifyContent="space-between" p={5}>
         <NewsTab
