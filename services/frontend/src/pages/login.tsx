@@ -23,7 +23,7 @@ import { InputPasswordBox } from '../components/InputForm/InputPasswordBox'
 import Head from 'next/head'
 
 type LoginForm = {
-  userName: string
+  email: string
   password: string
 }
 
@@ -38,7 +38,7 @@ const Page = () => {
   } = useForm<LoginForm>()
   const onSubmit: SubmitHandler<LoginForm> = async (data) => {
     console.debug(data)
-    await signInWithEmailAndPassword(data.userName, data.password)
+    await signInWithEmailAndPassword(data.email, data.password)
     router.back()
   }
 
@@ -72,12 +72,12 @@ const Page = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <InputBox
                 title="ユーザー名"
-                {...register('userName', { required: '必須項目です' })}
+                {...register('email', { required: '必須項目です' })}
               />
 
               <ErrorMessage
                 errors={errors}
-                name="userName"
+                name="email"
                 render={({ message }) => (
                   <p style={{ color: 'red' }}>{message}</p>
                 )}
